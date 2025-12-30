@@ -95,7 +95,7 @@ const CFPPage = () => {
                     borderRadius: "6px"
                   }}>
                     <iframe
-                      src="https://sessionize.com/kcd-toronto-2026/apply"
+                      src="https://sessionize.com/kcd-toronto-2026"
                       style={{
                         position: "absolute",
                         top: 0,
@@ -109,7 +109,7 @@ const CFPPage = () => {
                   </div>
                   <p className="has-text-centered mt-4">
                     <a
-                      href="https://sessionize.com/kcd-toronto-2026/apply"
+                      href="https://sessionize.com/kcd-toronto-2026"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="button is-primary"
