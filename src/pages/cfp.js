@@ -99,23 +99,17 @@ const CFPPage = () => {
                 <div className="content">
                   <div className="columns">
                     <div className="column is-4 has-text-centered">
-                      <span className="icon is-large has-text-primary">
-                        <i className="fas fa-ticket-alt fa-3x"></i>
-                      </span>
+                      <p className="title is-1 has-text-primary">🎟️</p>
                       <p className="mt-3"><strong>Free Event Access</strong></p>
                       <p>Complimentary admission for all speakers</p>
                     </div>
                     <div className="column is-4 has-text-centered">
-                      <span className="icon is-large has-text-primary">
-                        <i className="fas fa-users fa-3x"></i>
-                      </span>
+                      <p className="title is-1 has-text-primary">👥</p>
                       <p className="mt-3"><strong>Community Platform</strong></p>
                       <p>Share knowledge in a vendor-neutral, learning-focused environment</p>
                     </div>
                     <div className="column is-4 has-text-centered">
-                      <span className="icon is-large has-text-primary">
-                        <i className="fas fa-video fa-3x"></i>
-                      </span>
+                      <p className="title is-1 has-text-primary">📹</p>
                       <p className="mt-3"><strong>Recorded Sessions</strong></p>
                       <p>Your talk published on YouTube for the community</p>
                     </div>
