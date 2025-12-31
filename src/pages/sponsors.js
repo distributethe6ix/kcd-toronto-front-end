@@ -23,9 +23,19 @@ const SponsorsPage = () => {
                 you'll connect with the Canadian cloud native community and showcase your commitment to open source innovation.
               </p>
               <div className="has-text-centered mt-5">
-                <a href="mailto:toronto-org@kubernetescommunitydays.org" className="button is-primary is-large">
-                  <strong>View Sponsorship Prospectus</strong>
-                </a>
+                <div className="buttons is-centered">
+                  <a
+                    href="/KCD Toronto Sponsor Prospectus 2026.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="button is-primary is-large"
+                  >
+                    <strong>Download Sponsorship Prospectus (PDF)</strong>
+                  </a>
+                  <a href="mailto:toronto-org@kubernetescommunitydays.org" className="button is-outlined is-primary is-large">
+                    <strong>Contact Us</strong>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -63,7 +73,7 @@ const SponsorsPage = () => {
           <div className="box mb-5" style={{ borderLeft: "6px solid #C0C0C0" }}>
             <div className="columns">
               <div className="column is-8">
-                <h3 className="title is-3" style={{ color: "#C0C0C0" }}>🏆 Platinum Sponsors - $10,000</h3>
+                <h3 className="title is-3" style={{ color: "#C0C0C0" }}>🏆 Platinum Sponsors</h3>
                 <p className="mb-3">
                   Platinum sponsors have the biggest impact on the conference. They represent companies for which Cloud Native approach is central in the way they implement their activity.
                 </p>
@@ -94,7 +104,7 @@ const SponsorsPage = () => {
           <div className="box mb-5" style={{ borderLeft: "6px solid #FFD700" }}>
             <div className="columns">
               <div className="column is-8">
-                <h3 className="title is-3" style={{ color: "#FFD700" }}>🥈 Gold Sponsors - $7,000</h3>
+                <h3 className="title is-3" style={{ color: "#FFD700" }}>🥈 Gold Sponsors</h3>
                 <p className="mb-3">
                   Gold sponsors form the backbone of the conference backers. They represent companies that believe the strongest in the Cloud Native movement and have the financial means and the willingness to support it.
                 </p>
@@ -123,7 +133,7 @@ const SponsorsPage = () => {
           <div className="box mb-5" style={{ borderLeft: "6px solid #B87333" }}>
             <div className="columns">
               <div className="column is-8">
-                <h3 className="title is-3" style={{ color: "#B87333" }}>🥉 Silver Sponsors - $4,000</h3>
+                <h3 className="title is-3" style={{ color: "#B87333" }}>🥉 Silver Sponsors</h3>
                 <p className="mb-3">
                   Silver sponsors are important contributors to the conference. They represent companies who believe in cloud native technologies and experience daily their benefits for their software and platforms (or those from their customers!).
                 </p>

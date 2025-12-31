@@ -4,18 +4,33 @@ import { StaticImage } from "gatsby-plugin-image"
 
 const CommunityPage = () => {
   const [selectedImage, setSelectedImage] = React.useState(null)
+  const [modalImageSrc, setModalImageSrc] = React.useState(null)
+
+  const openModal = (index, event) => {
+    setSelectedImage(index)
+    // Get the actual image src from the clicked element
+    const imgElement = event.currentTarget.querySelector('img')
+    if (imgElement) {
+      setModalImageSrc(imgElement.currentSrc || imgElement.src)
+    }
+  }
+
+  const closeModal = () => {
+    setSelectedImage(null)
+    setModalImageSrc(null)
+  }
 
   const images = [
-    { src: "../images/community/IMG_0762.jpeg", alt: "CNCF Toronto Meetup" },
-    { src: "../images/community/IMG_0816.jpeg", alt: "CNCF Toronto Meetup" },
-    { src: "../images/community/IMG_1188.jpeg", alt: "CNCF Toronto Meetup" },
-    { src: "../images/community/IMG_2691.jpeg", alt: "CNCF Toronto Meetup" },
-    { src: "../images/community/IMG_2717.jpeg", alt: "CNCF Toronto Meetup" },
-    { src: "../images/community/IMG_5050.jpeg", alt: "CNCF Toronto Meetup" },
-    { src: "../images/community/IMG_6734.jpeg", alt: "CNCF Toronto Meetup" },
-    { src: "../images/community/IMG_8504.jpeg", alt: "CNCF Toronto Meetup" },
-    { src: "../images/community/IMG_9719.jpeg", alt: "CNCF Toronto Meetup" },
-    { src: "../images/community/IMG_9854.jpeg", alt: "CNCF Toronto Meetup" },
+    { alt: "CNCF Toronto Meetup" },
+    { alt: "CNCF Toronto Meetup" },
+    { alt: "CNCF Toronto Meetup" },
+    { alt: "CNCF Toronto Meetup" },
+    { alt: "CNCF Toronto Meetup" },
+    { alt: "CNCF Toronto Meetup" },
+    { alt: "CNCF Toronto Meetup" },
+    { alt: "CNCF Toronto Meetup" },
+    { alt: "CNCF Toronto Meetup" },
+    { alt: "CNCF Toronto Meetup" },
   ]
 
   return (
@@ -43,70 +58,70 @@ const CommunityPage = () => {
           </div>
 
           <div className="photo-gallery">
-            <div className="photo-gallery-item" onClick={() => setSelectedImage(0)}>
+            <div className="photo-gallery-item" onClick={(e) => openModal(0, e)}>
               <StaticImage
                 src="../images/community/IMG_0762.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item" onClick={() => setSelectedImage(1)}>
+            <div className="photo-gallery-item" onClick={(e) => openModal(1, e)}>
               <StaticImage
                 src="../images/community/IMG_0816.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item" onClick={() => setSelectedImage(2)}>
+            <div className="photo-gallery-item" onClick={(e) => openModal(2, e)}>
               <StaticImage
                 src="../images/community/IMG_1188.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item" onClick={() => setSelectedImage(3)}>
+            <div className="photo-gallery-item" onClick={(e) => openModal(3, e)}>
               <StaticImage
                 src="../images/community/IMG_2691.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item" onClick={() => setSelectedImage(4)}>
+            <div className="photo-gallery-item" onClick={(e) => openModal(4, e)}>
               <StaticImage
                 src="../images/community/IMG_2717.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item" onClick={() => setSelectedImage(5)}>
+            <div className="photo-gallery-item" onClick={(e) => openModal(5, e)}>
               <StaticImage
                 src="../images/community/IMG_5050.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item" onClick={() => setSelectedImage(6)}>
+            <div className="photo-gallery-item" onClick={(e) => openModal(6, e)}>
               <StaticImage
                 src="../images/community/IMG_6734.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item" onClick={() => setSelectedImage(7)}>
+            <div className="photo-gallery-item" onClick={(e) => openModal(7, e)}>
               <StaticImage
                 src="../images/community/IMG_8504.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item" onClick={() => setSelectedImage(8)}>
+            <div className="photo-gallery-item" onClick={(e) => openModal(8, e)}>
               <StaticImage
                 src="../images/community/IMG_9719.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item" onClick={() => setSelectedImage(9)}>
+            <div className="photo-gallery-item" onClick={(e) => openModal(9, e)}>
               <StaticImage
                 src="../images/community/IMG_9854.jpeg"
                 alt="CNCF Toronto Meetup"
@@ -118,11 +133,11 @@ const CommunityPage = () => {
           {/* Photo Modal */}
           <div
             className={`photo-modal ${selectedImage !== null ? 'active' : ''}`}
-            onClick={() => setSelectedImage(null)}
+            onClick={closeModal}
           >
-            {selectedImage !== null && (
+            {selectedImage !== null && modalImageSrc && (
               <img
-                src={`/static/${images[selectedImage].src.split('/').pop()}`}
+                src={modalImageSrc}
                 alt={images[selectedImage].alt}
                 className="photo-modal-content"
               />

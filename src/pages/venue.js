@@ -1,5 +1,6 @@
 import * as React from "react"
 import Layout from "../components/layout"
+import { StaticImage } from "gatsby-plugin-image"
 
 const VenuePage = () => {
   return (
@@ -20,10 +21,74 @@ const VenuePage = () => {
             <p className="has-text-centered is-size-5 mb-4">
               <strong>100 Queens Quay E, Toronto, ON</strong>
             </p>
-            <p className="has-text-centered">
+            <p className="has-text-centered mb-5">
               Join us on <strong>May 13, 2026</strong> at The Quay, a modern waterfront venue located in the heart of downtown Toronto
               with stunning views of Lake Ontario and excellent transit access.
             </p>
+
+            {/* Venue Photo from Homepage */}
+            <div className="photo-gallery-item mb-5">
+              <StaticImage
+                src="../images/homepage/IMG_7170.JPG"
+                alt="The Quay Toronto Waterfront"
+                placeholder="blurred"
+              />
+            </div>
+
+            {/* Quay Venue Photos Gallery */}
+            <h3 className="title is-4 has-text-centered mt-6 mb-4">Venue Spaces</h3>
+            <div className="columns is-multiline">
+              <div className="column is-6">
+                <div className="photo-gallery-item">
+                  <StaticImage
+                    src="../images/venue/Gala-hall-v1.jpg"
+                    alt="Gala Hall - Main Event Space"
+                    placeholder="blurred"
+                  />
+                </div>
+                <p className="has-text-centered mt-2 has-text-weight-semibold">Gala Hall - Main Event Space</p>
+              </div>
+              <div className="column is-6">
+                <div className="photo-gallery-item">
+                  <StaticImage
+                    src="../images/venue/Gala-Lounge.jpg"
+                    alt="Gala Lounge - Networking Area"
+                    placeholder="blurred"
+                  />
+                </div>
+                <p className="has-text-centered mt-2 has-text-weight-semibold">Gala Lounge - Networking Area</p>
+              </div>
+              <div className="column is-4">
+                <div className="photo-gallery-item">
+                  <StaticImage
+                    src="../images/venue/Entrance.jpg"
+                    alt="Venue Entrance"
+                    placeholder="blurred"
+                  />
+                </div>
+                <p className="has-text-centered mt-2 has-text-weight-semibold">Entrance</p>
+              </div>
+              <div className="column is-4">
+                <div className="photo-gallery-item">
+                  <StaticImage
+                    src="../images/venue/Boardroom.jpg"
+                    alt="Boardroom"
+                    placeholder="blurred"
+                  />
+                </div>
+                <p className="has-text-centered mt-2 has-text-weight-semibold">Boardroom</p>
+              </div>
+              <div className="column is-4">
+                <div className="photo-gallery-item">
+                  <StaticImage
+                    src="../images/venue/Workshops1.jpg"
+                    alt="Workshop Space"
+                    placeholder="blurred"
+                  />
+                </div>
+                <p className="has-text-centered mt-2 has-text-weight-semibold">Workshop Space</p>
+              </div>
+            </div>
           </div>
 
           <div className="content is-medium mt-6">

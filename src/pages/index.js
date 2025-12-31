@@ -55,7 +55,7 @@ const IndexPage = () => {
             <div className="column is-6">
               <div className="photo-gallery-item">
                 <StaticImage
-                  src="../images/homepage/IMG_0820.jpeg"
+                  src="../images/homepage/IMG_1196.jpeg"
                   alt="CNCF Toronto Community"
                   placeholder="blurred"
                 />
@@ -160,30 +160,21 @@ const IndexPage = () => {
             The Toronto cloud native community comes together regularly at our CNCF meetups to share, learn, and grow together.
           </p>
 
-          {/* First Row - 3 Photos */}
+          {/* First Row - 2 Photos */}
           <div className="columns mb-4">
-            <div className="column is-4">
+            <div className="column is-6">
               <div className="photo-gallery-item">
                 <StaticImage
-                  src="../images/homepage/IMG_1196.jpeg"
+                  src="../images/homepage/IMG_0820.jpeg"
                   alt="CNCF Toronto Meetup Community"
                   placeholder="blurred"
                 />
               </div>
             </div>
-            <div className="column is-4">
+            <div className="column is-6">
               <div className="photo-gallery-item">
                 <StaticImage
                   src="../images/homepage/IMG_4087.jpeg"
-                  alt="CNCF Toronto Meetup Community"
-                  placeholder="blurred"
-                />
-              </div>
-            </div>
-            <div className="column is-4">
-              <div className="photo-gallery-item">
-                <StaticImage
-                  src="../images/homepage/IMG_7170.JPG"
                   alt="CNCF Toronto Meetup Community"
                   placeholder="blurred"
                 />
