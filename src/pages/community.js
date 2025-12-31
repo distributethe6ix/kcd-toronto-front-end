@@ -3,6 +3,21 @@ import Layout from "../components/layout"
 import { StaticImage } from "gatsby-plugin-image"
 
 const CommunityPage = () => {
+  const [selectedImage, setSelectedImage] = React.useState(null)
+
+  const images = [
+    { src: "../images/community/IMG_0762.jpeg", alt: "CNCF Toronto Meetup" },
+    { src: "../images/community/IMG_0816.jpeg", alt: "CNCF Toronto Meetup" },
+    { src: "../images/community/IMG_1188.jpeg", alt: "CNCF Toronto Meetup" },
+    { src: "../images/community/IMG_2691.jpeg", alt: "CNCF Toronto Meetup" },
+    { src: "../images/community/IMG_2717.jpeg", alt: "CNCF Toronto Meetup" },
+    { src: "../images/community/IMG_5050.jpeg", alt: "CNCF Toronto Meetup" },
+    { src: "../images/community/IMG_6734.jpeg", alt: "CNCF Toronto Meetup" },
+    { src: "../images/community/IMG_8504.jpeg", alt: "CNCF Toronto Meetup" },
+    { src: "../images/community/IMG_9719.jpeg", alt: "CNCF Toronto Meetup" },
+    { src: "../images/community/IMG_9854.jpeg", alt: "CNCF Toronto Meetup" },
+  ]
+
   return (
     <Layout>
       <section className="hero is-primary">
@@ -22,79 +37,96 @@ const CommunityPage = () => {
               Our vibrant community comes together regularly to share knowledge, learn, and connect.
               These photos capture the spirit of collaboration and innovation that defines our meetups.
             </p>
+            <p className="has-text-grey mt-3">
+              <small>Click any photo to enlarge</small>
+            </p>
           </div>
 
           <div className="photo-gallery">
-            <div className="photo-gallery-item">
+            <div className="photo-gallery-item" onClick={() => setSelectedImage(0)}>
               <StaticImage
                 src="../images/community/IMG_0762.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item">
+            <div className="photo-gallery-item" onClick={() => setSelectedImage(1)}>
               <StaticImage
                 src="../images/community/IMG_0816.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item">
+            <div className="photo-gallery-item" onClick={() => setSelectedImage(2)}>
               <StaticImage
                 src="../images/community/IMG_1188.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item">
+            <div className="photo-gallery-item" onClick={() => setSelectedImage(3)}>
               <StaticImage
                 src="../images/community/IMG_2691.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item">
+            <div className="photo-gallery-item" onClick={() => setSelectedImage(4)}>
               <StaticImage
                 src="../images/community/IMG_2717.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item">
+            <div className="photo-gallery-item" onClick={() => setSelectedImage(5)}>
               <StaticImage
                 src="../images/community/IMG_5050.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item">
+            <div className="photo-gallery-item" onClick={() => setSelectedImage(6)}>
               <StaticImage
                 src="../images/community/IMG_6734.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item">
+            <div className="photo-gallery-item" onClick={() => setSelectedImage(7)}>
               <StaticImage
                 src="../images/community/IMG_8504.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item">
+            <div className="photo-gallery-item" onClick={() => setSelectedImage(8)}>
               <StaticImage
                 src="../images/community/IMG_9719.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
-            <div className="photo-gallery-item">
+            <div className="photo-gallery-item" onClick={() => setSelectedImage(9)}>
               <StaticImage
                 src="../images/community/IMG_9854.jpeg"
                 alt="CNCF Toronto Meetup"
                 placeholder="blurred"
               />
             </div>
+          </div>
+
+          {/* Photo Modal */}
+          <div
+            className={`photo-modal ${selectedImage !== null ? 'active' : ''}`}
+            onClick={() => setSelectedImage(null)}
+          >
+            {selectedImage !== null && (
+              <img
+                src={`/static/${images[selectedImage].src.split('/').pop()}`}
+                alt={images[selectedImage].alt}
+                className="photo-modal-content"
+              />
+            )}
           </div>
 
           <div className="box has-background-primary-light mt-6">

@@ -5,9 +5,11 @@ import { StaticImage } from "gatsby-plugin-image"
 const IndexPage = () => {
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="hero is-primary is-medium">
-        <div className="hero-body">
+      {/* Hero Section with Banner */}
+      <section className="hero is-primary is-medium hero-with-banner" style={{
+        backgroundImage: "url('/static/IMG_7165-b5e38e2c1d0d8f5a89b6c3e4d5a7c8b9.JPG')"
+      }}>
+        <div className="hero-body" style={{ position: 'relative', zIndex: 1 }}>
           <div className="container has-text-centered">
             <h1 className="title is-1 is-spaced">
               Kubernetes Community Days
@@ -34,12 +36,12 @@ const IndexPage = () => {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* About Section with Photo */}
       <section className="section">
         <div className="container">
           <div className="columns is-vcentered">
-            <div className="column is-8 is-offset-2">
-              <h2 className="title is-2 has-text-centered">About KCD Toronto</h2>
+            <div className="column is-6">
+              <h2 className="title is-2">About KCD Toronto</h2>
               <div className="content is-medium">
                 <p>
                   Kubernetes Community Days (KCD) are community-organized events that gather adopters
@@ -48,6 +50,15 @@ const IndexPage = () => {
                   cloud native community for an exciting day of talks, workshops, and networking
                   opportunities.
                 </p>
+              </div>
+            </div>
+            <div className="column is-6">
+              <div className="photo-gallery-item">
+                <StaticImage
+                  src="../images/homepage/IMG_0820.jpeg"
+                  alt="CNCF Toronto Community"
+                  placeholder="blurred"
+                />
               </div>
             </div>
           </div>
@@ -141,7 +152,7 @@ const IndexPage = () => {
         </div>
       </section>
 
-      {/* Community Photos Section */}
+      {/* Community Photos Section - Woven Design */}
       <section className="section">
         <div className="container">
           <h2 className="title is-2 has-text-centered mb-5">Our Community</h2>
@@ -149,55 +160,100 @@ const IndexPage = () => {
             The Toronto cloud native community comes together regularly at our CNCF meetups to share, learn, and grow together.
           </p>
 
-          <div className="photo-gallery">
-            <div className="photo-gallery-item">
-              <StaticImage
-                src="../images/homepage/IMG_0820.jpeg"
-                alt="CNCF Toronto Meetup Community"
-                placeholder="blurred"
-              />
+          {/* First Row - 3 Photos */}
+          <div className="columns mb-4">
+            <div className="column is-4">
+              <div className="photo-gallery-item">
+                <StaticImage
+                  src="../images/homepage/IMG_1196.jpeg"
+                  alt="CNCF Toronto Meetup Community"
+                  placeholder="blurred"
+                />
+              </div>
             </div>
-            <div className="photo-gallery-item">
-              <StaticImage
-                src="../images/homepage/IMG_1196.jpeg"
-                alt="CNCF Toronto Meetup Community"
-                placeholder="blurred"
-              />
+            <div className="column is-4">
+              <div className="photo-gallery-item">
+                <StaticImage
+                  src="../images/homepage/IMG_4087.jpeg"
+                  alt="CNCF Toronto Meetup Community"
+                  placeholder="blurred"
+                />
+              </div>
             </div>
-            <div className="photo-gallery-item">
-              <StaticImage
-                src="../images/homepage/IMG_4087.jpeg"
-                alt="CNCF Toronto Meetup Community"
-                placeholder="blurred"
-              />
+            <div className="column is-4">
+              <div className="photo-gallery-item">
+                <StaticImage
+                  src="../images/homepage/IMG_7170.JPG"
+                  alt="CNCF Toronto Meetup Community"
+                  placeholder="blurred"
+                />
+              </div>
             </div>
-            <div className="photo-gallery-item">
-              <StaticImage
-                src="../images/homepage/IMG_8439.jpeg"
-                alt="CNCF Toronto Meetup Community"
-                placeholder="blurred"
-              />
+          </div>
+
+          {/* Second Row - 2 Photos with Text */}
+          <div className="columns is-vcentered mb-4">
+            <div className="column is-6">
+              <div className="photo-gallery-item">
+                <StaticImage
+                  src="../images/homepage/IMG_8439.jpeg"
+                  alt="CNCF Toronto Meetup Community"
+                  placeholder="blurred"
+                />
+              </div>
             </div>
-            <div className="photo-gallery-item">
-              <StaticImage
-                src="../images/homepage/IMG_9132.jpeg"
-                alt="CNCF Toronto Meetup Community"
-                placeholder="blurred"
-              />
+            <div className="column is-6">
+              <div className="content">
+                <h3 className="title is-3">Building Together</h3>
+                <p className="is-size-5">
+                  From monthly meetups to annual conferences, our community is passionate about
+                  cloud native technologies and helping each other grow.
+                </p>
+              </div>
             </div>
-            <div className="photo-gallery-item">
-              <StaticImage
-                src="../images/homepage/IMG_9503.jpeg"
-                alt="CNCF Toronto Meetup Community"
-                placeholder="blurred"
-              />
+          </div>
+
+          {/* Third Row - Text with 2 Photos */}
+          <div className="columns is-vcentered mb-4">
+            <div className="column is-6">
+              <div className="content">
+                <h3 className="title is-3">Learning & Sharing</h3>
+                <p className="is-size-5">
+                  Join developers, platform engineers, and cloud architects sharing real-world
+                  experiences in vendor-neutral, community-driven sessions.
+                </p>
+              </div>
             </div>
-            <div className="photo-gallery-item">
-              <StaticImage
-                src="../images/homepage/IMG_9708.jpeg"
-                alt="CNCF Toronto Meetup Community"
-                placeholder="blurred"
-              />
+            <div className="column is-6">
+              <div className="photo-gallery-item">
+                <StaticImage
+                  src="../images/homepage/IMG_9132.jpeg"
+                  alt="CNCF Toronto Meetup Community"
+                  placeholder="blurred"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Fourth Row - 2 Photos */}
+          <div className="columns">
+            <div className="column is-6">
+              <div className="photo-gallery-item">
+                <StaticImage
+                  src="../images/homepage/IMG_9503.jpeg"
+                  alt="CNCF Toronto Meetup Community"
+                  placeholder="blurred"
+                />
+              </div>
+            </div>
+            <div className="column is-6">
+              <div className="photo-gallery-item">
+                <StaticImage
+                  src="../images/homepage/IMG_9708.jpeg"
+                  alt="CNCF Toronto Meetup Community"
+                  placeholder="blurred"
+                />
+              </div>
             </div>
           </div>
 
