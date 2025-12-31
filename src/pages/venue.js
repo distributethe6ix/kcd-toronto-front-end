@@ -36,7 +36,7 @@ const VenuePage = () => {
             </div>
 
             {/* Quay Venue Photos Gallery */}
-            <h3 className="title is-4 has-text-centered mt-6 mb-4">Venue Spaces</h3>
+            <h3 className="title is-4 has-text-centered mt-5 mb-4">Venue Spaces</h3>
             <div className="columns is-multiline">
               <div className="column is-6">
                 <div className="photo-gallery-item">
