@@ -27,7 +27,7 @@ const VenuePage = () => {
             </p>
 
             {/* Venue Photo from Homepage */}
-            <div className="photo-gallery-item mb-4">
+            <div className="photo-gallery-item mb-2">
               <StaticImage
                 src="../images/homepage/IMG_7170.JPG"
                 alt="The Quay Toronto Waterfront"
@@ -36,7 +36,7 @@ const VenuePage = () => {
             </div>
 
             {/* Quay Venue Photos Gallery */}
-            <h3 className="title is-4 has-text-centered mb-4">Venue Spaces</h3>
+            <h3 className="title is-4 has-text-centered mb-4 mt-5">Venue Spaces</h3>
             <div className="columns is-multiline">
               <div className="column is-6">
                 <div className="photo-gallery-item">
