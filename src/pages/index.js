@@ -300,6 +300,13 @@ const IndexPage = () => {
                   </div>
                 </a>
               </div>
+              <div className="column is-3 has-text-centered">
+                <a href="https://depot.dev" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/depot-logo-horizontal-on-light@3x.png" alt="Depot - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
 

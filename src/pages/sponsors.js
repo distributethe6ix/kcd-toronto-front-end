@@ -174,6 +174,11 @@ const SponsorsPage = () => {
                     <img src="/sponsors/ts-logo-300w.png" alt="Tremolo Security - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
                   </div>
                 </a>
+                <a href="https://depot.dev" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
+                    <img src="/sponsors/depot-logo-horizontal-on-light@3x.png" alt="Depot - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
               </div>
             </div>
           </div>
