@@ -150,16 +150,11 @@ const CFPPage = () => {
                   <p className="is-size-5 mb-5">
                     Join 25+ speakers in sharing practical, real-world cloud native experiences with Toronto's community.
                   </p>
-                  <a
-                    href="https://sessionize.com/kcd-toronto-2026"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="button is-primary is-large"
-                  >
-                    <strong>Submit Your Proposal Now</strong>
-                  </a>
+                  <button className="button is-light is-large" disabled>
+                    <strong>CFP Closed!</strong>
+                  </button>
                   <p className="mt-4 has-text-grey">
-                    <small>Submissions managed through Sessionize • Closes February 16, 2026</small>
+                    <small>Submissions closed February 16, 2026</small>
                   </p>
                 </div>
               </div>

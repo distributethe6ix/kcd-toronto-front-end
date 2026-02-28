@@ -47,6 +47,31 @@ const IndexPage = () => {
         </div>
       </section>
 
+      {/* Keynote Speaker Highlight */}
+      <section className="section has-background-primary-light">
+        <div className="container">
+          <h2 className="title is-2 has-text-centered mb-6">Keynote Speaker</h2>
+          <div className="columns is-vcentered is-centered">
+            <div className="column is-narrow has-text-centered">
+              <figure className="image" style={{ width: "200px", height: "200px", margin: "0 auto" }}>
+                <img
+                  src="/speakers/keynote/marylia.png"
+                  alt="Marylia Gutierrez"
+                  style={{ width: "200px", height: "200px", borderRadius: "50%", objectFit: "cover", border: "4px solid #326ce5" }}
+                />
+              </figure>
+            </div>
+            <div className="column is-5">
+              <h3 className="title is-3 mb-1">Marylia Gutierrez</h3>
+              <p className="subtitle is-5 mb-4">Keynote Speaker</p>
+              <a href="/speakers" className="button is-primary">
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* About Section with Photo */}
       <section className="section">
         <div className="container">

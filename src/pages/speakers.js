@@ -38,16 +38,38 @@ const SpeakersPage = () => {
                 </div>
               </div>
               <div className="has-text-centered mt-5">
-                <a href="/cfp" className="button is-primary is-large">
-                  <strong>Submit Your Proposal</strong>
-                </a>
+                <button className="button is-light is-large" disabled>
+                  <strong>CFP Closed!</strong>
+                </button>
               </div>
             </div>
           </div>
 
-          <h2 className="title is-2 mt-6 mb-5 has-text-centered">Featured Speakers</h2>
-          <p className="has-text-centered mb-6">Speaker announcements coming soon! Check back after our Call for Proposals closes.</p>
+          {/* Keynote Speaker */}
+          <h2 className="title is-2 mt-6 mb-5 has-text-centered">Keynote Speaker</h2>
+          <div className="columns is-centered mb-6">
+            <div className="column is-4">
+              <div className="card">
+                <div className="card-content has-text-centered">
+                  <div className="mb-4">
+                    <figure className="image" style={{ width: "120px", height: "120px", margin: "0 auto" }}>
+                      <img
+                        src="/speakers/keynote/marylia.png"
+                        alt="Marylia Gutierrez"
+                        style={{ width: "120px", height: "120px", borderRadius: "50%", objectFit: "cover" }}
+                      />
+                    </figure>
+                  </div>
+                  <p className="title is-4">Marylia Gutierrez</p>
+                  <p className="subtitle is-6">Keynote Speaker</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          {/* Other Speakers */}
+          <h2 className="title is-2 mb-5 has-text-centered">Featured Speakers</h2>
+          <p className="has-text-centered mb-6">More speaker announcements coming soon!</p>
           <div className="columns is-multiline">
             {[1, 2, 3].map((i) => (
               <div key={i} className="column is-4">
@@ -69,9 +91,8 @@ const SpeakersPage = () => {
                         ?
                       </div>
                     </div>
-                    <p className="title is-4">Your Name Here</p>
+                    <p className="title is-4">TBD</p>
                     <p className="subtitle is-6">Speaker</p>
-                    <p>Submit your proposal to be one of our featured speakers!</p>
                   </div>
                 </div>
               </div>
