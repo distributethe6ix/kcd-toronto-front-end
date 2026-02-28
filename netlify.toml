@@ -5,3 +5,16 @@
 [build.environment]
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
+
+# Protect sponsor-specific files behind Netlify Identity role
+[[redirects]]
+  from = "/sponsor-portal/*"
+  to = "/sponsor-portal/:splat"
+  status = 200
+  conditions = {Role = ["sponsor"]}
+  force = true
+
+[[redirects]]
+  from = "/sponsor-portal/*"
+  to = /
+  status = 302

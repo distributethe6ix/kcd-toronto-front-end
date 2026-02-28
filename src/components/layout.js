@@ -92,6 +92,7 @@ const Layout = ({ children }) => {
                 <li><Link to="/sponsors" className="has-text-white-ter">Sponsors</Link></li>
                 <li><Link to="/code-of-conduct" className="has-text-white-ter">Code of Conduct</Link></li>
                 <li><Link to="/getting-here" className="has-text-white-ter">Getting Here</Link></li>
+                <li><Link to="/sponsor-portal" className="has-text-white-ter">Sponsor Portal</Link></li>
               </ul>
             </div>
             <div className="column is-4">

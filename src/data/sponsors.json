@@ -1,0 +1,56 @@
+{
+  "sponsors": [
+    {
+      "id": "rbc",
+      "name": "RBC",
+      "email": "",
+      "tier": "diamond",
+      "agreementPdf": "/sponsor-portal/rbc/agreement.pdf",
+      "graphics": []
+    },
+    {
+      "id": "tremolo",
+      "name": "Tremolo Security",
+      "email": "",
+      "tier": "silver",
+      "agreementPdf": "/sponsor-portal/tremolo/agreement.pdf",
+      "graphics": []
+    },
+    {
+      "id": "depot",
+      "name": "Depot",
+      "email": "",
+      "tier": "silver",
+      "agreementPdf": "/sponsor-portal/depot/agreement.pdf",
+      "graphics": []
+    }
+  ],
+  "shared": {
+    "venueInfo": {
+      "name": "The Quay - Toronto Region Board of Trade",
+      "address": "100 Queens Quay E, Toronto, ON",
+      "loadInDate": "TBD",
+      "loadInTime": "TBD",
+      "loadOutDate": "TBD",
+      "loadOutTime": "TBD",
+      "contacts": [
+        {
+          "role": "Venue Coordinator",
+          "name": "TBD",
+          "email": "TBD"
+        },
+        {
+          "role": "Sponsor Liaison",
+          "name": "KCD Toronto Team",
+          "email": "toronto-org@kubernetescommunitydays.org"
+        }
+      ]
+    },
+    "downloadableGraphics": [
+      {
+        "name": "KCD Toronto Logo",
+        "url": "/toronto-cncf-kcd-wide.png"
+      }
+    ]
+  }
+}
