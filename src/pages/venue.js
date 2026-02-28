@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Link } from "gatsby"
 import Layout from "../components/layout"
 import { StaticImage } from "gatsby-plugin-image"
 
@@ -134,6 +135,12 @@ const VenuePage = () => {
                   </p>
                 </div>
               </div>
+            </div>
+
+            <div className="has-text-centered mt-5 mb-6">
+              <Link to="/getting-here" className="button is-primary is-medium">
+                <strong>Detailed Directions to the Venue</strong>
+              </Link>
             </div>
 
             <h2 className="title is-2 mt-6">Explore Toronto</h2>

@@ -91,6 +91,7 @@ const Layout = ({ children }) => {
                 <li><Link to="/speakers" className="has-text-white-ter">Speakers</Link></li>
                 <li><Link to="/sponsors" className="has-text-white-ter">Sponsors</Link></li>
                 <li><Link to="/code-of-conduct" className="has-text-white-ter">Code of Conduct</Link></li>
+                <li><Link to="/getting-here" className="has-text-white-ter">Getting Here</Link></li>
               </ul>
             </div>
             <div className="column is-4">
