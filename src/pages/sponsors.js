@@ -205,6 +205,16 @@ const SponsorsPage = () => {
                     <img src="/sponsors/cncf-color.png" alt="CNCF - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
                   </div>
                 </a>
+                <a href="https://exampro.co" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "2rem" }}>
+                    <img src="/sponsors/exampro.png" alt="ExamPro - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+                <a href="https://sadservers.com" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "2rem" }}>
+                    <img src="/sponsors/sadservers.png" alt="SadServers - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
               </div>
             </div>
           </div>
