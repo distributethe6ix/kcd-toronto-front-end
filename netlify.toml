@@ -16,5 +16,5 @@
 
 [[redirects]]
   from = "/sponsor-portal/*"
-  to = /
+  to = "/"
   status = 302
