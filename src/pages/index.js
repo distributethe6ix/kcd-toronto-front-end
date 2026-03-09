@@ -332,6 +332,20 @@ const IndexPage = () => {
                   </div>
                 </a>
               </div>
+              <div className="column is-3 has-text-centered">
+                <a href="https://komodor.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/komodor-logo-2024.svg" alt="Komodor - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-3 has-text-centered">
+                <a href="https://objectfirst.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/Object First Logo - Primary.png" alt="Object First - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
 

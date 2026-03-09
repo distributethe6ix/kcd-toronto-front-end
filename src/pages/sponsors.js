@@ -179,6 +179,16 @@ const SponsorsPage = () => {
                     <img src="/sponsors/depot-logo-horizontal-on-light@3x.png" alt="Depot - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
                   </div>
                 </a>
+                <a href="https://komodor.io" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
+                    <img src="/sponsors/komodor-logo-2024.svg" alt="Komodor - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+                <a href="https://objectfirst.com" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
+                    <img src="/sponsors/Object First Logo - Primary.png" alt="Object First - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
               </div>
             </div>
           </div>
