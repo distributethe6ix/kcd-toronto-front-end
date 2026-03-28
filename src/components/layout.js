@@ -42,6 +42,9 @@ const Layout = ({ children }) => {
               <Link to="/schedule" className="navbar-item has-text-white has-text-weight-bold">
                 Schedule
               </Link>
+              <Link to="/sessions" className="navbar-item has-text-white has-text-weight-bold">
+                Sessions
+              </Link>
               <Link to="/speakers" className="navbar-item has-text-white has-text-weight-bold">
                 Speakers
               </Link>

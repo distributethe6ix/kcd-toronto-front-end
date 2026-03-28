@@ -1,20 +1,84 @@
 import * as React from "react"
 import Layout from "../components/layout"
 
+const SESSIONIZE_BASE = "https://sessionize.com/api/v2/9ddjd9rc/view"
+
+const parseSessions = (html) => {
+  const doc = new DOMParser().parseFromString(html, "text/html")
+  return [...doc.querySelectorAll("[data-sessionid]")].map((el) => {
+    const timeAttr = el.querySelector(".sz-session__time")?.getAttribute("data-sztz") || ""
+    const parts = timeAttr.split("|")
+    return {
+      id: el.dataset.sessionid,
+      title: el.querySelector(".sz-session__title")?.textContent?.trim(),
+      description: el.querySelector(".sz-session__description")?.textContent?.trim(),
+      room: el.querySelector(".sz-session__room")?.textContent?.trim(),
+      roomId: el.querySelector(".sz-session__room")?.getAttribute("data-roomid"),
+      timeDisplay: el.querySelector(".sz-session__time")?.textContent?.trim(),
+      startsAt: parts[2] || null,
+      endsAt: parts[3] || null,
+      speakers: [...el.querySelectorAll(".sz-session__speakers [data-speakerid]")].map((li) => ({
+        id: li.dataset.speakerid,
+        name: li.querySelector("a")?.textContent?.trim(),
+      })),
+      tags: [...el.querySelectorAll(".sz-tag")].map((t) => ({
+        category: t.getAttribute("data-categoryname"),
+        name: t.textContent?.trim(),
+      })),
+    }
+  })
+}
+
+const formatTime = (isoString) => {
+  if (!isoString) return ""
+  try {
+    return new Date(isoString).toLocaleTimeString("en-CA", {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "America/Toronto",
+    })
+  } catch {
+    return isoString
+  }
+}
+
 const SchedulePage = () => {
-  const scheduleItems = [
-    { time: "8:00 AM - 9:00 AM", title: "Registration & Breakfast", description: "Check in, grab breakfast, and network with fellow attendees" },
-    { time: "9:00 AM - 9:15 AM", title: "Opening Remarks", speaker: "KCD Toronto Organizing Team", description: "Welcome to KCD Toronto 2026!" },
-    { time: "9:15 AM - 10:00 AM", title: "Keynote: The Future of Cloud Native", speaker: "TBA", description: "An inspiring keynote exploring the latest trends and innovations" },
-    { time: "10:00 AM - 10:30 AM", title: "Coffee Break & Networking", description: "Connect with speakers and attendees over coffee" },
-    { time: "10:30 AM - 12:00 PM", title: "Technical Talks - Track 1 & Track 2", description: "Parallel technical sessions covering Kubernetes, containers, and more" },
-    { time: "12:00 PM - 1:00 PM", title: "Lunch & Networking", description: "Enjoy lunch and continue conversations with the community" },
-    { time: "1:00 PM - 2:30 PM", title: "Technical Talks - Track 1 & Track 2", description: "More parallel sessions featuring case studies and best practices" },
-    { time: "2:30 PM - 3:00 PM", title: "Afternoon Break", description: "Refreshments and networking" },
-    { time: "3:00 PM - 4:30 PM", title: "Hands-on Workshops", description: "Interactive workshops with cloud native technologies" },
-    { time: "4:30 PM - 5:00 PM", title: "Closing Remarks & Prize Draw", speaker: "KCD Toronto Organizing Team", description: "Wrap up the day and announce prize winners" },
-    { time: "5:00 PM - 7:00 PM", title: "After Party", description: "Continue the conversation at our after-event social gathering" },
-  ]
+  const [sessions, setSessions] = React.useState([])
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(null)
+
+  React.useEffect(() => {
+    fetch(`${SESSIONIZE_BASE}/Sessions?under=True`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.text()
+      })
+      .then((html) => {
+        const parsed = parseSessions(html)
+        setSessions(parsed)
+        setLoading(false)
+      })
+      .catch((err) => {
+        setError(err.message)
+        setLoading(false)
+      })
+  }, [])
+
+  const timedSessions = sessions
+    .filter((s) => s.startsAt)
+    .sort((a, b) => new Date(a.startsAt) - new Date(b.startsAt))
+
+  const untimedSessions = sessions.filter((s) => !s.startsAt)
+
+  // Group by start time slot
+  const timeSlots = timedSessions.reduce((acc, session) => {
+    const key = session.startsAt
+    if (!acc[key]) acc[key] = []
+    acc[key].push(session)
+    return acc
+  }, {})
+
+  const sortedTimeKeys = Object.keys(timeSlots).sort()
 
   return (
     <Layout>
@@ -22,47 +86,153 @@ const SchedulePage = () => {
         <div className="hero-body">
           <div className="container">
             <h1 className="title is-1">Event Schedule</h1>
-            <p className="subtitle is-3">TBA 2026 | Toronto, ON</p>
+            <p className="subtitle is-3">May 13, 2026 | Toronto, ON</p>
           </div>
         </div>
       </section>
 
       <section className="section">
         <div className="container">
-          <div className="notification is-info is-light">
-            <p className="has-text-centered is-size-5">
-              <strong>Schedule coming soon!</strong> The detailed agenda will be published once our Call for Proposals closes.
-            </p>
-          </div>
+          {loading && (
+            <div className="has-text-centered py-6">
+              <progress className="progress is-primary" max="100" style={{ maxWidth: "400px", margin: "0 auto" }}>
+                Loading schedule...
+              </progress>
+              <p className="mt-3 has-text-grey">Loading schedule...</p>
+            </div>
+          )}
 
-          <h2 className="title is-2 mt-6 mb-5">Sample Schedule</h2>
-          <p className="subtitle mb-6">Below is a sample schedule to give you an idea of what to expect:</p>
+          {error && (
+            <div className="notification is-danger is-light">
+              <p>
+                <strong>Unable to load schedule.</strong> Please try again later.
+              </p>
+            </div>
+          )}
 
-          <div className="timeline">
-            {scheduleItems.map((item, index) => (
-              <div key={index} className="box mb-4">
-                <article className="media">
-                  <div className="media-content">
-                    <div className="content">
-                      <p>
-                        <strong className="has-text-primary is-size-5">{item.time}</strong>
-                        <br />
-                        <strong className="is-size-4">{item.title}</strong>
-                        {item.speaker && (
-                          <>
-                            <br />
-                            <em className="has-text-grey">{item.speaker}</em>
-                          </>
-                        )}
-                        <br />
-                        {item.description}
-                      </p>
+          {!loading && !error && sessions.length === 0 && (
+            <div className="notification is-info is-light">
+              <p className="has-text-centered is-size-5">
+                <strong>Schedule coming soon!</strong> The full agenda will be published closer to the event date.
+              </p>
+            </div>
+          )}
+
+          {!loading && !error && sessions.length > 0 && (
+            <>
+              {sortedTimeKeys.map((timeKey) => {
+                const slotSessions = timeSlots[timeKey]
+                const startTime = formatTime(timeKey)
+                const endTime = slotSessions[0]?.endsAt ? formatTime(slotSessions[0].endsAt) : ""
+
+                return (
+                  <div key={timeKey} className="mb-5">
+                    <div
+                      className="has-background-primary-light px-4 py-2 mb-3"
+                      style={{ borderLeft: "4px solid #326ce5", borderRadius: "2px" }}
+                    >
+                      <strong className="is-size-5 has-text-primary">
+                        {startTime}{endTime ? ` – ${endTime}` : ""}
+                      </strong>
+                    </div>
+
+                    <div className={slotSessions.length > 1 ? "columns is-multiline" : ""}>
+                      {slotSessions.map((session) => (
+                        <div
+                          key={session.id}
+                          className={slotSessions.length > 1 ? "column is-half" : ""}
+                        >
+                          <div className="card">
+                            <div className="card-content">
+                              <h3 className="title is-5 mb-2">{session.title}</h3>
+
+                              {session.room && (
+                                <p className="is-size-7 has-text-grey mb-1">
+                                  <strong>Room:</strong> {session.room}
+                                </p>
+                              )}
+
+                              {session.speakers && session.speakers.length > 0 && (
+                                <p className="has-text-grey-dark mb-2">
+                                  <em>{session.speakers.map((s) => s.name).join(", ")}</em>
+                                </p>
+                              )}
+
+                              {session.description && (
+                                <div className="content is-small mb-3">
+                                  <p>{session.description}</p>
+                                </div>
+                              )}
+
+                              <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+                                {session.tags.map((tag, i) => (
+                                  <span
+                                    key={i}
+                                    className={`tag is-small ${
+                                      tag.category === "level"
+                                        ? "is-info is-light"
+                                        : tag.category === "session_format"
+                                        ? "is-primary is-light"
+                                        : "is-light"
+                                    }`}
+                                  >
+                                    {tag.name}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                </article>
-              </div>
-            ))}
-          </div>
+                )
+              })}
+
+              {untimedSessions.length > 0 && (
+                <div className="mt-6">
+                  <h2 className="title is-4 mb-4">Additional Sessions</h2>
+                  <div className="columns is-multiline">
+                    {untimedSessions.map((session) => (
+                      <div key={session.id} className="column is-half">
+                        <div className="card">
+                          <div className="card-content">
+                            <h3 className="title is-5 mb-2">{session.title}</h3>
+                            {session.speakers && session.speakers.length > 0 && (
+                              <p className="has-text-grey-dark mb-2">
+                                <em>{session.speakers.map((s) => s.name).join(", ")}</em>
+                              </p>
+                            )}
+                            {session.description && (
+                              <div className="content is-small mb-3">
+                                <p>{session.description}</p>
+                              </div>
+                            )}
+                            <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+                              {session.tags.map((tag, i) => (
+                                <span
+                                  key={i}
+                                  className={`tag is-small ${
+                                    tag.category === "level"
+                                      ? "is-info is-light"
+                                      : tag.category === "session_format"
+                                      ? "is-primary is-light"
+                                      : "is-light"
+                                  }`}
+                                >
+                                  {tag.name}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
     </Layout>

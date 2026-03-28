@@ -1,6 +1,7 @@
 import * as React from "react"
 import Layout from "../components/layout"
 import { StaticImage } from "gatsby-plugin-image"
+import SpeakerWallReel from "../components/SpeakerWallReel"
 
 const IndexPage = () => {
   return (
@@ -68,6 +69,19 @@ const IndexPage = () => {
                 Learn More
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Meet Our Speakers Section */}
+      <section className="section has-background-light">
+        <div className="container">
+          <h2 className="title is-2 has-text-centered mb-4">Meet Our Speakers</h2>
+          <SpeakerWallReel />
+          <div className="has-text-centered mt-5">
+            <a href="/speakers" className="button is-primary is-medium">
+              <strong>View All Speakers</strong>
+            </a>
           </div>
         </div>
       </section>

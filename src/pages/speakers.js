@@ -1,7 +1,57 @@
 import * as React from "react"
 import Layout from "../components/layout"
+import SpeakerModal from "../components/SpeakerModal"
+
+const SESSIONIZE_BASE = "https://sessionize.com/api/v2/9ddjd9rc/view"
+
+const parseSpeakers = (html) => {
+  const doc = new DOMParser().parseFromString(html, "text/html")
+  return [...doc.querySelectorAll("[data-speakerid]")]
+    .filter((el) => el.querySelector(".sz-speaker__name"))
+    .map((el) => ({
+      id: el.dataset.speakerid,
+      name: el.querySelector(".sz-speaker__name")?.textContent?.trim(),
+      tagline: el.querySelector(".sz-speaker__tagline")?.textContent?.trim(),
+      photo: el.querySelector(".sz-speaker__photo img")?.getAttribute("src"),
+      bio: el.querySelector(".sz-speaker__bio")?.textContent?.trim(),
+      links: [...el.querySelectorAll(".sz-speaker__link")]
+        .map((a) => ({
+          url: a.getAttribute("href"),
+          label: a.querySelector(".sz-speaker__link-label")?.textContent?.trim(),
+          type: [...a.classList]
+            .find((c) => c.startsWith("sz-speaker__link--"))
+            ?.replace("sz-speaker__link--", ""),
+        }))
+        .filter((l) => l.url && l.url !== "#"),
+      sessions: [...el.querySelectorAll(".sz-speaker__sessions a")]
+        .map((a) => a.textContent?.trim())
+        .filter(Boolean),
+    }))
+}
 
 const SpeakersPage = () => {
+  const [speakers, setSpeakers] = React.useState([])
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(null)
+  const [selectedSpeaker, setSelectedSpeaker] = React.useState(null)
+
+  React.useEffect(() => {
+    fetch(`${SESSIONIZE_BASE}/Speakers?under=True`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.text()
+      })
+      .then((html) => {
+        const parsed = parseSpeakers(html)
+        setSpeakers(parsed)
+        setLoading(false)
+      })
+      .catch((err) => {
+        setError(err.message)
+        setLoading(false)
+      })
+  }, [])
+
   return (
     <Layout>
       <section className="hero is-primary">
@@ -15,91 +65,97 @@ const SpeakersPage = () => {
 
       <section className="section">
         <div className="container">
-          <div className="box has-background-info-light">
-            <h2 className="title is-3 has-text-centered">Call for Proposals</h2>
-            <p className="subtitle has-text-centered">We're looking for speakers!</p>
-            <div className="content">
-              <p className="has-text-centered">
-                Whether you're a Kubernetes expert, a cloud native practitioner, or have an interesting story about
-                your cloud native journey, we want to hear from you.
+          {loading && (
+            <div className="has-text-centered py-6">
+              <progress className="progress is-primary" max="100" style={{ maxWidth: "400px", margin: "0 auto" }}>
+                Loading speakers...
+              </progress>
+              <p className="mt-3 has-text-grey">Loading speakers...</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="notification is-danger is-light">
+              <p>
+                <strong>Unable to load speakers.</strong> Please try again later.
               </p>
-              <p className="has-text-centered"><strong>Topics we're interested in include:</strong></p>
-              <div className="columns">
-                <div className="column is-6 is-offset-3">
-                  <ul>
-                    <li>Kubernetes and container orchestration</li>
-                    <li>Cloud native architecture and patterns</li>
-                    <li>Service mesh, observability, and monitoring</li>
-                    <li>CI/CD and GitOps</li>
-                    <li>Platform engineering and developer experience</li>
-                    <li>Security and compliance</li>
-                    <li>Case studies and real-world implementations</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="has-text-centered mt-5">
-                <button className="button is-light is-large" disabled>
-                  <strong>CFP Closed!</strong>
-                </button>
-              </div>
             </div>
-          </div>
+          )}
 
-          {/* Keynote Speaker */}
-          <h2 className="title is-2 mt-6 mb-5 has-text-centered">Keynote Speaker</h2>
-          <div className="columns is-centered mb-6">
-            <div className="column is-4">
-              <div className="card">
-                <div className="card-content has-text-centered">
-                  <div className="mb-4">
-                    <figure className="image" style={{ width: "120px", height: "120px", margin: "0 auto" }}>
-                      <img
-                        src="/speakers/keynote/marylia.png"
-                        alt="Marylia Gutierrez"
-                        style={{ width: "120px", height: "120px", borderRadius: "50%", objectFit: "cover" }}
-                      />
-                    </figure>
-                  </div>
-                  <p className="title is-4">Marylia Gutierrez</p>
-                  <p className="subtitle is-6">Keynote Speaker</p>
-                </div>
-              </div>
+          {!loading && !error && speakers.length === 0 && (
+            <div className="notification is-info is-light">
+              <p className="has-text-centered">
+                <strong>Speaker announcements coming soon!</strong> Check back for updates.
+              </p>
             </div>
-          </div>
+          )}
 
-          {/* Other Speakers */}
-          <h2 className="title is-2 mb-5 has-text-centered">Featured Speakers</h2>
-          <p className="has-text-centered mb-6">More speaker announcements coming soon!</p>
-          <div className="columns is-multiline">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="column is-4">
-                <div className="card">
-                  <div className="card-content has-text-centered">
-                    <div className="mb-4">
-                      <div style={{
-                        width: "120px",
-                        height: "120px",
-                        borderRadius: "50%",
-                        backgroundColor: "#326ce5",
-                        margin: "0 auto",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "3rem",
-                        color: "white"
-                      }}>
-                        ?
+          {!loading && !error && speakers.length > 0 && (
+            <>
+              <h2 className="title is-2 mb-5 has-text-centered">Featured Speakers</h2>
+              <div className="columns is-multiline">
+                {speakers.map((speaker) => (
+                  <div key={speaker.id} className="column is-4">
+                    <div
+                      className="card"
+                      style={{ cursor: "pointer", height: "100%" }}
+                      onClick={() => setSelectedSpeaker(speaker)}
+                    >
+                      <div className="card-content has-text-centered">
+                        <div className="mb-4">
+                          {speaker.photo ? (
+                            <figure className="image" style={{ width: "120px", height: "120px", margin: "0 auto" }}>
+                              <img
+                                src={speaker.photo}
+                                alt={speaker.name}
+                                style={{
+                                  width: "120px",
+                                  height: "120px",
+                                  borderRadius: "50%",
+                                  objectFit: "cover",
+                                  border: "3px solid #326ce5",
+                                }}
+                              />
+                            </figure>
+                          ) : (
+                            <div
+                              style={{
+                                width: "120px",
+                                height: "120px",
+                                borderRadius: "50%",
+                                backgroundColor: "#326ce5",
+                                margin: "0 auto",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "3rem",
+                                color: "white",
+                              }}
+                            >
+                              {speaker.name ? speaker.name.charAt(0) : "?"}
+                            </div>
+                          )}
+                        </div>
+                        <p className="title is-5 mb-1">{speaker.name}</p>
+                        {speaker.tagline && (
+                          <p className="subtitle is-6 has-text-grey">{speaker.tagline}</p>
+                        )}
                       </div>
                     </div>
-                    <p className="title is-4">TBD</p>
-                    <p className="subtitle is-6">Speaker</p>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          )}
         </div>
       </section>
+
+      {selectedSpeaker && (
+        <SpeakerModal
+          speaker={selectedSpeaker}
+          onClose={() => setSelectedSpeaker(null)}
+        />
+      )}
     </Layout>
   )
 }
