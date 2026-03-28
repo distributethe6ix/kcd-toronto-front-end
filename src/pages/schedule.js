@@ -3,7 +3,8 @@ import Layout from "../components/layout"
 
 const SESSIONIZE_BASE = "https://sessionize.com/api/v2/9ddjd9rc/view"
 
-const parseSessions = (html) => {
+// Parses GridSmart HTML — includes service sessions (breaks, lunch, etc.)
+const parseGridSmart = (html) => {
   const doc = new DOMParser().parseFromString(html, "text/html")
   return [...doc.querySelectorAll("[data-sessionid]")].map((el) => {
     const timeAttr = el.querySelector(".sz-session__time")?.getAttribute("data-sztz") || ""
@@ -11,22 +12,33 @@ const parseSessions = (html) => {
     return {
       id: el.dataset.sessionid,
       title: el.querySelector(".sz-session__title")?.textContent?.trim(),
-      description: el.querySelector(".sz-session__description")?.textContent?.trim(),
       room: el.querySelector(".sz-session__room")?.textContent?.trim(),
       roomId: el.querySelector(".sz-session__room")?.getAttribute("data-roomid"),
       timeDisplay: el.querySelector(".sz-session__time")?.textContent?.trim(),
       startsAt: parts[2] || null,
       endsAt: parts[3] || null,
+      isService: el.classList.contains("sz-session--service"),
       speakers: [...el.querySelectorAll(".sz-session__speakers [data-speakerid]")].map((li) => ({
         id: li.dataset.speakerid,
         name: li.querySelector("a")?.textContent?.trim(),
       })),
-      tags: [...el.querySelectorAll(".sz-tag")].map((t) => ({
-        category: t.getAttribute("data-categoryname"),
-        name: t.textContent?.trim(),
-      })),
+      description: null,
+      tags: [],
     }
   })
+}
+
+// Parses Sessions HTML — has descriptions and tags but no service sessions
+const parseSessionDetails = (html) => {
+  const doc = new DOMParser().parseFromString(html, "text/html")
+  return [...doc.querySelectorAll("[data-sessionid]")].map((el) => ({
+    id: el.dataset.sessionid,
+    description: el.querySelector(".sz-session__description")?.textContent?.trim(),
+    tags: [...el.querySelectorAll(".sz-tag")].map((t) => ({
+      category: t.getAttribute("data-categoryname"),
+      name: t.textContent?.trim(),
+    })),
+  }))
 }
 
 const formatTime = (isoString) => {
@@ -48,14 +60,26 @@ const SchedulePage = () => {
   const [error, setError] = React.useState(null)
 
   React.useEffect(() => {
-    fetch(`${SESSIONIZE_BASE}/Sessions?under=True`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.text()
-      })
-      .then((html) => {
-        const parsed = parseSessions(html)
-        setSessions(parsed)
+    Promise.all([
+      fetch(`${SESSIONIZE_BASE}/GridSmart?under=True`).then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`)
+        return r.text()
+      }),
+      fetch(`${SESSIONIZE_BASE}/Sessions?under=True`).then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`)
+        return r.text()
+      }),
+    ])
+      .then(([gridHtml, sessionsHtml]) => {
+        const gridSessions = parseGridSmart(gridHtml)
+        const detailMap = new Map(
+          parseSessionDetails(sessionsHtml).map((s) => [s.id, s])
+        )
+        const merged = gridSessions.map((s) => ({
+          ...s,
+          ...(detailMap.get(s.id) || {}),
+        }))
+        setSessions(merged)
         setLoading(false)
       })
       .catch((err) => {
@@ -142,7 +166,7 @@ const SchedulePage = () => {
                           key={session.id}
                           className={slotSessions.length > 1 ? "column is-half" : ""}
                         >
-                          <div className="card">
+                          <div className={`card${session.isService ? " has-background-light" : ""}`}>
                             <div className="card-content">
                               <h3 className="title is-5 mb-2">{session.title}</h3>
 
