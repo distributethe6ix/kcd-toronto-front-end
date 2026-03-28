@@ -314,6 +314,27 @@ const IndexPage = () => {
             </div>
           </div>
 
+          {/* Gold Partners */}
+          <div className="mb-6">
+            <h3 className="title is-4 has-text-centered mb-4">Gold Partners</h3>
+            <div className="columns is-centered">
+              <div className="column is-3 has-text-centered">
+                <a href="https://www.tigera.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/Tigera-logo-2026-black-text-vertical.png" alt="Tigera - Gold Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-3 has-text-centered">
+                <a href="https://goteleport.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/teleport-logo.svg" alt="Teleport - Gold Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* Silver Partners */}
           <div className="mb-6">
             <h3 className="title is-4 has-text-centered mb-4">Silver Partners</h3>
@@ -371,6 +392,20 @@ const IndexPage = () => {
                 <a href="https://sadservers.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
                   <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <img src="/sponsors/sadservers.png" alt="SadServers - Community Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-3 has-text-centered">
+                <a href="https://devopsto.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/devopsto-logo.png" alt="DevOps Toronto - Community Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-3 has-text-centered">
+                <a href="https://devopsdays.org/events/2026-raleigh/welcome/" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/devopsdays-raleigh-logo.png" alt="DevOpsDays Raleigh - Community Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
                   </div>
                 </a>
               </div>
