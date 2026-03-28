@@ -141,10 +141,16 @@ const SponsorsPage = () => {
                 </div>
               </div>
               <div className="column is-4">
-                <div className="box has-text-centered has-background-light" style={{ border: "2px dashed #ccc", padding: "3rem" }}>
-                  <p className="has-text-grey is-size-5">Your Logo Here</p>
-                  <p className="has-text-grey is-size-7 mt-2">(10 spots available)</p>
-                </div>
+                <a href="https://www.tigera.io" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #FFD700", padding: "2rem" }}>
+                    <img src="/sponsors/Tigera-logo-2026-black-text-vertical.png" alt="Tigera - Gold Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+                <a href="https://goteleport.com" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #FFD700", padding: "2rem" }}>
+                    <img src="/sponsors/teleport-logo.svg" alt="Teleport - Gold Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -223,6 +229,16 @@ const SponsorsPage = () => {
                 <a href="https://sadservers.com" target="_blank" rel="noopener noreferrer">
                   <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "2rem" }}>
                     <img src="/sponsors/sadservers.png" alt="SadServers - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+                <a href="https://devopsto.com" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "2rem" }}>
+                    <img src="/sponsors/devopsto-logo.png" alt="DevOps Toronto - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+                <a href="https://devopsdays.org/events/2026-raleigh/welcome/" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "2rem" }}>
+                    <img src="/sponsors/devopsdays-raleigh-logo.png" alt="DevOpsDays Raleigh - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
                   </div>
                 </a>
               </div>

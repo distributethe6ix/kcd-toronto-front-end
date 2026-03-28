@@ -23,6 +23,38 @@
       "tier": "silver",
       "agreementPdf": "/sponsor-portal/depot/agreement.pdf",
       "graphics": []
+    },
+    {
+      "id": "tigera",
+      "name": "Tigera",
+      "email": "",
+      "tier": "gold",
+      "agreementPdf": "/sponsor-portal/tigera/agreement.pdf",
+      "graphics": []
+    },
+    {
+      "id": "teleport",
+      "name": "Teleport",
+      "email": "",
+      "tier": "gold",
+      "agreementPdf": "/sponsor-portal/teleport/agreement.pdf",
+      "graphics": []
+    },
+    {
+      "id": "devopsto",
+      "name": "DevOps Toronto",
+      "email": "",
+      "tier": "community",
+      "agreementPdf": "",
+      "graphics": []
+    },
+    {
+      "id": "devopsdays-raleigh",
+      "name": "DevOpsDays Raleigh",
+      "email": "",
+      "tier": "community",
+      "agreementPdf": "",
+      "graphics": []
     }
   ],
   "shared": {
