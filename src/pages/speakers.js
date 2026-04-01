@@ -24,8 +24,8 @@ const parseSpeakers = (html) => {
         }))
         .filter((l) => l.url && l.url !== "#"),
       sessions: [...el.querySelectorAll(".sz-speaker__sessions a")]
-        .map((a) => a.textContent?.trim())
-        .filter(Boolean),
+        .map((a) => ({ title: a.textContent?.trim(), url: a.getAttribute("href") }))
+        .filter((s) => s.title),
     }))
 }
 

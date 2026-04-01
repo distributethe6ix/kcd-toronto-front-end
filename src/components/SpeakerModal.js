@@ -74,7 +74,15 @@ const SpeakerModal = ({ speaker, onClose }) => {
               <h4 className="title is-6 mb-2">Sessions</h4>
               <ul>
                 {speaker.sessions.map((session, i) => (
-                  <li key={i} className="is-size-6">{session}</li>
+                  <li key={i} className="is-size-6">
+                    {session.url && session.url !== "#" ? (
+                      <a href={session.url} target="_blank" rel="noopener noreferrer">
+                        {session.title}
+                      </a>
+                    ) : (
+                      session.title || session
+                    )}
+                  </li>
                 ))}
               </ul>
             </div>
