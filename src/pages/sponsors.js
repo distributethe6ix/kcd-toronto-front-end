@@ -195,6 +195,11 @@ const SponsorsPage = () => {
                     <img src="/sponsors/Object First Logo - Primary.png" alt="Object First - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
                   </div>
                 </a>
+                <a href="https://solo.io" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
+                    <img src="/sponsors/solo.png" alt="Solo.io - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
               </div>
             </div>
           </div>
