@@ -6,6 +6,17 @@ import SpeakerWallReel from "../components/SpeakerWallReel"
 const IndexPage = () => {
   return (
     <Layout>
+      {/* Logo Section */}
+      <section className="section has-background-white" style={{ padding: '3rem 1.5rem' }}>
+        <div className="container has-text-centered">
+          <img
+            src="/toronto-cncf-horizontal-transparent.png"
+            alt="KCD Toronto Logo"
+            style={{ maxWidth: '600px', width: '100%', height: 'auto' }}
+          />
+        </div>
+      </section>
+
       {/* Hero Section with Banner */}
       <section className="hero is-primary is-medium hero-with-banner" style={{
         backgroundImage: "url('/IMG_7165.JPG')"
@@ -18,7 +29,7 @@ const IndexPage = () => {
               Toronto 2026
             </h1>
             <p className="subtitle is-3">
-              Join the cloud native community for a day of learning, networking, and collaboration
+              Join the cloud native and AI community for a day of learning, networking, and collaboration
             </p>
             <div className="box mt-5" style={{ backgroundColor: 'rgba(255,255,255,0.95)' }}>
               <p className="is-size-4 has-text-dark">
@@ -37,38 +48,23 @@ const IndexPage = () => {
         </div>
       </section>
 
-      {/* Logo Section */}
-      <section className="section has-background-white" style={{ padding: '3rem 1.5rem' }}>
-        <div className="container has-text-centered">
-          <img
-            src="/toronto-cncf-horizontal-transparent.png"
-            alt="KCD Toronto Logo"
-            style={{ maxWidth: '600px', width: '100%', height: 'auto' }}
-          />
-        </div>
-      </section>
-
       {/* Keynote Speaker Highlight */}
       <section className="section has-background-primary-light">
         <div className="container">
           <h2 className="title is-2 has-text-centered mb-6">Keynote Speaker</h2>
-          <div className="columns is-vcentered is-centered">
-            <div className="column is-narrow has-text-centered">
-              <figure className="image" style={{ width: "200px", height: "200px", margin: "0 auto" }}>
-                <img
-                  src="/speakers/keynote/marylia.png"
-                  alt="Marylia Gutierrez"
-                  style={{ width: "200px", height: "200px", borderRadius: "50%", objectFit: "cover", border: "4px solid #326ce5" }}
-                />
-              </figure>
-            </div>
-            <div className="column is-5">
-              <h3 className="title is-3 mb-1">Marylia Gutierrez</h3>
-              <p className="subtitle is-5 mb-4">Keynote Speaker</p>
-              <a href="/speakers" className="button is-primary">
-                Learn More
-              </a>
-            </div>
+          <div className="has-text-centered">
+            <figure className="image" style={{ width: "200px", height: "200px", margin: "0 auto 1.5rem" }}>
+              <img
+                src="/speakers/keynote/marylia.png"
+                alt="Marylia Gutierrez"
+                style={{ width: "200px", height: "200px", borderRadius: "50%", objectFit: "cover", border: "4px solid #326ce5" }}
+              />
+            </figure>
+            <h3 className="title is-3 mb-1">Marylia Gutierrez</h3>
+            <p className="subtitle is-5 mb-4">Keynote Speaker</p>
+            <a href="/speakers" className="button is-primary">
+              Learn More
+            </a>
           </div>
         </div>
       </section>
@@ -98,7 +94,8 @@ const IndexPage = () => {
                   and technologists from open source and cloud native communities for education,
                   collaboration, and networking. KCD Toronto 2026 will bring together the Canadian
                   cloud native community for an exciting day of talks, workshops, and networking
-                  opportunities.
+                  opportunities — including sessions on AI in cloud native, running GPU workloads on
+                  Kubernetes, and the intersection of machine learning and platform engineering.
                 </p>
               </div>
             </div>

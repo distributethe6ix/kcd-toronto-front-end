@@ -31,7 +31,8 @@ const AboutPage = () => {
             <p>
               KCD Toronto 2026 will be Toronto's premier cloud native community event, bringing together developers, DevOps engineers,
               platform engineers, and technology enthusiasts from across Canada and beyond. Our mission is to foster learning,
-              collaboration, and innovation within the Canadian cloud native community.
+              collaboration, and innovation within the Canadian cloud native community. This year's program includes talks on
+              AI in cloud native, GPU workloads on Kubernetes, and the future of intelligent infrastructure.
             </p>
 
             <h2 className="title is-2 mt-6">Event Highlights</h2>
@@ -60,6 +61,12 @@ const AboutPage = () => {
                   <p>Celebrate and contribute to open source projects that power modern infrastructure</p>
                 </div>
               </div>
+              <div className="column is-6">
+                <div className="box">
+                  <h3 className="title is-4">AI &amp; Cloud Native</h3>
+                  <p>Explore the intersection of AI, machine learning, and cloud native infrastructure — including GPU workloads on Kubernetes</p>
+                </div>
+              </div>
             </div>
 
             <h2 className="title is-2 mt-6">Who Should Attend?</h2>
@@ -69,6 +76,7 @@ const AboutPage = () => {
                 <li>Software Developers working with containers and Kubernetes</li>
                 <li>Cloud Architects and Infrastructure Engineers</li>
                 <li>Tech Leaders evaluating cloud native technologies</li>
+                <li>AI/ML Engineers and data scientists working with cloud native infrastructure</li>
                 <li>Students and newcomers interested in learning about cloud native</li>
                 <li>Anyone passionate about open source and community-driven innovation</li>
               </ul>
