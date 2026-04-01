@@ -349,7 +349,7 @@ const IndexPage = () => {
           {/* Silver Partners */}
           <div className="mb-6">
             <h3 className="title is-4 has-text-centered mb-4">Silver Partners</h3>
-            <div className="columns is-centered">
+            <div className="columns is-multiline is-centered">
               <div className="column is-3 has-text-centered">
                 <a href="https://tremolo.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
                   <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -391,7 +391,7 @@ const IndexPage = () => {
           {/* Community Partners */}
           <div className="mb-6">
             <h3 className="title is-4 has-text-centered mb-4">Community Partners</h3>
-            <div className="columns is-centered">
+            <div className="columns is-multiline is-centered">
               <div className="column is-3 has-text-centered">
                 <a href="https://www.cncf.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
                   <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
