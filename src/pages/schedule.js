@@ -1,56 +1,13 @@
 import * as React from "react"
 import Layout from "../components/layout"
+import { SESSIONIZE_BASE, parseGridSmart, parseSessionDetails, formatTime } from "../utils/sessionize"
 
-const SESSIONIZE_BASE = "https://sessionize.com/api/v2/9ddjd9rc/view"
-
-// Parses GridSmart HTML — includes service sessions (breaks, lunch, etc.)
-const parseGridSmart = (html) => {
-  const doc = new DOMParser().parseFromString(html, "text/html")
-  return [...doc.querySelectorAll("[data-sessionid]")].map((el) => {
-    const timeAttr = el.querySelector(".sz-session__time")?.getAttribute("data-sztz") || ""
-    const parts = timeAttr.split("|")
-    return {
-      id: el.dataset.sessionid,
-      title: el.querySelector(".sz-session__title")?.textContent?.trim(),
-      room: el.querySelector(".sz-session__room")?.textContent?.trim(),
-      roomId: el.querySelector(".sz-session__room")?.getAttribute("data-roomid"),
-      timeDisplay: el.querySelector(".sz-session__time")?.textContent?.trim(),
-      startsAt: parts[2] || null,
-      endsAt: parts[3] || null,
-      isService: el.classList.contains("sz-session--service"),
-      speakers: [...el.querySelectorAll(".sz-session__speakers [data-speakerid]")].map((li) => ({
-        id: li.dataset.speakerid,
-        name: li.querySelector("a")?.textContent?.trim(),
-      })),
-      description: null,
-      tags: [],
-    }
-  })
-}
-
-// Parses Sessions HTML — has descriptions and tags but no service sessions
-const parseSessionDetails = (html) => {
-  const doc = new DOMParser().parseFromString(html, "text/html")
-  return [...doc.querySelectorAll("[data-sessionid]")].map((el) => ({
-    id: el.dataset.sessionid,
-    description: el.querySelector(".sz-session__description")?.textContent?.trim(),
-    tags: [...el.querySelectorAll(".sz-tag")].map((t) => ({
-      category: t.getAttribute("data-categoryname"),
-      name: t.textContent?.trim(),
-    })),
-  }))
-}
-
-const formatTime = (isoString) => {
-  if (!isoString) return ""
+const loadBookmarks = () => {
+  if (typeof window === "undefined") return new Set()
   try {
-    return new Date(isoString).toLocaleTimeString("en-CA", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "America/Toronto",
-    })
+    return new Set(JSON.parse(localStorage.getItem("kcd2026-bookmarks") ?? "[]"))
   } catch {
-    return isoString
+    return new Set()
   }
 }
 
@@ -58,6 +15,12 @@ const SchedulePage = () => {
   const [sessions, setSessions] = React.useState([])
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState(null)
+  const [bookmarks, setBookmarks] = React.useState(new Set())
+  const [view, setView] = React.useState("all") // "all" | "mine"
+
+  React.useEffect(() => {
+    setBookmarks(loadBookmarks())
+  }, [])
 
   React.useEffect(() => {
     Promise.all([
@@ -88,13 +51,23 @@ const SchedulePage = () => {
       })
   }, [])
 
+  const toggleBookmark = (id) => {
+    setBookmarks((prev) => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      if (typeof window !== "undefined") {
+        localStorage.setItem("kcd2026-bookmarks", JSON.stringify([...next]))
+      }
+      return next
+    })
+  }
+
   const timedSessions = sessions
     .filter((s) => s.startsAt)
     .sort((a, b) => new Date(a.startsAt) - new Date(b.startsAt))
 
   const untimedSessions = sessions.filter((s) => !s.startsAt)
 
-  // Group by start time slot
   const timeSlots = timedSessions.reduce((acc, session) => {
     const key = session.startsAt
     if (!acc[key]) acc[key] = []
@@ -103,6 +76,97 @@ const SchedulePage = () => {
   }, {})
 
   const sortedTimeKeys = Object.keys(timeSlots).sort()
+
+  // In "mine" view: keep a slot if it has a service session or a bookmarked session
+  const visibleTimeKeys =
+    view === "mine"
+      ? sortedTimeKeys.filter((key) =>
+          timeSlots[key].some((s) => s.isService || bookmarks.has(s.id))
+        )
+      : sortedTimeKeys
+
+  const getVisibleSessions = (key) =>
+    view === "mine"
+      ? timeSlots[key].filter((s) => s.isService || bookmarks.has(s.id))
+      : timeSlots[key]
+
+  const bookmarkCount = bookmarks.size
+
+  const renderSessionCard = (session, slotSessions) => (
+    <div
+      key={session.id}
+      className={slotSessions.length > 1 && view === "all" ? "column is-half" : ""}
+    >
+      <div className={`card${session.isService ? " has-background-light" : ""}`}>
+        <div className="card-content">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.75rem" }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h3 className="title is-5 mb-2">{session.title}</h3>
+
+              {session.room && (
+                <p className="is-size-7 has-text-grey mb-1">
+                  <strong>Room:</strong> {session.room}
+                </p>
+              )}
+
+              {session.speakers && session.speakers.length > 0 && (
+                <p className="has-text-grey-dark mb-2">
+                  <em>{session.speakers.map((s) => s.name).join(", ")}</em>
+                </p>
+              )}
+
+              {session.description && (
+                <div className="content is-small mb-3">
+                  <p>{session.description}</p>
+                </div>
+              )}
+
+              <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+                {session.tags.map((tag, i) => (
+                  <span
+                    key={i}
+                    className={`tag is-small ${
+                      tag.category === "level"
+                        ? "is-info is-light"
+                        : tag.category === "session_format"
+                        ? "is-primary is-light"
+                        : "is-light"
+                    }`}
+                  >
+                    {tag.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {!session.isService && (
+              <button
+                onClick={() => toggleBookmark(session.id)}
+                aria-label={bookmarks.has(session.id) ? "Remove from my schedule" : "Add to my schedule"}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "1.5rem",
+                  lineHeight: 1,
+                  padding: "0.25rem",
+                  minWidth: "44px",
+                  minHeight: "44px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  color: bookmarks.has(session.id) ? "#f5a623" : "#cccccc",
+                }}
+              >
+                {bookmarks.has(session.id) ? "★" : "☆"}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 
   return (
     <Layout>
@@ -114,6 +178,31 @@ const SchedulePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Tab toggle */}
+      <div style={{ position: "sticky", top: 0, zIndex: 10, background: "white", borderBottom: "1px solid #dbdbdb" }}>
+        <div className="container">
+          <div className="tabs is-fullwidth mb-0">
+            <ul>
+              <li className={view === "all" ? "is-active" : ""}>
+                <a onClick={() => setView("all")} style={{ cursor: "pointer" }}>
+                  Full Schedule
+                </a>
+              </li>
+              <li className={view === "mine" ? "is-active" : ""}>
+                <a onClick={() => setView("mine")} style={{ cursor: "pointer" }}>
+                  My Schedule
+                  {bookmarkCount > 0 && (
+                    <span className="tag is-warning is-rounded ml-2" style={{ fontSize: "0.7rem" }}>
+                      {bookmarkCount}
+                    </span>
+                  )}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
       <section className="section">
         <div className="container">
@@ -142,10 +231,20 @@ const SchedulePage = () => {
             </div>
           )}
 
+          {!loading && !error && sessions.length > 0 && view === "mine" && bookmarkCount === 0 && (
+            <div className="notification is-light has-text-centered py-6">
+              <p className="is-size-5 mb-2">No sessions saved yet.</p>
+              <p className="has-text-grey">
+                Tap <strong>☆</strong> on any session in the Full Schedule to add it here.
+              </p>
+            </div>
+          )}
+
           {!loading && !error && sessions.length > 0 && (
             <>
-              {sortedTimeKeys.map((timeKey) => {
-                const slotSessions = timeSlots[timeKey]
+              {visibleTimeKeys.map((timeKey) => {
+                const slotSessions = getVisibleSessions(timeKey)
+                if (!slotSessions.length) return null
                 const startTime = formatTime(timeKey)
                 const endTime = slotSessions[0]?.endsAt ? formatTime(slotSessions[0].endsAt) : ""
 
@@ -160,98 +259,18 @@ const SchedulePage = () => {
                       </strong>
                     </div>
 
-                    <div className={slotSessions.length > 1 ? "columns is-multiline" : ""}>
-                      {slotSessions.map((session) => (
-                        <div
-                          key={session.id}
-                          className={slotSessions.length > 1 ? "column is-half" : ""}
-                        >
-                          <div className={`card${session.isService ? " has-background-light" : ""}`}>
-                            <div className="card-content">
-                              <h3 className="title is-5 mb-2">{session.title}</h3>
-
-                              {session.room && (
-                                <p className="is-size-7 has-text-grey mb-1">
-                                  <strong>Room:</strong> {session.room}
-                                </p>
-                              )}
-
-                              {session.speakers && session.speakers.length > 0 && (
-                                <p className="has-text-grey-dark mb-2">
-                                  <em>{session.speakers.map((s) => s.name).join(", ")}</em>
-                                </p>
-                              )}
-
-                              {session.description && (
-                                <div className="content is-small mb-3">
-                                  <p>{session.description}</p>
-                                </div>
-                              )}
-
-                              <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
-                                {session.tags.map((tag, i) => (
-                                  <span
-                                    key={i}
-                                    className={`tag is-small ${
-                                      tag.category === "level"
-                                        ? "is-info is-light"
-                                        : tag.category === "session_format"
-                                        ? "is-primary is-light"
-                                        : "is-light"
-                                    }`}
-                                  >
-                                    {tag.name}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
+                    <div className={slotSessions.length > 1 && view === "all" ? "columns is-multiline" : ""}>
+                      {slotSessions.map((session) => renderSessionCard(session, slotSessions))}
                     </div>
                   </div>
                 )
               })}
 
-              {untimedSessions.length > 0 && (
+              {view === "all" && untimedSessions.length > 0 && (
                 <div className="mt-6">
                   <h2 className="title is-4 mb-4">Additional Sessions</h2>
                   <div className="columns is-multiline">
-                    {untimedSessions.map((session) => (
-                      <div key={session.id} className="column is-half">
-                        <div className="card">
-                          <div className="card-content">
-                            <h3 className="title is-5 mb-2">{session.title}</h3>
-                            {session.speakers && session.speakers.length > 0 && (
-                              <p className="has-text-grey-dark mb-2">
-                                <em>{session.speakers.map((s) => s.name).join(", ")}</em>
-                              </p>
-                            )}
-                            {session.description && (
-                              <div className="content is-small mb-3">
-                                <p>{session.description}</p>
-                              </div>
-                            )}
-                            <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
-                              {session.tags.map((tag, i) => (
-                                <span
-                                  key={i}
-                                  className={`tag is-small ${
-                                    tag.category === "level"
-                                      ? "is-info is-light"
-                                      : tag.category === "session_format"
-                                      ? "is-primary is-light"
-                                      : "is-light"
-                                  }`}
-                                >
-                                  {tag.name}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                    {untimedSessions.map((session) => renderSessionCard(session, untimedSessions))}
                   </div>
                 </div>
               )}
