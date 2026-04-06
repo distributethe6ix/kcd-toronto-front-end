@@ -10,6 +10,7 @@ const TeamPage = () => {
     { name: "Jason Paolasini", role: "Organizer", description: "" },
     { name: "John Nixon", role: "Organizer", description: "" },
     { name: "Marino Wijay", role: "Organizer", description: "Channel Manager" },
+    { name: "Brodie Moss", role: "Organizer", description: "" },
     { name: "Michael Foster", role: "Organizer", description: "CNCF Ambassador / Kube Security Junkie / Red Hatter" },
   ]
 

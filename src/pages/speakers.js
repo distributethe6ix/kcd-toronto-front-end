@@ -116,7 +116,6 @@ const SpeakersPage = () => {
 
           {!loading && !error && speakers.length > 0 && (
             <>
-              <h2 className="title is-2 mb-5 has-text-centered">Featured Speakers</h2>
               <div className="columns is-multiline">
                 {speakers.map((speaker) => (
                   <div key={speaker.id} className="column is-4">
