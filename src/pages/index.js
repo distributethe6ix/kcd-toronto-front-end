@@ -2,6 +2,7 @@ import * as React from "react"
 import Layout from "../components/layout"
 import { StaticImage } from "gatsby-plugin-image"
 import SpeakerWallReel from "../components/SpeakerWallReel"
+import CountdownTimer from "../components/CountdownTimer"
 
 const IndexPage = () => {
   return (
@@ -36,6 +37,7 @@ const IndexPage = () => {
                 <strong>Date:</strong> May 13, 2026 | <strong>Location:</strong> The Quay, Toronto
               </p>
             </div>
+            <CountdownTimer />
             <div className="buttons is-centered mt-5">
               <a href="https://community.cncf.io/events/details/cncf-kcd-toronto-presents-kcd-toronto-2026/" target="_blank" rel="noopener noreferrer" className="button is-light is-large">
                 <strong>Get Tickets Here!</strong>
