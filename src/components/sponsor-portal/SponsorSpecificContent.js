@@ -1,13 +1,129 @@
 import * as React from "react"
 
-const SponsorSpecificContent = ({ sponsor }) => {
-  return (
-    <div className="box mb-5">
-      <h2 className="title is-3">Your Sponsor Materials</h2>
+const CopyButton = ({ text }) => {
+  const [copied, setCopied] = React.useState(false)
 
-      {/* Agreement */}
-      <div className="mb-5">
-        <h3 className="title is-5">Signed Agreement</h3>
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
+  return (
+    <button
+      className={`button is-small ${copied ? "is-success" : "is-light"}`}
+      onClick={handleCopy}
+      style={{ marginLeft: "0.5rem" }}
+      aria-label={`Copy ${text}`}
+    >
+      {copied ? "Copied!" : "Copy"}
+    </button>
+  )
+}
+
+const SponsorSpecificContent = ({ sponsor }) => {
+  const tierLabel = sponsor.tier.charAt(0).toUpperCase() + sponsor.tier.slice(1)
+
+  return (
+    <div>
+      {/* Sponsor header */}
+      <div className="box mb-5">
+        <div className="level">
+          <div className="level-left">
+            <div className="level-item">
+              {sponsor.logoUrl && (
+                <figure className="image mr-4" style={{ maxWidth: 120 }}>
+                  <img src={sponsor.logoUrl} alt={`${sponsor.name} logo`} style={{ objectFit: "contain", maxHeight: 60 }} />
+                </figure>
+              )}
+              <div>
+                <h2 className="title is-4 mb-1">{sponsor.name}</h2>
+                <span className="tag is-primary is-medium">{tierLabel} Sponsor</span>
+              </div>
+            </div>
+          </div>
+          {sponsor.logoUrl && (
+            <div className="level-right">
+              <div className="level-item">
+                <a
+                  href={sponsor.logoUrl}
+                  download
+                  className="button is-primary is-outlined"
+                >
+                  Download Your Logo
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Discount code */}
+      {sponsor.discountCode && (
+        <div className="box mb-5">
+          <h2 className="title is-4">Attendee Discount Code</h2>
+          <p className="mb-3">
+            Share this code with your team and network — it gives{" "}
+            <strong>{sponsor.discountPercent}% off</strong> ticket purchases for KCD Toronto 2026.
+          </p>
+          <div className="is-flex is-align-items-center">
+            <div
+              className="has-background-light px-5 py-3 is-flex is-align-items-center"
+              style={{ borderRadius: 6, border: "2px dashed #326ce5" }}
+            >
+              <span className="is-size-4 has-text-weight-bold has-text-primary" style={{ letterSpacing: "0.1em" }}>
+                {sponsor.discountCode}
+              </span>
+              <CopyButton text={sponsor.discountCode} />
+            </div>
+          </div>
+          <p className="mt-3 is-size-7 has-text-grey">
+            Tickets can be purchased at the KCD Toronto registration page.
+          </p>
+        </div>
+      )}
+
+      {/* Complimentary ticket codes */}
+      {sponsor.ticketCodes && sponsor.ticketCodes.length > 0 && (
+        <div className="box mb-5">
+          <h2 className="title is-4">Complimentary Ticket Codes</h2>
+          <p className="mb-4">
+            Your sponsorship includes <strong>{sponsor.ticketCodes.length} complimentary ticket{sponsor.ticketCodes.length !== 1 ? "s" : ""}</strong>. Each code below can be redeemed once.
+          </p>
+          <div className="table-container">
+            <table className="table is-fullwidth is-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ticket Code</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {sponsor.ticketCodes.map((code, i) => (
+                  <tr key={i}>
+                    <td className="has-text-grey">{i + 1}</td>
+                    <td>
+                      <code className="has-text-weight-semibold">{code}</code>
+                    </td>
+                    <td>
+                      <CopyButton text={code} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="is-size-7 has-text-grey">
+            Codes are single-use. Contact us if you need replacements.
+          </p>
+        </div>
+      )}
+
+      {/* Signed agreement */}
+      <div className="box mb-5">
+        <h2 className="title is-4">Signed Agreement</h2>
         {sponsor.agreementPdf ? (
           <a
             href={sponsor.agreementPdf}
@@ -22,10 +138,10 @@ const SponsorSpecificContent = ({ sponsor }) => {
         )}
       </div>
 
-      {/* Sponsor-specific Graphics */}
-      <div>
-        <h3 className="title is-5">Your Social Media Graphics</h3>
-        {sponsor.graphics && sponsor.graphics.length > 0 ? (
+      {/* Sponsor-specific graphics */}
+      {sponsor.graphics && sponsor.graphics.length > 0 && (
+        <div className="box mb-5">
+          <h2 className="title is-4">Your Social Media Graphics</h2>
           <div className="columns is-multiline">
             {sponsor.graphics.map((url, i) => (
               <div key={i} className="column is-4">
@@ -38,11 +154,7 @@ const SponsorSpecificContent = ({ sponsor }) => {
                     />
                   </div>
                   <div className="card-content has-text-centered">
-                    <a
-                      href={url}
-                      download
-                      className="button is-primary is-small"
-                    >
+                    <a href={url} download className="button is-primary is-small">
                       Download
                     </a>
                   </div>
@@ -50,10 +162,8 @@ const SponsorSpecificContent = ({ sponsor }) => {
               </div>
             ))}
           </div>
-        ) : (
-          <p className="has-text-grey">Social media graphics will be available here once they're ready.</p>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

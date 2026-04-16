@@ -5,6 +5,16 @@
       "name": "RBC",
       "email": "",
       "tier": "diamond",
+      "discountCode": "RBC2026",
+      "discountPercent": 20,
+      "ticketCodes": [
+        "RBC-TKT-001",
+        "RBC-TKT-002",
+        "RBC-TKT-003",
+        "RBC-TKT-004",
+        "RBC-TKT-005"
+      ],
+      "logoUrl": "/sponsors/RBC-logo.png",
       "agreementPdf": "/sponsor-portal/rbc/agreement.pdf",
       "graphics": []
     },
@@ -13,6 +23,13 @@
       "name": "Tremolo Security",
       "email": "",
       "tier": "silver",
+      "discountCode": "TREMOLO2026",
+      "discountPercent": 10,
+      "ticketCodes": [
+        "TREMOLO-TKT-001",
+        "TREMOLO-TKT-002"
+      ],
+      "logoUrl": "/sponsors/ts-logo-300w.png",
       "agreementPdf": "/sponsor-portal/tremolo/agreement.pdf",
       "graphics": []
     },
@@ -21,6 +38,13 @@
       "name": "Depot",
       "email": "",
       "tier": "silver",
+      "discountCode": "DEPOT2026",
+      "discountPercent": 10,
+      "ticketCodes": [
+        "DEPOT-TKT-001",
+        "DEPOT-TKT-002"
+      ],
+      "logoUrl": "/sponsors/depot-logo-horizontal-on-light@3x.png",
       "agreementPdf": "/sponsor-portal/depot/agreement.pdf",
       "graphics": []
     },
@@ -29,6 +53,14 @@
       "name": "Tigera",
       "email": "",
       "tier": "gold",
+      "discountCode": "TIGERA2026",
+      "discountPercent": 15,
+      "ticketCodes": [
+        "TIGERA-TKT-001",
+        "TIGERA-TKT-002",
+        "TIGERA-TKT-003"
+      ],
+      "logoUrl": "/sponsors/Tigera-logo-2026-black-text-vertical.png",
       "agreementPdf": "/sponsor-portal/tigera/agreement.pdf",
       "graphics": []
     },
@@ -37,6 +69,14 @@
       "name": "Teleport",
       "email": "",
       "tier": "gold",
+      "discountCode": "TELEPORT2026",
+      "discountPercent": 15,
+      "ticketCodes": [
+        "TELEPORT-TKT-001",
+        "TELEPORT-TKT-002",
+        "TELEPORT-TKT-003"
+      ],
+      "logoUrl": "/sponsors/teleport-logo.svg",
       "agreementPdf": "/sponsor-portal/teleport/agreement.pdf",
       "graphics": []
     },
@@ -45,6 +85,12 @@
       "name": "DevOps Toronto",
       "email": "",
       "tier": "community",
+      "discountCode": "DEVOPSTO2026",
+      "discountPercent": 10,
+      "ticketCodes": [
+        "DEVOPSTO-TKT-001"
+      ],
+      "logoUrl": "/sponsors/devopsto-logo.png",
       "agreementPdf": "",
       "graphics": []
     },
@@ -53,6 +99,12 @@
       "name": "DevOpsDays Raleigh",
       "email": "",
       "tier": "community",
+      "discountCode": "DEVOPSRALEIGH2026",
+      "discountPercent": 10,
+      "ticketCodes": [
+        "DEVOPSRALEIGH-TKT-001"
+      ],
+      "logoUrl": "/sponsors/devopsdays-raleigh-logo.png",
       "agreementPdf": "",
       "graphics": []
     }
@@ -80,8 +132,24 @@
     },
     "downloadableGraphics": [
       {
-        "name": "KCD Toronto Logo",
+        "name": "KCD Toronto Logo (Wide)",
         "url": "/toronto-cncf-kcd-wide.png"
+      },
+      {
+        "name": "KCD Toronto Logo (Horizontal, Transparent)",
+        "url": "/toronto-cncf-horizontal-transparent.png"
+      },
+      {
+        "name": "KCD Toronto Logo (Stacked, Transparent)",
+        "url": "/toronto-cncf-stacked-transparent.png"
+      },
+      {
+        "name": "KCD Toronto Logo",
+        "url": "/toronto-cncf.png"
+      },
+      {
+        "name": "CNCF Logo",
+        "url": "/cncf-color.png"
       }
     ]
   }
