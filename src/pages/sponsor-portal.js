@@ -25,6 +25,7 @@ const matchSponsorByDomain = (email) => {
 const SponsorPortal = () => {
   const [user, setUser] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
+  const [sponsorConfig, setSponsorConfig] = React.useState(null)
 
   const adminPreviewId =
     typeof window !== "undefined"
@@ -40,7 +41,7 @@ const SponsorPortal = () => {
     setLoading(false)
 
     const onLogin = (u) => { setUser(u); netlifyIdentity.close() }
-    const onLogout = () => setUser(null)
+    const onLogout = () => { setUser(null); setSponsorConfig(null) }
     netlifyIdentity.on("login", onLogin)
     netlifyIdentity.on("logout", onLogout)
     return () => {
@@ -49,13 +50,41 @@ const SponsorPortal = () => {
     }
   }, [])
 
-  // Auto-open login modal as soon as the page loads for unauthenticated visitors
+  // Auto-open login modal for unauthenticated visitors
   React.useEffect(() => {
     if (!loading && !user) {
       const netlifyIdentity = require("netlify-identity-widget")
       netlifyIdentity.open("login")
     }
   }, [loading, user])
+
+  // Fetch domain-keyed sponsor config from Netlify Blobs after login
+  React.useEffect(() => {
+    if (!user) return
+    const netlifyIdentity = require("netlify-identity-widget")
+    const token = netlifyIdentity.currentUser()?.token?.access_token
+    if (!token) return
+
+    const isAdmin = user.app_metadata?.roles?.includes("admin")
+    const fetchBody = isAdmin && adminPreviewId
+      ? (() => {
+          const s = sponsorData.sponsors.find((sp) => sp.id === adminPreviewId)
+          return s ? JSON.stringify({ domain: s.domain }) : null
+        })()
+      : null
+
+    fetch("/.netlify/functions/get-sponsor-config", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: fetchBody,
+    })
+      .then((r) => r.json())
+      .then((data) => { if (data.config) setSponsorConfig(data.config) })
+      .catch(() => {})
+  }, [user, adminPreviewId])
 
   const handleLogout = () => {
     const netlifyIdentity = require("netlify-identity-widget")
@@ -68,29 +97,28 @@ const SponsorPortal = () => {
     : null
 
   const domainSponsor = matchSponsorByDomain(user?.email)
-  const appMeta = user?.app_metadata || {}
 
   const sponsor = (() => {
     if (isAdmin && previewSponsor) {
       return {
-        name: previewSponsor.name,
-        tier: previewSponsor.tier,
-        discount_code: null,
-        discount_percent: null,
-        ticket_codes: null,
-        logo_url: null,
-        agreement_pdf: null,
+        name: sponsorConfig?.sponsor_name || previewSponsor.name,
+        tier: sponsorConfig?.sponsor_tier || previewSponsor.tier,
+        discount_code: sponsorConfig?.discount_code || null,
+        discount_percent: sponsorConfig?.discount_percent || null,
+        ticket_codes: sponsorConfig?.ticket_codes || null,
+        logo_url: sponsorConfig?.logo_url || null,
+        agreement_pdf: sponsorConfig?.agreement_pdf || null,
       }
     }
     if (domainSponsor) {
       return {
-        name: appMeta.sponsor_name || domainSponsor.name,
-        tier: appMeta.sponsor_tier || domainSponsor.tier,
-        discount_code: appMeta.discount_code,
-        discount_percent: appMeta.discount_percent,
-        ticket_codes: appMeta.ticket_codes,
-        logo_url: appMeta.logo_url,
-        agreement_pdf: appMeta.agreement_pdf,
+        name: sponsorConfig?.sponsor_name || domainSponsor.name,
+        tier: sponsorConfig?.sponsor_tier || domainSponsor.tier,
+        discount_code: sponsorConfig?.discount_code || null,
+        discount_percent: sponsorConfig?.discount_percent || null,
+        ticket_codes: sponsorConfig?.ticket_codes || null,
+        logo_url: sponsorConfig?.logo_url || null,
+        agreement_pdf: sponsorConfig?.agreement_pdf || null,
       }
     }
     return null

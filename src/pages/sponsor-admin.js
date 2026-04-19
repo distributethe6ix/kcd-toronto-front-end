@@ -14,7 +14,7 @@ const TIER_COLORS = {
 }
 
 const defaultForm = {
-  userEmail: "",
+  sponsorId: "",
   sponsor_name: "",
   sponsor_tier: "gold",
   discount_code: "",
@@ -30,6 +30,7 @@ const SponsorAdmin = () => {
   const [form, setForm] = React.useState(defaultForm)
   const [saveStatus, setSaveStatus] = React.useState(null)
   const [submitting, setSubmitting] = React.useState(false)
+  const [loadingConfig, setLoadingConfig] = React.useState(false)
 
   React.useEffect(() => {
     const netlifyIdentity = require("netlify-identity-widget")
@@ -66,13 +67,70 @@ const SponsorAdmin = () => {
 
   const isAdmin = user?.app_metadata?.roles?.includes("admin")
 
+  const handleSponsorSelect = (e) => {
+    const id = e.target.value
+    if (!id) {
+      setForm(defaultForm)
+      return
+    }
+    const sponsor = sponsorData.sponsors.find((s) => s.id === id)
+    setForm((f) => ({
+      ...f,
+      sponsorId: id,
+      sponsor_name: sponsor.name,
+      sponsor_tier: sponsor.tier,
+    }))
+    setSaveStatus(null)
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((f) => ({ ...f, [name]: value }))
   }
 
+  const handleLoadConfig = async () => {
+    if (!form.sponsorId) return
+    const sponsor = sponsorData.sponsors.find((s) => s.id === form.sponsorId)
+    if (!sponsor) return
+    setLoadingConfig(true)
+    setSaveStatus(null)
+    try {
+      const res = await fetch("/.netlify/functions/get-sponsor-config", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
+        body: JSON.stringify({ domain: sponsor.domain }),
+      })
+      const data = await res.json()
+      if (res.ok && data.config) {
+        const c = data.config
+        setForm((f) => ({
+          ...f,
+          sponsor_name: c.sponsor_name || sponsor.name,
+          sponsor_tier: c.sponsor_tier || sponsor.tier,
+          discount_code: c.discount_code || "",
+          discount_percent: c.discount_percent != null ? String(c.discount_percent) : "",
+          ticket_codes: Array.isArray(c.ticket_codes) ? c.ticket_codes.join("\n") : "",
+          logo_url: c.logo_url || "",
+          agreement_pdf: c.agreement_pdf || "",
+        }))
+        setSaveStatus({ type: "success", message: "Config loaded." })
+      } else if (res.ok && !data.config) {
+        setSaveStatus({ type: "success", message: "No saved config yet for this sponsor." })
+      } else {
+        setSaveStatus({ type: "error", message: data.error || "Failed to load config." })
+      }
+    } catch {
+      setSaveStatus({ type: "error", message: "Network error. Please try again." })
+    } finally {
+      setLoadingConfig(false)
+    }
+  }
+
   const handleSave = async (e) => {
     e.preventDefault()
+    if (!form.sponsorId) return
+    const sponsor = sponsorData.sponsors.find((s) => s.id === form.sponsorId)
+    if (!sponsor) return
     setSubmitting(true)
     setSaveStatus(null)
 
@@ -82,11 +140,11 @@ const SponsorAdmin = () => {
       .filter(Boolean)
 
     try {
-      const res = await fetch("/.netlify/functions/set-sponsor-metadata", {
+      const res = await fetch("/.netlify/functions/set-sponsor-config", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify({
-          userEmail: form.userEmail,
+          domain: sponsor.domain,
           sponsorData: {
             sponsor_name: form.sponsor_name,
             sponsor_tier: form.sponsor_tier,
@@ -100,8 +158,7 @@ const SponsorAdmin = () => {
       })
       const data = await res.json()
       if (res.ok) {
-        setSaveStatus({ type: "success", message: `Saved for ${form.userEmail}.` })
-        setForm(defaultForm)
+        setSaveStatus({ type: "success", message: `Saved config for ${sponsor.name} (@${sponsor.domain}).` })
       } else {
         setSaveStatus({ type: "error", message: data.error || "Something went wrong." })
       }
@@ -187,7 +244,8 @@ const SponsorAdmin = () => {
               <div className="box">
                 <h2 className="title is-4 mb-2">Set Sponsor Profile</h2>
                 <p className="has-text-grey is-size-7 mb-4">
-                  The sponsor must already have a Netlify Identity account. Enter their email and fill in their portal details.
+                  Select a sponsor, load their existing config, make changes, and save.
+                  Config is stored by domain — any employee who signs in will see it automatically.
                 </p>
 
                 {saveStatus && (
@@ -196,16 +254,33 @@ const SponsorAdmin = () => {
                   </div>
                 )}
 
-                <form onSubmit={handleSave}>
-                  <div className="field">
-                    <label className="label">Login Email *</label>
-                    <div className="control">
-                      <input className="input" type="email" name="userEmail" value={form.userEmail}
-                        onChange={handleChange} placeholder="jane@acmecorp.com" required />
+                <div className="field">
+                  <label className="label">Sponsor *</label>
+                  <div className="control is-flex" style={{ gap: "0.5rem" }}>
+                    <div className="select is-fullwidth">
+                      <select value={form.sponsorId} onChange={handleSponsorSelect}>
+                        <option value="">— Select a sponsor —</option>
+                        {sponsorData.sponsors.map((s) => (
+                          <option key={s.id} value={s.id}>
+                            {s.name} (@{s.domain})
+                          </option>
+                        ))}
+                      </select>
                     </div>
-                    <p className="help">Must match their Netlify Identity account exactly.</p>
+                    <button
+                      type="button"
+                      className={`button is-light ${loadingConfig ? "is-loading" : ""}`}
+                      onClick={handleLoadConfig}
+                      disabled={!form.sponsorId || loadingConfig}
+                      title="Load saved config for this sponsor"
+                    >
+                      Load
+                    </button>
                   </div>
+                  <p className="help">Config is keyed to the sponsor's domain.</p>
+                </div>
 
+                <form onSubmit={handleSave}>
                   <div className="field">
                     <label className="label">Sponsor Name *</label>
                     <div className="control">
@@ -276,8 +351,11 @@ const SponsorAdmin = () => {
 
                   <div className="field mt-4">
                     <div className="control">
-                      <button className={`button is-dark is-fullwidth ${submitting ? "is-loading" : ""}`}
-                        type="submit" disabled={submitting}>
+                      <button
+                        className={`button is-dark is-fullwidth ${submitting ? "is-loading" : ""}`}
+                        type="submit"
+                        disabled={submitting || !form.sponsorId}
+                      >
                         Save Sponsor Profile
                       </button>
                     </div>
