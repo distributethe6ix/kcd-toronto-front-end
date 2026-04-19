@@ -30,11 +30,7 @@ const SharedGraphics = ({ data }) => {
               </div>
               <div className="card-content has-text-centered">
                 <p className="has-text-weight-semibold mb-3" style={{ fontSize: "0.9rem" }}>{graphic.name}</p>
-                <a
-                  href={graphic.url}
-                  download
-                  className="button is-primary is-small is-fullwidth"
-                >
+                <a href={graphic.url} download className="button is-primary is-small is-fullwidth">
                   Download
                 </a>
               </div>
