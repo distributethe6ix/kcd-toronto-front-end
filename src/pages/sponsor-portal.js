@@ -1,12 +1,11 @@
 import * as React from "react"
+import { Link } from "gatsby"
 import Layout from "../components/layout"
 import SharedVenueInfo from "../components/sponsor-portal/SharedVenueInfo"
 import SharedGraphics from "../components/sponsor-portal/SharedGraphics"
 import SponsorSpecificContent from "../components/sponsor-portal/SponsorSpecificContent"
 import sponsorData from "../data/sponsors.json"
 
-// Match a logged-in user to a sponsor entry by their email domain.
-// e.g. alice@rbc.com → RBC entry. Any employee of a sponsor company can log in.
 const matchSponsorByDomain = (email) => {
   if (!email) return null
   const domain = email.split("@")[1]?.toLowerCase()
@@ -19,6 +18,12 @@ const matchSponsorByDomain = (email) => {
 const SponsorPortal = () => {
   const [user, setUser] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
+
+  // Admin preview mode: ?admin_preview=rbc shows that sponsor's portal view
+  const adminPreviewId =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("admin_preview")
+      : null
 
   React.useEffect(() => {
     const netlifyIdentity = require("netlify-identity-widget")
@@ -48,14 +53,32 @@ const SponsorPortal = () => {
     netlifyIdentity.logout()
   }
 
-  // Domain match gives us name + tier (non-sensitive, from repo).
-  // app_metadata gives us discount codes, ticket codes, etc. (sensitive, set via admin page).
+  const isAdmin = user?.app_metadata?.roles?.includes("admin")
+
+  // Admin preview: look up the sponsor by ID from sponsors.json
+  const previewSponsor = adminPreviewId
+    ? sponsorData.sponsors.find((s) => s.id === adminPreviewId)
+    : null
+
+  // Normal flow: match by email domain + merge with app_metadata
   const domainSponsor = matchSponsorByDomain(user?.email)
   const appMeta = user?.app_metadata || {}
 
-  // Merge: app_metadata values take precedence so the admin can override anything.
-  const sponsor = domainSponsor
-    ? {
+  const sponsor = (() => {
+    if (isAdmin && previewSponsor) {
+      // Admin preview mode: show sponsor's domain-matched data (app_metadata pending until set)
+      return {
+        name: previewSponsor.name,
+        tier: previewSponsor.tier,
+        discount_code: null,
+        discount_percent: null,
+        ticket_codes: null,
+        logo_url: null,
+        agreement_pdf: null,
+      }
+    }
+    if (domainSponsor) {
+      return {
         name: appMeta.sponsor_name || domainSponsor.name,
         tier: appMeta.sponsor_tier || domainSponsor.tier,
         discount_code: appMeta.discount_code,
@@ -64,7 +87,9 @@ const SponsorPortal = () => {
         logo_url: appMeta.logo_url,
         agreement_pdf: appMeta.agreement_pdf,
       }
-    : null
+    }
+    return null
+  })()
 
   if (loading) {
     return (
@@ -108,6 +133,21 @@ const SponsorPortal = () => {
 
   return (
     <Layout>
+      {/* Admin preview banner */}
+      {isAdmin && previewSponsor && (
+        <div className="notification is-dark mb-0" style={{ borderRadius: 0, margin: 0 }}>
+          <div className="container is-flex is-align-items-center is-justify-content-space-between">
+            <span>
+              <strong>Admin Preview</strong> — viewing as <strong>{previewSponsor.name}</strong>.
+              Sensitive data (discount codes, ticket codes) will show as pending until set via the admin page.
+            </span>
+            <Link to="/sponsor-admin" className="button is-light is-small ml-4">
+              ← Back to Admin
+            </Link>
+          </div>
+        </div>
+      )}
+
       <section className="hero is-primary">
         <div className="hero-body">
           <div className="container">
@@ -121,10 +161,12 @@ const SponsorPortal = () => {
 
       <section className="section">
         <div className="container">
-          <div className="has-text-right mb-4">
-            <span className="mr-3 has-text-grey">{user.email}</span>
-            <button className="button is-light" onClick={handleLogout}>Log Out</button>
-          </div>
+          {!(isAdmin && previewSponsor) && (
+            <div className="has-text-right mb-4">
+              <span className="mr-3 has-text-grey">{user.email}</span>
+              <button className="button is-light" onClick={handleLogout}>Log Out</button>
+            </div>
+          )}
 
           <SharedVenueInfo data={sponsorData.shared} />
           <SharedGraphics data={sponsorData.shared} />

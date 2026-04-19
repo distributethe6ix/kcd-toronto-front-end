@@ -1,7 +1,17 @@
 import * as React from "react"
+import { Link } from "gatsby"
 import Layout from "../components/layout"
+import sponsorData from "../data/sponsors.json"
 
 const TIERS = ["diamond", "platinum", "gold", "silver", "community"]
+
+const TIER_COLORS = {
+  diamond: "is-info",
+  platinum: "is-link",
+  gold: "is-warning",
+  silver: "is-light",
+  community: "is-light",
+}
 
 const defaultForm = {
   userEmail: "",
@@ -18,7 +28,7 @@ const SponsorAdmin = () => {
   const [user, setUser] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
   const [form, setForm] = React.useState(defaultForm)
-  const [status, setStatus] = React.useState(null) // { type: "success"|"error", message }
+  const [saveStatus, setSaveStatus] = React.useState(null)
   const [submitting, setSubmitting] = React.useState(false)
 
   React.useEffect(() => {
@@ -49,6 +59,11 @@ const SponsorAdmin = () => {
     netlifyIdentity.logout()
   }
 
+  const getToken = () => {
+    const netlifyIdentity = require("netlify-identity-widget")
+    return netlifyIdentity.currentUser()?.token?.access_token
+  }
+
   const isAdmin = user?.app_metadata?.roles?.includes("admin")
 
   const handleChange = (e) => {
@@ -56,13 +71,10 @@ const SponsorAdmin = () => {
     setForm((f) => ({ ...f, [name]: value }))
   }
 
-  const handleSubmit = async (e) => {
+  const handleSave = async (e) => {
     e.preventDefault()
     setSubmitting(true)
-    setStatus(null)
-
-    const netlifyIdentity = require("netlify-identity-widget")
-    const token = netlifyIdentity.currentUser()?.token?.access_token
+    setSaveStatus(null)
 
     const ticketCodes = form.ticket_codes
       .split("\n")
@@ -72,10 +84,7 @@ const SponsorAdmin = () => {
     try {
       const res = await fetch("/.netlify/functions/set-sponsor-metadata", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify({
           userEmail: form.userEmail,
           sponsorData: {
@@ -89,16 +98,15 @@ const SponsorAdmin = () => {
           },
         }),
       })
-
       const data = await res.json()
       if (res.ok) {
-        setStatus({ type: "success", message: `Sponsor profile saved for ${form.userEmail}.` })
+        setSaveStatus({ type: "success", message: `Saved for ${form.userEmail}.` })
         setForm(defaultForm)
       } else {
-        setStatus({ type: "error", message: data.error || "Something went wrong." })
+        setSaveStatus({ type: "error", message: data.error || "Something went wrong." })
       }
-    } catch (err) {
-      setStatus({ type: "error", message: "Network error. Please try again." })
+    } catch {
+      setSaveStatus({ type: "error", message: "Network error. Please try again." })
     } finally {
       setSubmitting(false)
     }
@@ -161,170 +169,168 @@ const SponsorAdmin = () => {
         <div className="hero-body">
           <div className="container">
             <h1 className="title is-1">Sponsor Admin</h1>
-            <p className="subtitle is-4">Set sponsor portal data for a user</p>
+            <p className="subtitle is-4">Manage sponsor portal access</p>
           </div>
         </div>
       </section>
 
       <section className="section">
         <div className="container">
-          <div className="has-text-right mb-4">
+          <div className="has-text-right mb-5">
             <span className="mr-3 has-text-grey">{user.email}</span>
             <button className="button is-light" onClick={handleLogout}>Log Out</button>
           </div>
 
-          {status && (
-            <div className={`notification ${status.type === "success" ? "is-success" : "is-danger"} mb-5`}>
-              {status.message}
+          <div className="columns is-variable is-6">
+            {/* Left: Set sponsor data */}
+            <div className="column is-5">
+              <div className="box">
+                <h2 className="title is-4 mb-2">Set Sponsor Profile</h2>
+                <p className="has-text-grey is-size-7 mb-4">
+                  The sponsor must already have a Netlify Identity account. Enter their email and fill in their portal details.
+                </p>
+
+                {saveStatus && (
+                  <div className={`notification is-light ${saveStatus.type === "success" ? "is-success" : "is-danger"} mb-4`}>
+                    {saveStatus.message}
+                  </div>
+                )}
+
+                <form onSubmit={handleSave}>
+                  <div className="field">
+                    <label className="label">Login Email *</label>
+                    <div className="control">
+                      <input className="input" type="email" name="userEmail" value={form.userEmail}
+                        onChange={handleChange} placeholder="jane@acmecorp.com" required />
+                    </div>
+                    <p className="help">Must match their Netlify Identity account exactly.</p>
+                  </div>
+
+                  <div className="field">
+                    <label className="label">Sponsor Name *</label>
+                    <div className="control">
+                      <input className="input" type="text" name="sponsor_name" value={form.sponsor_name}
+                        onChange={handleChange} placeholder="Acme Corp" required />
+                    </div>
+                  </div>
+
+                  <div className="field">
+                    <label className="label">Tier *</label>
+                    <div className="control">
+                      <div className="select is-fullwidth">
+                        <select name="sponsor_tier" value={form.sponsor_tier} onChange={handleChange}>
+                          {TIERS.map((t) => (
+                            <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="columns">
+                    <div className="column">
+                      <div className="field">
+                        <label className="label">Discount Code</label>
+                        <div className="control">
+                          <input className="input" type="text" name="discount_code" value={form.discount_code}
+                            onChange={handleChange} placeholder="ACME2026" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="column is-narrow">
+                      <div className="field">
+                        <label className="label">Discount %</label>
+                        <div className="control">
+                          <input className="input" type="number" name="discount_percent" value={form.discount_percent}
+                            onChange={handleChange} placeholder="15" min="0" max="100" style={{ width: 90 }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="field">
+                    <label className="label">Ticket Codes</label>
+                    <div className="control">
+                      <textarea className="textarea" name="ticket_codes" value={form.ticket_codes}
+                        onChange={handleChange} placeholder={"ACME-TKT-001\nACME-TKT-002"} rows={3} />
+                    </div>
+                    <p className="help">One code per line.</p>
+                  </div>
+
+                  <div className="field">
+                    <label className="label">Logo URL</label>
+                    <div className="control">
+                      <input className="input" type="text" name="logo_url" value={form.logo_url}
+                        onChange={handleChange} placeholder="/sponsors/acme-logo.png" />
+                    </div>
+                    <p className="help">Path in <code>/static/sponsors/</code>.</p>
+                  </div>
+
+                  <div className="field">
+                    <label className="label">Agreement PDF URL</label>
+                    <div className="control">
+                      <input className="input" type="text" name="agreement_pdf" value={form.agreement_pdf}
+                        onChange={handleChange} placeholder="/sponsor-portal/acme/agreement.pdf" />
+                    </div>
+                  </div>
+
+                  <div className="field mt-4">
+                    <div className="control">
+                      <button className={`button is-dark is-fullwidth ${submitting ? "is-loading" : ""}`}
+                        type="submit" disabled={submitting}>
+                        Save Sponsor Profile
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-          )}
 
-          <div className="box" style={{ maxWidth: 680 }}>
-            <h2 className="title is-4 mb-5">Set Sponsor Profile</h2>
-            <p className="mb-5 has-text-grey">
-              The sponsor must already have a Netlify Identity account (invited via the Netlify dashboard).
-              Enter their email below and fill in their portal details.
-            </p>
+            {/* Right: Sponsor list */}
+            <div className="column is-7">
+              <div className="box">
+                <h2 className="title is-4 mb-2">Sponsors</h2>
+                <p className="has-text-grey is-size-7 mb-4">
+                  Click a sponsor to preview their portal as an admin.
+                </p>
 
-            <form onSubmit={handleSubmit}>
-              <div className="field">
-                <label className="label">Sponsor's Login Email *</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="email"
-                    name="userEmail"
-                    value={form.userEmail}
-                    onChange={handleChange}
-                    placeholder="jane@acmecorp.com"
-                    required
-                  />
-                </div>
-                <p className="help">Must match their Netlify Identity account exactly.</p>
-              </div>
-
-              <div className="field">
-                <label className="label">Sponsor Name *</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="text"
-                    name="sponsor_name"
-                    value={form.sponsor_name}
-                    onChange={handleChange}
-                    placeholder="Acme Corp"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="field">
-                <label className="label">Tier *</label>
-                <div className="control">
-                  <div className="select is-fullwidth">
-                    <select name="sponsor_tier" value={form.sponsor_tier} onChange={handleChange}>
-                      {TIERS.map((t) => (
-                        <option key={t} value={t}>
-                          {t.charAt(0).toUpperCase() + t.slice(1)}
-                        </option>
+                <div className="table-container">
+                  <table className="table is-fullwidth is-hoverable">
+                    <thead>
+                      <tr>
+                        <th>Sponsor</th>
+                        <th>Tier</th>
+                        <th>Domain</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sponsorData.sponsors.map((s) => (
+                        <tr key={s.id}>
+                          <td className="has-text-weight-semibold">{s.name}</td>
+                          <td>
+                            <span className={`tag ${TIER_COLORS[s.tier] || "is-light"}`}>
+                              {s.tier.charAt(0).toUpperCase() + s.tier.slice(1)}
+                            </span>
+                          </td>
+                          <td className="has-text-grey is-size-7">@{s.domain}</td>
+                          <td>
+                            <Link
+                              to={`/sponsor-portal?admin_preview=${s.id}`}
+                              className="button is-small is-dark is-outlined"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              View Portal
+                            </Link>
+                          </td>
+                        </tr>
                       ))}
-                    </select>
-                  </div>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-
-              <div className="columns">
-                <div className="column">
-                  <div className="field">
-                    <label className="label">Discount Code</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="text"
-                        name="discount_code"
-                        value={form.discount_code}
-                        onChange={handleChange}
-                        placeholder="ACME2026"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="column is-narrow">
-                  <div className="field">
-                    <label className="label">Discount %</label>
-                    <div className="control">
-                      <input
-                        className="input"
-                        type="number"
-                        name="discount_percent"
-                        value={form.discount_percent}
-                        onChange={handleChange}
-                        placeholder="15"
-                        min="0"
-                        max="100"
-                        style={{ width: 100 }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="field">
-                <label className="label">Complimentary Ticket Codes</label>
-                <div className="control">
-                  <textarea
-                    className="textarea"
-                    name="ticket_codes"
-                    value={form.ticket_codes}
-                    onChange={handleChange}
-                    placeholder={"ACME-TKT-001\nACME-TKT-002\nACME-TKT-003"}
-                    rows={4}
-                  />
-                </div>
-                <p className="help">One code per line.</p>
-              </div>
-
-              <div className="field">
-                <label className="label">Logo URL</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="text"
-                    name="logo_url"
-                    value={form.logo_url}
-                    onChange={handleChange}
-                    placeholder="/sponsors/acme-logo.png"
-                  />
-                </div>
-                <p className="help">Path to their logo in the <code>/static/sponsors/</code> folder.</p>
-              </div>
-
-              <div className="field">
-                <label className="label">Agreement PDF URL</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="text"
-                    name="agreement_pdf"
-                    value={form.agreement_pdf}
-                    onChange={handleChange}
-                    placeholder="/sponsor-portal/acme/agreement.pdf"
-                  />
-                </div>
-              </div>
-
-              <div className="field mt-5">
-                <div className="control">
-                  <button
-                    className={`button is-dark is-medium ${submitting ? "is-loading" : ""}`}
-                    type="submit"
-                    disabled={submitting}
-                  >
-                    Save Sponsor Profile
-                  </button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </section>
