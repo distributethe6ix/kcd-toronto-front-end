@@ -5,6 +5,17 @@ import SharedGraphics from "../components/sponsor-portal/SharedGraphics"
 import SponsorSpecificContent from "../components/sponsor-portal/SponsorSpecificContent"
 import sponsorData from "../data/sponsors.json"
 
+// Match a logged-in user to a sponsor entry by their email domain.
+// e.g. alice@rbc.com → RBC entry. Any employee of a sponsor company can log in.
+const matchSponsorByDomain = (email) => {
+  if (!email) return null
+  const domain = email.split("@")[1]?.toLowerCase()
+  if (!domain) return null
+  return sponsorData.sponsors.find(
+    (s) => s.domain && s.domain.toLowerCase() === domain
+  ) || null
+}
+
 const SponsorPortal = () => {
   const [user, setUser] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
@@ -14,21 +25,13 @@ const SponsorPortal = () => {
     netlifyIdentity.init()
 
     const currentUser = netlifyIdentity.currentUser()
-    if (currentUser) {
-      setUser(currentUser)
-    }
+    if (currentUser) setUser(currentUser)
     setLoading(false)
 
-    const onLogin = (loggedInUser) => {
-      setUser(loggedInUser)
-      netlifyIdentity.close()
-    }
-
+    const onLogin = (u) => { setUser(u); netlifyIdentity.close() }
     const onLogout = () => setUser(null)
-
     netlifyIdentity.on("login", onLogin)
     netlifyIdentity.on("logout", onLogout)
-
     return () => {
       netlifyIdentity.off("login", onLogin)
       netlifyIdentity.off("logout", onLogout)
@@ -45,11 +48,22 @@ const SponsorPortal = () => {
     netlifyIdentity.logout()
   }
 
-  // Match logged-in user to sponsor by email
-  const sponsor = user
-    ? sponsorData.sponsors.find(
-        (s) => s.email && s.email.toLowerCase() === user.email.toLowerCase()
-      )
+  // Domain match gives us name + tier (non-sensitive, from repo).
+  // app_metadata gives us discount codes, ticket codes, etc. (sensitive, set via admin page).
+  const domainSponsor = matchSponsorByDomain(user?.email)
+  const appMeta = user?.app_metadata || {}
+
+  // Merge: app_metadata values take precedence so the admin can override anything.
+  const sponsor = domainSponsor
+    ? {
+        name: appMeta.sponsor_name || domainSponsor.name,
+        tier: appMeta.sponsor_tier || domainSponsor.tier,
+        discount_code: appMeta.discount_code,
+        discount_percent: appMeta.discount_percent,
+        ticket_codes: appMeta.ticket_codes,
+        logo_url: appMeta.logo_url,
+        agreement_pdf: appMeta.agreement_pdf,
+      }
     : null
 
   if (loading) {
@@ -109,9 +123,7 @@ const SponsorPortal = () => {
         <div className="container">
           <div className="has-text-right mb-4">
             <span className="mr-3 has-text-grey">{user.email}</span>
-            <button className="button is-light" onClick={handleLogout}>
-              Log Out
-            </button>
+            <button className="button is-light" onClick={handleLogout}>Log Out</button>
           </div>
 
           <SharedVenueInfo data={sponsorData.shared} />
@@ -122,7 +134,7 @@ const SponsorPortal = () => {
           ) : (
             <div className="notification is-warning">
               <p>
-                <strong>Your email ({user.email}) is not linked to a sponsor account.</strong>
+                <strong>Your email domain is not linked to a sponsor account.</strong>
               </p>
               <p>
                 Please contact{" "}
