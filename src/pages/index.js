@@ -319,8 +319,8 @@ const IndexPage = () => {
             <div className="columns is-centered">
               <div className="column is-4 has-text-centered">
                 <a href="https://www.rbc.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/RBC-logo.png" alt="RBC - Diamond/Committee Partner Sponsor" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/RBC-logo.png" alt="RBC - Diamond/Committee Partner Sponsor" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
@@ -333,8 +333,8 @@ const IndexPage = () => {
             <div className="columns is-centered">
               <div className="column is-4 has-text-centered">
                 <a href="https://clickhouse.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/Logo_Black_300dpi_FNL.png" alt="ClickHouse - Platinum Sponsor" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/Logo_Black_300dpi_FNL.png" alt="ClickHouse - Platinum Sponsor" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
@@ -347,15 +347,15 @@ const IndexPage = () => {
             <div className="columns is-centered">
               <div className="column is-4 has-text-centered">
                 <a href="https://www.tigera.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/Tigera-logo-2026-black-text-vertical.png" alt="Tigera - Gold Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/Tigera-logo-2026-black-text-vertical.png" alt="Tigera - Gold Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
               <div className="column is-4 has-text-centered">
                 <a href="https://goteleport.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/teleport-logo.svg" alt="Teleport - Gold Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/teleport-logo.svg" alt="Teleport - Gold Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
@@ -368,43 +368,43 @@ const IndexPage = () => {
             <div className="columns is-multiline is-centered">
               <div className="column is-4 has-text-centered">
                 <a href="https://tremolo.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/ts-logo-300w.png" alt="Tremolo Security - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/ts-logo-300w.png" alt="Tremolo Security - Silver Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
               <div className="column is-4 has-text-centered">
                 <a href="https://depot.dev" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/depot-logo-horizontal-on-light@3x.png" alt="Depot - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/depot-logo-horizontal-on-light@3x.png" alt="Depot - Silver Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
               <div className="column is-4 has-text-centered">
                 <a href="https://komodor.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/komodor-logo-2024.svg" alt="Komodor - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/komodor-logo-2024.svg" alt="Komodor - Silver Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
               <div className="column is-4 has-text-centered">
                 <a href="https://objectfirst.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/Object First Logo - Primary.png" alt="Object First - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/Object First Logo - Primary.png" alt="Object First - Silver Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
               <div className="column is-4 has-text-centered">
                 <a href="https://solo.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/solo.png" alt="Solo.io - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/solo.png" alt="Solo.io - Silver Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
               <div className="column is-4 has-text-centered">
                 <a href="https://edera.dev" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/690f9f5837bd1626bd388947_Edera Open Graph.png" alt="Edera - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/690f9f5837bd1626bd388947_Edera Open Graph.png" alt="Edera - Silver Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
@@ -417,36 +417,36 @@ const IndexPage = () => {
             <div className="columns is-multiline is-centered">
               <div className="column is-4 has-text-centered">
                 <a href="https://www.cncf.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/cncf-color.png" alt="CNCF - Community Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/cncf-color.png" alt="CNCF - Community Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
               <div className="column is-4 has-text-centered">
                 <a href="https://exampro.co" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/exampro.png" alt="ExamPro - Community Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/exampro.png" alt="ExamPro - Community Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
               <div className="column is-4 has-text-centered">
                 <a href="https://sadservers.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/sadservers.png" alt="SadServers - Community Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/sadservers.png" alt="SadServers - Community Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
               <div className="column is-4 has-text-centered">
                 <a href="https://devopsto.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/devopsto-logo.png" alt="DevOps Toronto - Community Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/devopsto-logo.png" alt="DevOps Toronto - Community Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
               <div className="column is-4 has-text-centered">
                 <a href="https://devopsdays.org/events/2026-raleigh/welcome/" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
-                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/devopsdays-raleigh-logo.png" alt="DevOpsDays Raleigh - Community Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/devopsdays-raleigh-logo.png" alt="DevOpsDays Raleigh - Community Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>

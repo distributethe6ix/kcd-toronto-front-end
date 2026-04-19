@@ -81,8 +81,8 @@ const SponsorsPage = () => {
               </div>
               <div className="column is-4">
                 <a href="https://www.rbc.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #B9F2FF", padding: "2rem" }}>
-                    <img src="/sponsors/RBC-logo.png" alt="RBC - Diamond/Committee Partner Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #B9F2FF", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/RBC-logo.png" alt="RBC - Diamond/Committee Partner Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
@@ -113,14 +113,10 @@ const SponsorsPage = () => {
               </div>
               <div className="column is-4">
                 <a href="https://clickhouse.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #E5E4E2", padding: "2rem" }}>
-                    <img src="/sponsors/Logo_Black_300dpi_FNL.png" alt="ClickHouse - Platinum Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #E5E4E2", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/Logo_Black_300dpi_FNL.png" alt="ClickHouse - Platinum Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
-                <div className="box has-text-centered has-background-light mt-3" style={{ border: "2px dashed #ccc", padding: "3rem" }}>
-                  <p className="has-text-grey is-size-5">Your Logo Here</p>
-                  <p className="has-text-grey is-size-7 mt-2">(5 spots available)</p>
-                </div>
               </div>
             </div>
           </div>
@@ -147,13 +143,13 @@ const SponsorsPage = () => {
               </div>
               <div className="column is-4">
                 <a href="https://www.tigera.io" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #FFD700", padding: "2rem" }}>
-                    <img src="/sponsors/Tigera-logo-2026-black-text-vertical.png" alt="Tigera - Gold Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #FFD700", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/Tigera-logo-2026-black-text-vertical.png" alt="Tigera - Gold Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
                 <a href="https://goteleport.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #FFD700", padding: "2rem" }}>
-                    <img src="/sponsors/teleport-logo.svg" alt="Teleport - Gold Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #FFD700", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/teleport-logo.svg" alt="Teleport - Gold Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
@@ -181,33 +177,33 @@ const SponsorsPage = () => {
               </div>
               <div className="column is-4">
                 <a href="https://tremolo.io" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
-                    <img src="/sponsors/ts-logo-300w.png" alt="Tremolo Security - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/ts-logo-300w.png" alt="Tremolo Security - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
                 <a href="https://depot.dev" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
-                    <img src="/sponsors/depot-logo-horizontal-on-light@3x.png" alt="Depot - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/depot-logo-horizontal-on-light@3x.png" alt="Depot - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
                 <a href="https://komodor.io" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
-                    <img src="/sponsors/komodor-logo-2024.svg" alt="Komodor - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/komodor-logo-2024.svg" alt="Komodor - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
                 <a href="https://objectfirst.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
-                    <img src="/sponsors/Object First Logo - Primary.png" alt="Object First - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/Object First Logo - Primary.png" alt="Object First - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
                 <a href="https://solo.io" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
-                    <img src="/sponsors/solo.png" alt="Solo.io - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/solo.png" alt="Solo.io - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
                 <a href="https://edera.dev" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
-                    <img src="/sponsors/690f9f5837bd1626bd388947_Edera Open Graph.png" alt="Edera - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/690f9f5837bd1626bd388947_Edera Open Graph.png" alt="Edera - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
@@ -232,28 +228,28 @@ const SponsorsPage = () => {
               </div>
               <div className="column is-4">
                 <a href="https://www.cncf.io" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #E91E63", padding: "2rem" }}>
-                    <img src="/sponsors/cncf-color.png" alt="CNCF - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #E91E63", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/cncf-color.png" alt="CNCF - Community Partner" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
                 <a href="https://exampro.co" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "2rem" }}>
-                    <img src="/sponsors/exampro.png" alt="ExamPro - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/exampro.png" alt="ExamPro - Community Partner" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
                 <a href="https://sadservers.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "2rem" }}>
-                    <img src="/sponsors/sadservers.png" alt="SadServers - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/sadservers.png" alt="SadServers - Community Partner" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
                 <a href="https://devopsto.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "2rem" }}>
-                    <img src="/sponsors/devopsto-logo.png" alt="DevOps Toronto - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/devopsto-logo.png" alt="DevOps Toronto - Community Partner" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
                 <a href="https://devopsdays.org/events/2026-raleigh/welcome/" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "2rem" }}>
-                    <img src="/sponsors/devopsdays-raleigh-logo.png" alt="DevOpsDays Raleigh - Community Partner" style={{ maxWidth: '100%', height: 'auto' }} />
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/devopsdays-raleigh-logo.png" alt="DevOpsDays Raleigh - Community Partner" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>
