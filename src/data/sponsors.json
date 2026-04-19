@@ -15,7 +15,10 @@
   "shared": {
     "venueInfo": {
       "name": "The Quay - Toronto Region Board of Trade",
-      "address": "100 Queens Quay E, Toronto, ON",
+      "address": "100 Queens Quay E, 3rd Floor",
+      "city": "Toronto, ON, M5E 1V3",
+      "mapsUrl": "https://maps.google.com/?q=100+Queens+Quay+E+Toronto+ON+M5E+1V3",
+      "mapsEmbed": "https://maps.google.com/maps?q=100+Queens+Quay+E+Toronto+ON+M5E+1V3&output=embed",
       "loadInDate": "TBD",
       "loadInTime": "TBD",
       "loadOutDate": "TBD",
@@ -23,12 +26,12 @@
       "contacts": [
         {
           "role": "Venue Coordinator",
-          "name": "TBD",
-          "email": "TBD"
+          "name": "Emily Bazzano",
+          "email": "emily.bazzano@oliverbonacini.com"
         },
         {
           "role": "Sponsor Liaison",
-          "name": "KCD Toronto Team",
+          "name": "Marino Wijay",
           "email": "toronto-org@kubernetescommunitydays.org"
         }
       ]
@@ -38,7 +41,7 @@
       { "name": "KCD Toronto Logo (Horizontal, Transparent)", "url": "/toronto-cncf-horizontal-transparent.png" },
       { "name": "KCD Toronto Logo (Stacked, Transparent)",    "url": "/toronto-cncf-stacked-transparent.png" },
       { "name": "KCD Toronto Logo",                           "url": "/toronto-cncf.png" },
-      { "name": "CNCF Logo",                                  "url": "/cncf-color.png" }
+      { "name": "Sponsor Promo Image",                        "url": "/sponsor-promo-image.png" }
     ]
   }
 }

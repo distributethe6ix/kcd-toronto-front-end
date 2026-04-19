@@ -3,23 +3,29 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 import SharedVenueInfo from "../components/sponsor-portal/SharedVenueInfo"
 import SharedGraphics from "../components/sponsor-portal/SharedGraphics"
-import SponsorSpecificContent from "../components/sponsor-portal/SponsorSpecificContent"
+import {
+  SponsorHeader,
+  IncludedTicketCodes,
+  AdditionalTicketsDiscountCode,
+  SponsorAgreement,
+} from "../components/sponsor-portal/SponsorSpecificContent"
 import sponsorData from "../data/sponsors.json"
 
 const matchSponsorByDomain = (email) => {
   if (!email) return null
   const domain = email.split("@")[1]?.toLowerCase()
   if (!domain) return null
-  return sponsorData.sponsors.find(
-    (s) => s.domain && s.domain.toLowerCase() === domain
-  ) || null
+  return (
+    sponsorData.sponsors.find(
+      (s) => s.domain && s.domain.toLowerCase() === domain
+    ) || null
+  )
 }
 
 const SponsorPortal = () => {
   const [user, setUser] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
 
-  // Admin preview mode: ?admin_preview=rbc shows that sponsor's portal view
   const adminPreviewId =
     typeof window !== "undefined"
       ? new URLSearchParams(window.location.search).get("admin_preview")
@@ -43,10 +49,13 @@ const SponsorPortal = () => {
     }
   }, [])
 
-  const handleLogin = () => {
-    const netlifyIdentity = require("netlify-identity-widget")
-    netlifyIdentity.open("login")
-  }
+  // Auto-open login modal as soon as the page loads for unauthenticated visitors
+  React.useEffect(() => {
+    if (!loading && !user) {
+      const netlifyIdentity = require("netlify-identity-widget")
+      netlifyIdentity.open("login")
+    }
+  }, [loading, user])
 
   const handleLogout = () => {
     const netlifyIdentity = require("netlify-identity-widget")
@@ -54,19 +63,15 @@ const SponsorPortal = () => {
   }
 
   const isAdmin = user?.app_metadata?.roles?.includes("admin")
-
-  // Admin preview: look up the sponsor by ID from sponsors.json
   const previewSponsor = adminPreviewId
     ? sponsorData.sponsors.find((s) => s.id === adminPreviewId)
     : null
 
-  // Normal flow: match by email domain + merge with app_metadata
   const domainSponsor = matchSponsorByDomain(user?.email)
   const appMeta = user?.app_metadata || {}
 
   const sponsor = (() => {
     if (isAdmin && previewSponsor) {
-      // Admin preview mode: show sponsor's domain-matched data (app_metadata pending until set)
       return {
         name: previewSponsor.name,
         tier: previewSponsor.tier,
@@ -117,13 +122,7 @@ const SponsorPortal = () => {
         <section className="section">
           <div className="container">
             <div className="box has-text-centered" style={{ maxWidth: 500, margin: "0 auto" }}>
-              <h2 className="title is-4">Sponsor Login</h2>
-              <p className="mb-4">
-                Log in with your sponsor email to access venue details, load-in information, contacts, and downloadable materials.
-              </p>
-              <button className="button is-primary is-large" onClick={handleLogin}>
-                Log In
-              </button>
+              <p className="is-size-5">Opening login…</p>
             </div>
           </div>
         </section>
@@ -135,11 +134,15 @@ const SponsorPortal = () => {
     <Layout>
       {/* Admin preview banner */}
       {isAdmin && previewSponsor && (
-        <div className="notification is-dark mb-0" style={{ borderRadius: 0, margin: 0 }}>
+        <div
+          className="notification is-dark mb-0"
+          style={{ borderRadius: 0, margin: 0 }}
+        >
           <div className="container is-flex is-align-items-center is-justify-content-space-between">
             <span>
-              <strong>Admin Preview</strong> — viewing as <strong>{previewSponsor.name}</strong>.
-              Sensitive data (discount codes, ticket codes) will show as pending until set via the admin page.
+              <strong>Admin Preview</strong> — viewing as{" "}
+              <strong>{previewSponsor.name}</strong>. Sensitive data will show
+              as pending until set via the admin page.
             </span>
             <Link to="/sponsor-admin" className="button is-light is-small ml-4">
               ← Back to Admin
@@ -164,28 +167,51 @@ const SponsorPortal = () => {
           {!(isAdmin && previewSponsor) && (
             <div className="has-text-right mb-4">
               <span className="mr-3 has-text-grey">{user.email}</span>
-              <button className="button is-light" onClick={handleLogout}>Log Out</button>
+              <button className="button is-light" onClick={handleLogout}>
+                Log Out
+              </button>
             </div>
           )}
 
-          <SharedVenueInfo data={sponsorData.shared} />
-          <SharedGraphics data={sponsorData.shared} />
-
           {sponsor ? (
-            <SponsorSpecificContent sponsor={sponsor} />
+            <>
+              {/* 1. Sponsor name / header */}
+              <SponsorHeader sponsor={sponsor} />
+
+              {/* 2. Venue information */}
+              <SharedVenueInfo data={sponsorData.shared} />
+
+              {/* 3. Included ticket codes */}
+              <IncludedTicketCodes sponsor={sponsor} />
+
+              {/* 4. Additional tickets discount code */}
+              <AdditionalTicketsDiscountCode sponsor={sponsor} />
+
+              {/* 5. Downloadable logos + promo image */}
+              <SharedGraphics data={sponsorData.shared} />
+
+              {/* 6. Signed agreement */}
+              <SponsorAgreement sponsor={sponsor} />
+            </>
           ) : (
-            <div className="notification is-warning">
-              <p>
-                <strong>Your email domain is not linked to a sponsor account.</strong>
-              </p>
-              <p>
-                Please contact{" "}
-                <a href="mailto:toronto-org@kubernetescommunitydays.org">
-                  toronto-org@kubernetescommunitydays.org
-                </a>{" "}
-                if you believe this is an error.
-              </p>
-            </div>
+            <>
+              <SharedVenueInfo data={sponsorData.shared} />
+              <SharedGraphics data={sponsorData.shared} />
+              <div className="notification is-warning">
+                <p>
+                  <strong>
+                    Your email domain is not linked to a sponsor account.
+                  </strong>
+                </p>
+                <p>
+                  Please contact{" "}
+                  <a href="mailto:toronto-org@kubernetescommunitydays.org">
+                    toronto-org@kubernetescommunitydays.org
+                  </a>{" "}
+                  if you believe this is an error.
+                </p>
+              </div>
+            </>
           )}
         </div>
       </section>

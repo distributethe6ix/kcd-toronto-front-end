@@ -230,7 +230,7 @@ const SponsorAdmin = () => {
                   <div className="columns">
                     <div className="column">
                       <div className="field">
-                        <label className="label">Discount Code</label>
+                        <label className="label">Additional Tickets Discount Code</label>
                         <div className="control">
                           <input className="input" type="text" name="discount_code" value={form.discount_code}
                             onChange={handleChange} placeholder="ACME2026" />
@@ -249,7 +249,7 @@ const SponsorAdmin = () => {
                   </div>
 
                   <div className="field">
-                    <label className="label">Ticket Codes</label>
+                    <label className="label">Included Ticket Codes</label>
                     <div className="control">
                       <textarea className="textarea" name="ticket_codes" value={form.ticket_codes}
                         onChange={handleChange} placeholder={"ACME-TKT-001\nACME-TKT-002"} rows={3} />
