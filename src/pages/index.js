@@ -327,6 +327,20 @@ const IndexPage = () => {
             </div>
           </div>
 
+          {/* Platinum Sponsors */}
+          <div className="mb-6">
+            <h3 className="title is-4 has-text-centered mb-4">Platinum Sponsors</h3>
+            <div className="columns is-centered">
+              <div className="column is-4 has-text-centered">
+                <a href="https://clickhouse.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/Logo_Black_300dpi_FNL.png" alt="ClickHouse - Platinum Sponsor" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* Gold Partners */}
           <div className="mb-6">
             <h3 className="title is-4 has-text-centered mb-4">Gold Partners</h3>
@@ -384,6 +398,13 @@ const IndexPage = () => {
                 <a href="https://solo.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
                   <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <img src="/sponsors/solo.png" alt="Solo.io - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://edera.dev" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', minHeight: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/690f9f5837bd1626bd388947_Edera Open Graph.png" alt="Edera - Silver Partner" style={{ maxWidth: '200px', width: '100%', height: 'auto' }} />
                   </div>
                 </a>
               </div>

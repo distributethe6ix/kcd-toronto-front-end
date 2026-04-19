@@ -96,7 +96,7 @@ const SponsorsPage = () => {
                 <p className="mb-3">
                   Platinum sponsors have the biggest impact on the conference. They represent companies for which Cloud Native approach is central in the way they implement their activity.
                 </p>
-                <p className="mb-3"><strong>6 available spots</strong></p>
+                <p className="mb-3"><strong>5 available spots remaining</strong></p>
                 <div className="content">
                   <p className="has-text-weight-semibold">What's Included:</p>
                   <ul>
@@ -112,9 +112,14 @@ const SponsorsPage = () => {
                 </div>
               </div>
               <div className="column is-4">
-                <div className="box has-text-centered has-background-light" style={{ border: "2px dashed #ccc", padding: "3rem" }}>
+                <a href="https://clickhouse.com" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #E5E4E2", padding: "2rem" }}>
+                    <img src="/sponsors/Logo_Black_300dpi_FNL.png" alt="ClickHouse - Platinum Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+                <div className="box has-text-centered has-background-light mt-3" style={{ border: "2px dashed #ccc", padding: "3rem" }}>
                   <p className="has-text-grey is-size-5">Your Logo Here</p>
-                  <p className="has-text-grey is-size-7 mt-2">(6 spots available)</p>
+                  <p className="has-text-grey is-size-7 mt-2">(5 spots available)</p>
                 </div>
               </div>
             </div>
@@ -198,6 +203,11 @@ const SponsorsPage = () => {
                 <a href="https://solo.io" target="_blank" rel="noopener noreferrer">
                   <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
                     <img src="/sponsors/solo.png" alt="Solo.io - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
+                  </div>
+                </a>
+                <a href="https://edera.dev" target="_blank" rel="noopener noreferrer">
+                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "2rem" }}>
+                    <img src="/sponsors/690f9f5837bd1626bd388947_Edera Open Graph.png" alt="Edera - Silver Sponsor" style={{ maxWidth: '100%', height: 'auto' }} />
                   </div>
                 </a>
               </div>
