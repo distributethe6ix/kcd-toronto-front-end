@@ -22,22 +22,17 @@ const CopyButton = ({ text }) => {
   )
 }
 
-// All sensitive fields (discount codes, ticket codes, logo, agreement) come from
-// app_metadata on the sponsor's Netlify Identity account — nothing is stored in the repo.
-const SponsorSpecificContent = ({ appMeta }) => {
-  const {
-    sponsor_name,
-    sponsor_tier,
-    discount_code,
-    discount_percent,
-    ticket_codes,
-    logo_url,
-    agreement_pdf,
-  } = appMeta
+const Pending = ({ label }) => (
+  <p className="has-text-grey">
+    <em>{label} will appear here once your portal is fully set up. Contact{" "}
+    <a href="mailto:toronto-org@kubernetescommunitydays.org">toronto-org@kubernetescommunitydays.org</a>
+    {" "}if you have questions.</em>
+  </p>
+)
 
-  const tierLabel = sponsor_tier
-    ? sponsor_tier.charAt(0).toUpperCase() + sponsor_tier.slice(1)
-    : null
+const SponsorSpecificContent = ({ sponsor }) => {
+  const { name, tier, discount_code, discount_percent, ticket_codes, logo_url, agreement_pdf } = sponsor
+  const tierLabel = tier ? tier.charAt(0).toUpperCase() + tier.slice(1) : null
 
   return (
     <div>
@@ -48,11 +43,11 @@ const SponsorSpecificContent = ({ appMeta }) => {
             <div className="level-item">
               {logo_url && (
                 <figure className="image mr-4" style={{ maxWidth: 120 }}>
-                  <img src={logo_url} alt={`${sponsor_name} logo`} style={{ objectFit: "contain", maxHeight: 60 }} />
+                  <img src={logo_url} alt={`${name} logo`} style={{ objectFit: "contain", maxHeight: 60 }} />
                 </figure>
               )}
               <div>
-                <h2 className="title is-4 mb-1">{sponsor_name}</h2>
+                <h2 className="title is-4 mb-1">{name}</h2>
                 {tierLabel && <span className="tag is-primary is-medium">{tierLabel} Sponsor</span>}
               </div>
             </div>
@@ -70,62 +65,70 @@ const SponsorSpecificContent = ({ appMeta }) => {
       </div>
 
       {/* Discount code */}
-      {discount_code && (
-        <div className="box mb-5">
-          <h2 className="title is-4">Attendee Discount Code</h2>
-          <p className="mb-3">
-            Share this code with your team and network — it gives{" "}
-            <strong>{discount_percent}% off</strong> ticket purchases for KCD Toronto 2026.
-          </p>
-          <div className="is-flex is-align-items-center">
-            <div
-              className="has-background-light px-5 py-3 is-flex is-align-items-center"
-              style={{ borderRadius: 6, border: "2px dashed #326ce5" }}
-            >
-              <span className="is-size-4 has-text-weight-bold has-text-primary" style={{ letterSpacing: "0.1em" }}>
-                {discount_code}
-              </span>
-              <CopyButton text={discount_code} />
+      <div className="box mb-5">
+        <h2 className="title is-4">Attendee Discount Code</h2>
+        {discount_code ? (
+          <>
+            <p className="mb-3">
+              Share this code with your team and network — it gives{" "}
+              <strong>{discount_percent}% off</strong> ticket purchases for KCD Toronto 2026.
+            </p>
+            <div className="is-flex is-align-items-center">
+              <div
+                className="has-background-light px-5 py-3 is-flex is-align-items-center"
+                style={{ borderRadius: 6, border: "2px dashed #326ce5" }}
+              >
+                <span className="is-size-4 has-text-weight-bold has-text-primary" style={{ letterSpacing: "0.1em" }}>
+                  {discount_code}
+                </span>
+                <CopyButton text={discount_code} />
+              </div>
             </div>
-          </div>
-          <p className="mt-3 is-size-7 has-text-grey">
-            Tickets can be purchased at the KCD Toronto registration page.
-          </p>
-        </div>
-      )}
+            <p className="mt-3 is-size-7 has-text-grey">
+              Tickets can be purchased at the KCD Toronto registration page.
+            </p>
+          </>
+        ) : (
+          <Pending label="Your discount code" />
+        )}
+      </div>
 
       {/* Complimentary ticket codes */}
-      {ticket_codes && ticket_codes.length > 0 && (
-        <div className="box mb-5">
-          <h2 className="title is-4">Complimentary Ticket Codes</h2>
-          <p className="mb-4">
-            Your sponsorship includes <strong>{ticket_codes.length} complimentary ticket{ticket_codes.length !== 1 ? "s" : ""}</strong>. Each code below can be redeemed once.
-          </p>
-          <div className="table-container">
-            <table className="table is-fullwidth is-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Ticket Code</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {ticket_codes.map((code, i) => (
-                  <tr key={i}>
-                    <td className="has-text-grey">{i + 1}</td>
-                    <td><code className="has-text-weight-semibold">{code}</code></td>
-                    <td><CopyButton text={code} /></td>
+      <div className="box mb-5">
+        <h2 className="title is-4">Complimentary Ticket Codes</h2>
+        {ticket_codes && ticket_codes.length > 0 ? (
+          <>
+            <p className="mb-4">
+              Your sponsorship includes{" "}
+              <strong>{ticket_codes.length} complimentary ticket{ticket_codes.length !== 1 ? "s" : ""}</strong>.
+              Each code below can be redeemed once.
+            </p>
+            <div className="table-container">
+              <table className="table is-fullwidth is-striped">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Ticket Code</th>
+                    <th></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="is-size-7 has-text-grey">
-            Codes are single-use. Contact us if you need replacements.
-          </p>
-        </div>
-      )}
+                </thead>
+                <tbody>
+                  {ticket_codes.map((code, i) => (
+                    <tr key={i}>
+                      <td className="has-text-grey">{i + 1}</td>
+                      <td><code className="has-text-weight-semibold">{code}</code></td>
+                      <td><CopyButton text={code} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="is-size-7 has-text-grey">Codes are single-use. Contact us if you need replacements.</p>
+          </>
+        ) : (
+          <Pending label="Your complimentary ticket codes" />
+        )}
+      </div>
 
       {/* Signed agreement */}
       <div className="box mb-5">
@@ -135,7 +138,7 @@ const SponsorSpecificContent = ({ appMeta }) => {
             View Agreement (PDF)
           </a>
         ) : (
-          <p className="has-text-grey">No agreement uploaded yet. Contact us if you need a copy.</p>
+          <Pending label="Your signed agreement" />
         )}
       </div>
     </div>

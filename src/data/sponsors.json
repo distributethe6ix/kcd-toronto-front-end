@@ -1,12 +1,16 @@
 {
   "sponsors": [
-    { "id": "rbc", "name": "RBC", "tier": "diamond" },
-    { "id": "tremolo", "name": "Tremolo Security", "tier": "silver" },
-    { "id": "depot", "name": "Depot", "tier": "silver" },
-    { "id": "tigera", "name": "Tigera", "tier": "gold" },
-    { "id": "teleport", "name": "Teleport", "tier": "gold" },
-    { "id": "devopsto", "name": "DevOps Toronto", "tier": "community" },
-    { "id": "devopsdays-raleigh", "name": "DevOpsDays Raleigh", "tier": "community" }
+    { "id": "rbc",         "name": "RBC",          "tier": "diamond",  "domain": "rbc.com" },
+    { "id": "clickhouse",  "name": "ClickHouse",   "tier": "platinum", "domain": "clickhouse.com" },
+    { "id": "tigera",      "name": "Tigera",        "tier": "gold",     "domain": "tigera.io" },
+    { "id": "teleport",    "name": "Teleport",      "tier": "gold",     "domain": "goteleport.com" },
+    { "id": "redhat",      "name": "Red Hat",       "tier": "gold",     "domain": "redhat.com" },
+    { "id": "tremolo",     "name": "Tremolo",       "tier": "silver",   "domain": "tremolosecurity.com" },
+    { "id": "depot",       "name": "Depot",         "tier": "silver",   "domain": "depot.dev" },
+    { "id": "komodor",     "name": "Komodor",       "tier": "silver",   "domain": "komodor.com" },
+    { "id": "objectfirst", "name": "Object First",  "tier": "silver",   "domain": "objectfirst.com" },
+    { "id": "solo",        "name": "Solo.io",       "tier": "silver",   "domain": "solo.io" },
+    { "id": "edera",       "name": "Edera",         "tier": "silver",   "domain": "edera.dev" }
   ],
   "shared": {
     "venueInfo": {
@@ -30,11 +34,11 @@
       ]
     },
     "downloadableGraphics": [
-      { "name": "KCD Toronto Logo (Wide)", "url": "/toronto-cncf-kcd-wide.png" },
+      { "name": "KCD Toronto Logo (Wide)",                  "url": "/toronto-cncf-kcd-wide.png" },
       { "name": "KCD Toronto Logo (Horizontal, Transparent)", "url": "/toronto-cncf-horizontal-transparent.png" },
-      { "name": "KCD Toronto Logo (Stacked, Transparent)", "url": "/toronto-cncf-stacked-transparent.png" },
-      { "name": "KCD Toronto Logo", "url": "/toronto-cncf.png" },
-      { "name": "CNCF Logo", "url": "/cncf-color.png" }
+      { "name": "KCD Toronto Logo (Stacked, Transparent)",  "url": "/toronto-cncf-stacked-transparent.png" },
+      { "name": "KCD Toronto Logo",                         "url": "/toronto-cncf.png" },
+      { "name": "CNCF Logo",                                "url": "/cncf-color.png" }
     ]
   }
 }
