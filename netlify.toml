@@ -6,6 +6,19 @@
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
 
+# Protect the admin page — requires "admin" role
+[[redirects]]
+  from = "/sponsor-admin"
+  to = "/sponsor-admin"
+  status = 200
+  conditions = {Role = ["admin"]}
+  force = true
+
+[[redirects]]
+  from = "/sponsor-admin"
+  to = "/"
+  status = 302
+
 # Protect sponsor-specific files behind Netlify Identity role
 [[redirects]]
   from = "/sponsor-portal/*"
