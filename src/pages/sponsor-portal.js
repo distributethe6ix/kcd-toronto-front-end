@@ -45,12 +45,11 @@ const SponsorPortal = () => {
     netlifyIdentity.logout()
   }
 
-  // Match logged-in user to sponsor by email
-  const sponsor = user
-    ? sponsorData.sponsors.find(
-        (s) => s.email && s.email.toLowerCase() === user.email.toLowerCase()
-      )
-    : null
+  // Sponsor-specific data comes from app_metadata set via Netlify Identity admin API.
+  // Nothing sensitive lives in the repo.
+  const appMeta = user?.app_metadata || {}
+  const sponsorName = appMeta.sponsor_name
+  const isValidSponsor = !!sponsorName
 
   if (loading) {
     return (
@@ -99,7 +98,7 @@ const SponsorPortal = () => {
           <div className="container">
             <h1 className="title is-1">Sponsor Portal</h1>
             <p className="subtitle is-3">
-              Welcome{sponsor ? `, ${sponsor.name}` : ""}
+              Welcome{sponsorName ? `, ${sponsorName}` : ""}
             </p>
           </div>
         </div>
@@ -117,12 +116,12 @@ const SponsorPortal = () => {
           <SharedVenueInfo data={sponsorData.shared} />
           <SharedGraphics data={sponsorData.shared} />
 
-          {sponsor ? (
-            <SponsorSpecificContent sponsor={sponsor} />
+          {isValidSponsor ? (
+            <SponsorSpecificContent appMeta={appMeta} />
           ) : (
             <div className="notification is-warning">
               <p>
-                <strong>Your email ({user.email}) is not linked to a sponsor account.</strong>
+                <strong>Your account ({user.email}) is not linked to a sponsor profile.</strong>
               </p>
               <p>
                 Please contact{" "}

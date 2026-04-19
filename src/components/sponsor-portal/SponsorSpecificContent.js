@@ -22,8 +22,22 @@ const CopyButton = ({ text }) => {
   )
 }
 
-const SponsorSpecificContent = ({ sponsor }) => {
-  const tierLabel = sponsor.tier.charAt(0).toUpperCase() + sponsor.tier.slice(1)
+// All sensitive fields (discount codes, ticket codes, logo, agreement) come from
+// app_metadata on the sponsor's Netlify Identity account — nothing is stored in the repo.
+const SponsorSpecificContent = ({ appMeta }) => {
+  const {
+    sponsor_name,
+    sponsor_tier,
+    discount_code,
+    discount_percent,
+    ticket_codes,
+    logo_url,
+    agreement_pdf,
+  } = appMeta
+
+  const tierLabel = sponsor_tier
+    ? sponsor_tier.charAt(0).toUpperCase() + sponsor_tier.slice(1)
+    : null
 
   return (
     <div>
@@ -32,25 +46,21 @@ const SponsorSpecificContent = ({ sponsor }) => {
         <div className="level">
           <div className="level-left">
             <div className="level-item">
-              {sponsor.logoUrl && (
+              {logo_url && (
                 <figure className="image mr-4" style={{ maxWidth: 120 }}>
-                  <img src={sponsor.logoUrl} alt={`${sponsor.name} logo`} style={{ objectFit: "contain", maxHeight: 60 }} />
+                  <img src={logo_url} alt={`${sponsor_name} logo`} style={{ objectFit: "contain", maxHeight: 60 }} />
                 </figure>
               )}
               <div>
-                <h2 className="title is-4 mb-1">{sponsor.name}</h2>
-                <span className="tag is-primary is-medium">{tierLabel} Sponsor</span>
+                <h2 className="title is-4 mb-1">{sponsor_name}</h2>
+                {tierLabel && <span className="tag is-primary is-medium">{tierLabel} Sponsor</span>}
               </div>
             </div>
           </div>
-          {sponsor.logoUrl && (
+          {logo_url && (
             <div className="level-right">
               <div className="level-item">
-                <a
-                  href={sponsor.logoUrl}
-                  download
-                  className="button is-primary is-outlined"
-                >
+                <a href={logo_url} download className="button is-primary is-outlined">
                   Download Your Logo
                 </a>
               </div>
@@ -60,12 +70,12 @@ const SponsorSpecificContent = ({ sponsor }) => {
       </div>
 
       {/* Discount code */}
-      {sponsor.discountCode && (
+      {discount_code && (
         <div className="box mb-5">
           <h2 className="title is-4">Attendee Discount Code</h2>
           <p className="mb-3">
             Share this code with your team and network — it gives{" "}
-            <strong>{sponsor.discountPercent}% off</strong> ticket purchases for KCD Toronto 2026.
+            <strong>{discount_percent}% off</strong> ticket purchases for KCD Toronto 2026.
           </p>
           <div className="is-flex is-align-items-center">
             <div
@@ -73,9 +83,9 @@ const SponsorSpecificContent = ({ sponsor }) => {
               style={{ borderRadius: 6, border: "2px dashed #326ce5" }}
             >
               <span className="is-size-4 has-text-weight-bold has-text-primary" style={{ letterSpacing: "0.1em" }}>
-                {sponsor.discountCode}
+                {discount_code}
               </span>
-              <CopyButton text={sponsor.discountCode} />
+              <CopyButton text={discount_code} />
             </div>
           </div>
           <p className="mt-3 is-size-7 has-text-grey">
@@ -85,11 +95,11 @@ const SponsorSpecificContent = ({ sponsor }) => {
       )}
 
       {/* Complimentary ticket codes */}
-      {sponsor.ticketCodes && sponsor.ticketCodes.length > 0 && (
+      {ticket_codes && ticket_codes.length > 0 && (
         <div className="box mb-5">
           <h2 className="title is-4">Complimentary Ticket Codes</h2>
           <p className="mb-4">
-            Your sponsorship includes <strong>{sponsor.ticketCodes.length} complimentary ticket{sponsor.ticketCodes.length !== 1 ? "s" : ""}</strong>. Each code below can be redeemed once.
+            Your sponsorship includes <strong>{ticket_codes.length} complimentary ticket{ticket_codes.length !== 1 ? "s" : ""}</strong>. Each code below can be redeemed once.
           </p>
           <div className="table-container">
             <table className="table is-fullwidth is-striped">
@@ -101,15 +111,11 @@ const SponsorSpecificContent = ({ sponsor }) => {
                 </tr>
               </thead>
               <tbody>
-                {sponsor.ticketCodes.map((code, i) => (
+                {ticket_codes.map((code, i) => (
                   <tr key={i}>
                     <td className="has-text-grey">{i + 1}</td>
-                    <td>
-                      <code className="has-text-weight-semibold">{code}</code>
-                    </td>
-                    <td>
-                      <CopyButton text={code} />
-                    </td>
+                    <td><code className="has-text-weight-semibold">{code}</code></td>
+                    <td><CopyButton text={code} /></td>
                   </tr>
                 ))}
               </tbody>
@@ -124,46 +130,14 @@ const SponsorSpecificContent = ({ sponsor }) => {
       {/* Signed agreement */}
       <div className="box mb-5">
         <h2 className="title is-4">Signed Agreement</h2>
-        {sponsor.agreementPdf ? (
-          <a
-            href={sponsor.agreementPdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="button is-link"
-          >
+        {agreement_pdf ? (
+          <a href={agreement_pdf} target="_blank" rel="noopener noreferrer" className="button is-link">
             View Agreement (PDF)
           </a>
         ) : (
           <p className="has-text-grey">No agreement uploaded yet. Contact us if you need a copy.</p>
         )}
       </div>
-
-      {/* Sponsor-specific graphics */}
-      {sponsor.graphics && sponsor.graphics.length > 0 && (
-        <div className="box mb-5">
-          <h2 className="title is-4">Your Social Media Graphics</h2>
-          <div className="columns is-multiline">
-            {sponsor.graphics.map((url, i) => (
-              <div key={i} className="column is-4">
-                <div className="card">
-                  <div className="card-image has-text-centered" style={{ padding: "1rem", backgroundColor: "#f5f5f5" }}>
-                    <img
-                      src={url}
-                      alt={`${sponsor.name} graphic ${i + 1}`}
-                      style={{ maxHeight: "150px", width: "auto" }}
-                    />
-                  </div>
-                  <div className="card-content has-text-centered">
-                    <a href={url} download className="button is-primary is-small">
-                      Download
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   )
 }
