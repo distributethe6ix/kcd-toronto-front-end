@@ -2,14 +2,17 @@ import * as React from "react"
 
 const SharedGraphics = ({ data }) => {
   const { downloadableGraphics } = data
-  if (!downloadableGraphics || downloadableGraphics.length === 0) return null
+  const kcdLogos = (downloadableGraphics || []).filter(
+    (g) => g.name !== "Sponsor Promo Image"
+  )
+  if (kcdLogos.length === 0) return null
   return (
     <div className="box mb-5">
       <h2 className="title is-4">KCD Toronto Logos</h2>
       <p className="mb-4">Download official event logos to use in your marketing materials, social posts, and website.</p>
       <div className="columns is-multiline">
-        {downloadableGraphics.map((graphic, i) => (
-          <div key={i} className="column is-4-desktop is-6-tablet">
+        {kcdLogos.map((graphic, i) => (
+          <div key={i} className="column is-6">
             <div className="card" style={{ height: "100%" }}>
               <div
                 className="card-image has-text-centered"

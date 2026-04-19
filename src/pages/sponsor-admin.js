@@ -19,8 +19,9 @@ const defaultForm = {
   sponsor_tier: "gold",
   discount_code: "",
   discount_percent: "",
-  ticket_codes: "",
-  logo_url: "",
+  ticket_code: "",
+  ticket_quantity: "",
+  promo_url: "",
   agreement_pdf: "",
 }
 
@@ -109,8 +110,9 @@ const SponsorAdmin = () => {
           sponsor_tier: c.sponsor_tier || sponsor.tier,
           discount_code: c.discount_code || "",
           discount_percent: c.discount_percent != null ? String(c.discount_percent) : "",
-          ticket_codes: Array.isArray(c.ticket_codes) ? c.ticket_codes.join("\n") : "",
-          logo_url: c.logo_url || "",
+          ticket_code: c.ticket_code || "",
+          ticket_quantity: c.ticket_quantity != null ? String(c.ticket_quantity) : "",
+          promo_url: c.promo_url || "",
           agreement_pdf: c.agreement_pdf || "",
         }))
         setSaveStatus({ type: "success", message: "Config loaded." })
@@ -134,11 +136,6 @@ const SponsorAdmin = () => {
     setSubmitting(true)
     setSaveStatus(null)
 
-    const ticketCodes = form.ticket_codes
-      .split("\n")
-      .map((s) => s.trim())
-      .filter(Boolean)
-
     try {
       const res = await fetch("/.netlify/functions/set-sponsor-config", {
         method: "POST",
@@ -150,8 +147,9 @@ const SponsorAdmin = () => {
             sponsor_tier: form.sponsor_tier,
             discount_code: form.discount_code,
             discount_percent: Number(form.discount_percent) || 0,
-            ticket_codes: ticketCodes,
-            logo_url: form.logo_url,
+            ticket_code: form.ticket_code,
+            ticket_quantity: Number(form.ticket_quantity) || 0,
+            promo_url: form.promo_url,
             agreement_pdf: form.agreement_pdf,
           },
         }),
@@ -323,20 +321,32 @@ const SponsorAdmin = () => {
                     </div>
                   </div>
 
-                  <div className="field">
-                    <label className="label">Included Ticket Codes</label>
-                    <div className="control">
-                      <textarea className="textarea" name="ticket_codes" value={form.ticket_codes}
-                        onChange={handleChange} placeholder={"ACME-TKT-001\nACME-TKT-002"} rows={3} />
+                  <div className="columns">
+                    <div className="column">
+                      <div className="field">
+                        <label className="label">Included Ticket Code</label>
+                        <div className="control">
+                          <input className="input" type="text" name="ticket_code" value={form.ticket_code}
+                            onChange={handleChange} placeholder="ACME-TKT-2026" />
+                        </div>
+                      </div>
                     </div>
-                    <p className="help">One code per line.</p>
+                    <div className="column is-narrow">
+                      <div className="field">
+                        <label className="label">Quantity</label>
+                        <div className="control">
+                          <input className="input" type="number" name="ticket_quantity" value={form.ticket_quantity}
+                            onChange={handleChange} placeholder="2" min="0" style={{ width: 90 }} />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="field">
-                    <label className="label">Logo URL</label>
+                    <label className="label">Sponsor Promo URL</label>
                     <div className="control">
-                      <input className="input" type="text" name="logo_url" value={form.logo_url}
-                        onChange={handleChange} placeholder="/sponsors/acme-logo.png" />
+                      <input className="input" type="text" name="promo_url" value={form.promo_url}
+                        onChange={handleChange} placeholder="/sponsors/acme-promo.png" />
                     </div>
                     <p className="help">Path in <code>/static/sponsors/</code>.</p>
                   </div>
