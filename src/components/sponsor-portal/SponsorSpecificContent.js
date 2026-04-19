@@ -33,20 +33,23 @@ const Pending = ({ label }) => (
 )
 
 export const SponsorHeader = ({ sponsor }) => {
-  const { name, tier, logo_url } = sponsor
+  const { id, name, tier, promo_url } = sponsor
   const tierLabel = tier ? tier.charAt(0).toUpperCase() + tier.slice(1) : null
+  const logoSrc = id ? `/sponsors/${id}.png` : null
+  const [logoError, setLogoError] = React.useState(false)
 
   return (
     <div className="box mb-5">
       <div className="level">
         <div className="level-left">
           <div className="level-item">
-            {logo_url && (
+            {logoSrc && !logoError && (
               <figure className="image mr-4" style={{ maxWidth: 120 }}>
                 <img
-                  src={logo_url}
+                  src={logoSrc}
                   alt={`${name} logo`}
                   style={{ objectFit: "contain", maxHeight: 60 }}
+                  onError={() => setLogoError(true)}
                 />
               </figure>
             )}
@@ -58,11 +61,11 @@ export const SponsorHeader = ({ sponsor }) => {
             </div>
           </div>
         </div>
-        {logo_url && (
+        {promo_url && (
           <div className="level-right">
             <div className="level-item">
-              <a href={logo_url} download className="button is-primary is-outlined">
-                Download Your Logo
+              <a href={promo_url} download className="button is-primary is-outlined">
+                <strong>Download Your Promo Image</strong>
               </a>
             </div>
           </div>
@@ -73,50 +76,40 @@ export const SponsorHeader = ({ sponsor }) => {
 }
 
 export const IncludedTicketCodes = ({ sponsor }) => {
-  const { ticket_codes } = sponsor
+  const { ticket_code, ticket_quantity } = sponsor
   return (
     <div className="box mb-5">
-      <h2 className="title is-4">Included Ticket Codes</h2>
-      {ticket_codes && ticket_codes.length > 0 ? (
+      <h2 className="title is-4">Included Ticket Code</h2>
+      {ticket_code ? (
         <>
-          <p className="mb-4">
+          <p className="mb-3">
             Your sponsorship includes{" "}
             <strong>
-              {ticket_codes.length} complimentary ticket
-              {ticket_codes.length !== 1 ? "s" : ""}
+              {ticket_quantity || 1} complimentary ticket
+              {(ticket_quantity || 1) !== 1 ? "s" : ""}
             </strong>
-            . Each code below can be redeemed once.
+            . Use this code at checkout.
           </p>
-          <div className="table-container">
-            <table className="table is-fullwidth is-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Ticket Code</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {ticket_codes.map((code, i) => (
-                  <tr key={i}>
-                    <td className="has-text-grey">{i + 1}</td>
-                    <td>
-                      <code className="has-text-weight-semibold">{code}</code>
-                    </td>
-                    <td>
-                      <CopyButton text={code} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="is-flex is-align-items-center">
+            <div
+              className="has-background-light px-5 py-3 is-flex is-align-items-center"
+              style={{ borderRadius: 6, border: "2px dashed #23d160" }}
+            >
+              <span
+                className="is-size-4 has-text-weight-bold has-text-success"
+                style={{ letterSpacing: "0.1em" }}
+              >
+                {ticket_code}
+              </span>
+              <CopyButton text={ticket_code} />
+            </div>
           </div>
-          <p className="is-size-7 has-text-grey">
-            Codes are single-use. Contact us if you need replacements.
+          <p className="mt-3 is-size-7 has-text-grey">
+            This code can be used up to {ticket_quantity || 1} time{(ticket_quantity || 1) !== 1 ? "s" : ""}. Contact us if you need replacements.
           </p>
         </>
       ) : (
-        <Pending label="Your included ticket codes" />
+        <Pending label="Your included ticket code" />
       )}
     </div>
   )

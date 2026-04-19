@@ -99,29 +99,19 @@ const SponsorPortal = () => {
   const domainSponsor = matchSponsorByDomain(user?.email)
 
   const sponsor = (() => {
-    if (isAdmin && previewSponsor) {
-      return {
-        name: sponsorConfig?.sponsor_name || previewSponsor.name,
-        tier: sponsorConfig?.sponsor_tier || previewSponsor.tier,
-        discount_code: sponsorConfig?.discount_code || null,
-        discount_percent: sponsorConfig?.discount_percent || null,
-        ticket_codes: sponsorConfig?.ticket_codes || null,
-        logo_url: sponsorConfig?.logo_url || null,
-        agreement_pdf: sponsorConfig?.agreement_pdf || null,
-      }
+    const base = (isAdmin && previewSponsor) ? previewSponsor : domainSponsor
+    if (!base) return null
+    return {
+      id: base.id,
+      name: sponsorConfig?.sponsor_name || base.name,
+      tier: sponsorConfig?.sponsor_tier || base.tier,
+      discount_code: sponsorConfig?.discount_code || null,
+      discount_percent: sponsorConfig?.discount_percent || null,
+      ticket_code: sponsorConfig?.ticket_code || null,
+      ticket_quantity: sponsorConfig?.ticket_quantity || null,
+      promo_url: sponsorConfig?.promo_url || null,
+      agreement_pdf: sponsorConfig?.agreement_pdf || null,
     }
-    if (domainSponsor) {
-      return {
-        name: sponsorConfig?.sponsor_name || domainSponsor.name,
-        tier: sponsorConfig?.sponsor_tier || domainSponsor.tier,
-        discount_code: sponsorConfig?.discount_code || null,
-        discount_percent: sponsorConfig?.discount_percent || null,
-        ticket_codes: sponsorConfig?.ticket_codes || null,
-        logo_url: sponsorConfig?.logo_url || null,
-        agreement_pdf: sponsorConfig?.agreement_pdf || null,
-      }
-    }
-    return null
   })()
 
   if (loading) {
