@@ -28,8 +28,9 @@ const parseVCard = (text) => {
 const BadgeScanner = () => {
   const [user, setUser] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
-  const [mode, setMode] = React.useState("scanning") // scanning | preview | submitting | success
+  const [mode, setMode] = React.useState("scanning") // scanning | preview | submitting | success | unknown
   const [contact, setContact] = React.useState(null)
+  const [rawScan, setRawScan] = React.useState(null)
   const [leads, setLeads] = React.useState([])
   const [submitError, setSubmitError] = React.useState(null)
   const scannerRef = React.useRef(null)
@@ -70,10 +71,15 @@ const BadgeScanner = () => {
         { facingMode: "environment" },
         { fps: 10, qrbox: { width: 250, height: 250 } },
         (text) => {
-          if (!text.toUpperCase().includes("BEGIN:VCARD")) return
-          setContact(parseVCard(text))
-          setMode("preview")
           html5QrCode.stop().catch(() => {})
+          setRawScan(text)
+          if (text.toUpperCase().includes("BEGIN:VCARD")) {
+            setContact(parseVCard(text))
+            setMode("preview")
+          } else {
+            setContact(null)
+            setMode("unknown")
+          }
         },
         () => {}
       )
@@ -119,6 +125,7 @@ const BadgeScanner = () => {
 
   const scanAnother = () => {
     setContact(null)
+    setRawScan(null)
     setSubmitError(null)
     setMode("scanning")
   }
@@ -225,6 +232,21 @@ const BadgeScanner = () => {
                   Scan Another
                 </button>
               </div>
+            </div>
+          )}
+
+          {mode === "unknown" && (
+            <div className="box">
+              <div className="notification is-warning is-light mb-4">
+                <strong>QR scanned, but it's not a vCard.</strong>
+                <p className="is-size-7 mt-2">Badge format detected:</p>
+                <pre className="is-size-7 mt-1" style={{ whiteSpace: "pre-wrap", wordBreak: "break-all" }}>
+                  {rawScan}
+                </pre>
+              </div>
+              <button className="button is-fullwidth" onClick={scanAnother}>
+                Try Another
+              </button>
             </div>
           )}
 
