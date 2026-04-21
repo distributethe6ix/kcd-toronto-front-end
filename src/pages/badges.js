@@ -408,6 +408,31 @@ const BadgeScanner = () => {
     )
   }
 
+  // ── Access check ──────────────────────────────────────────────────────────
+  const isAdmin = user?.app_metadata?.roles?.includes("admin")
+  const domain = user?.email?.split("@")[1]?.toLowerCase()
+  const hasAccess = isAdmin || domain === "clickhouse.com"
+
+  if (user && !hasAccess) {
+    return (
+      <div style={S.page}>
+        <p style={S.logo}>KCD Toronto 2026</p>
+        <p style={{ ...S.sub, color: "#f87171" }}>
+          Access restricted — this scanner is for ClickHouse staff only.
+        </p>
+        <button
+          style={{ ...S.loginBtn, background: "#334155" }}
+          onClick={() => {
+            const netlifyIdentity = require("netlify-identity-widget")
+            netlifyIdentity.logout()
+          }}
+        >
+          Log out
+        </button>
+      </div>
+    )
+  }
+
   // ── Login wall ─────────────────────────────────────────────────────────────
   if (!user) {
     return (

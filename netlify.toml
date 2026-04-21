@@ -19,19 +19,6 @@
   to = "/"
   status = 302
 
-# Protect badge scanner behind Netlify Identity sponsor role
-[[redirects]]
-  from = "/badges"
-  to = "/badges"
-  status = 200
-  conditions = {Role = ["sponsor"]}
-  force = true
-
-[[redirects]]
-  from = "/badges"
-  to = "/"
-  status = 302
-
 # Protect sponsor-specific files behind Netlify Identity role
 [[redirects]]
   from = "/sponsor-portal/*"
