@@ -21,20 +21,27 @@ const parseVCard = (text) => {
     phone: get("TEL"),
     company: get("ORG").split(";")[0],
     title: get("TITLE"),
-    note: get("NOTE"),
+    note: "",
   }
 }
 
 const BadgeScanner = () => {
   const [user, setUser] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
-  const [mode, setMode] = React.useState("scanning") // scanning | preview | submitting | success | unknown
+  // mode: scanning | preview | submitting | unknown
+  const [mode, setMode] = React.useState("scanning")
   const [contact, setContact] = React.useState(null)
   const [rawScan, setRawScan] = React.useState(null)
+  const [notes, setNotes] = React.useState("")
   const [leads, setLeads] = React.useState([])
   const [submitError, setSubmitError] = React.useState(null)
-  const scannerRef = React.useRef(null)
+  const [toast, setToast] = React.useState(null)
 
+  const scannerRef = React.useRef(null)
+  const startedRef = React.useRef(false)
+  const stoppedRef = React.useRef(false)
+
+  // Auth
   React.useEffect(() => {
     const netlifyIdentity = require("netlify-identity-widget")
     netlifyIdentity.init()
@@ -58,41 +65,68 @@ const BadgeScanner = () => {
     }
   }, [loading, user])
 
+  // QR scanner
   React.useEffect(() => {
     if (!user || mode !== "scanning") return
 
-    let html5QrCode
-    let started = false
+    stoppedRef.current = false
+
+    const stopScanner = () => {
+      if (scannerRef.current && startedRef.current) {
+        startedRef.current = false
+        scannerRef.current.stop().catch(() => {}).finally(() => {
+          scannerRef.current = null
+        })
+      }
+    }
 
     import("html5-qrcode").then(({ Html5Qrcode }) => {
-      html5QrCode = new Html5Qrcode("qr-reader")
-      scannerRef.current = html5QrCode
-      return html5QrCode.start(
+      if (stoppedRef.current) return
+
+      // Clear any leftover DOM state from a previous instance
+      const el = document.getElementById("qr-reader")
+      if (el) el.innerHTML = ""
+
+      const scanner = new Html5Qrcode("qr-reader")
+      scannerRef.current = scanner
+
+      return scanner.start(
         { facingMode: "environment" },
         { fps: 10, qrbox: { width: 250, height: 250 } },
         (text) => {
-          html5QrCode.stop().catch(() => {})
+          if (stoppedRef.current) return
+          stoppedRef.current = true
+          stopScanner()
           setRawScan(text)
           if (text.toUpperCase().includes("BEGIN:VCARD")) {
-            setContact(parseVCard(text))
+            const parsed = parseVCard(text)
+            setContact(parsed)
+            setNotes("")
             setMode("preview")
           } else {
             setContact(null)
+            setNotes("")
             setMode("unknown")
           }
         },
         () => {}
-      )
-    }).then(() => {
-      started = true
-    }).catch(console.error)
+      ).then(() => {
+        if (!stoppedRef.current) startedRef.current = true
+      })
+    }).catch((err) => {
+      console.error("QR scanner error:", err)
+    })
 
     return () => {
-      if (started && scannerRef.current) {
-        scannerRef.current.stop().catch(() => {})
-      }
+      stoppedRef.current = true
+      stopScanner()
     }
   }, [user, mode])
+
+  const showToast = (msg) => {
+    setToast(msg)
+    setTimeout(() => setToast(null), 2500)
+  }
 
   const submitLead = async () => {
     setMode("submitting")
@@ -100,32 +134,35 @@ const BadgeScanner = () => {
     try {
       const netlifyIdentity = require("netlify-identity-widget")
       const token = netlifyIdentity.currentUser()?.token?.access_token
+      const payload = { ...contact, note: notes, rawScan }
       const res = await fetch("/.netlify/functions/add-lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(contact),
+        body: JSON.stringify(payload),
       })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
         throw new Error(body.error || `HTTP ${res.status}`)
       }
       setLeads((prev) => [
-        { ...contact, savedAt: new Date().toLocaleTimeString() },
+        { ...contact, note: notes, savedAt: new Date().toLocaleTimeString() },
         ...prev,
       ])
-      setMode("success")
+      showToast(`${contact?.fullName || "Contact"} saved`)
+      resetToScan()
     } catch (err) {
       setSubmitError(err.message)
       setMode("preview")
     }
   }
 
-  const scanAnother = () => {
+  const resetToScan = () => {
     setContact(null)
     setRawScan(null)
+    setNotes("")
     setSubmitError(null)
     setMode("scanning")
   }
@@ -134,9 +171,7 @@ const BadgeScanner = () => {
     return (
       <Layout>
         <section className="section">
-          <div className="container has-text-centered">
-            <p>Loading…</p>
-          </div>
+          <div className="container has-text-centered"><p>Loading…</p></div>
         </section>
       </Layout>
     )
@@ -156,6 +191,19 @@ const BadgeScanner = () => {
 
   return (
     <Layout>
+      {toast && (
+        <div
+          style={{
+            position: "fixed", top: 16, left: "50%", transform: "translateX(-50%)",
+            zIndex: 9999, minWidth: 260,
+          }}
+        >
+          <div className="notification is-success is-light has-text-centered py-3 px-5">
+            {toast}
+          </div>
+        </div>
+      )}
+
       <section className="hero is-dark is-small">
         <div className="hero-body">
           <div className="container is-flex is-justify-content-space-between is-align-items-center">
@@ -179,6 +227,7 @@ const BadgeScanner = () => {
       <section className="section">
         <div className="container" style={{ maxWidth: 500 }}>
 
+          {/* Scanner */}
           {mode === "scanning" && (
             <div className="box">
               <p className="has-text-centered has-text-grey mb-4">
@@ -188,31 +237,34 @@ const BadgeScanner = () => {
             </div>
           )}
 
+          {/* Contact preview + notes */}
           {(mode === "preview" || mode === "submitting") && contact && (
             <div className="box">
-              <h2 className="title is-5 mb-4">Contact Detected</h2>
-              <table className="table is-fullwidth">
+              <h2 className="title is-5 mb-4">Contact</h2>
+              <table className="table is-fullwidth mb-4">
                 <tbody>
-                  {contact.fullName && (
-                    <tr><th style={{ width: "30%" }}>Name</th><td>{contact.fullName}</td></tr>
-                  )}
-                  {contact.email && (
-                    <tr><th>Email</th><td>{contact.email}</td></tr>
-                  )}
-                  {contact.phone && (
-                    <tr><th>Phone</th><td>{contact.phone}</td></tr>
-                  )}
-                  {contact.company && (
-                    <tr><th>Company</th><td>{contact.company}</td></tr>
-                  )}
-                  {contact.title && (
-                    <tr><th>Title</th><td>{contact.title}</td></tr>
-                  )}
-                  {contact.note && (
-                    <tr><th>Note</th><td>{contact.note}</td></tr>
-                  )}
+                  {contact.fullName && <tr><th style={{ width: "30%" }}>Name</th><td>{contact.fullName}</td></tr>}
+                  {contact.email && <tr><th>Email</th><td>{contact.email}</td></tr>}
+                  {contact.phone && <tr><th>Phone</th><td>{contact.phone}</td></tr>}
+                  {contact.company && <tr><th>Company</th><td>{contact.company}</td></tr>}
+                  {contact.title && <tr><th>Title</th><td>{contact.title}</td></tr>}
                 </tbody>
               </table>
+
+              <div className="field">
+                <label className="label">Notes</label>
+                <div className="control">
+                  <textarea
+                    className="textarea"
+                    rows={3}
+                    placeholder="What did you discuss? Follow-up needed?"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    disabled={mode === "submitting"}
+                  />
+                </div>
+              </div>
+
               {submitError && (
                 <p className="has-text-danger mb-3 is-size-7">{submitError}</p>
               )}
@@ -222,50 +274,35 @@ const BadgeScanner = () => {
                   onClick={submitLead}
                   disabled={mode === "submitting"}
                 >
-                  Add to Sheet
+                  Save Lead
                 </button>
-                <button
-                  className="button"
-                  onClick={scanAnother}
-                  disabled={mode === "submitting"}
-                >
-                  Scan Another
+                <button className="button" onClick={resetToScan} disabled={mode === "submitting"}>
+                  Cancel
                 </button>
               </div>
             </div>
           )}
 
+          {/* Unknown QR format */}
           {mode === "unknown" && (
             <div className="box">
               <div className="notification is-warning is-light mb-4">
-                <strong>QR scanned, but it's not a vCard.</strong>
-                <p className="is-size-7 mt-2">Badge format detected:</p>
+                <p><strong>QR scanned — not a vCard format.</strong></p>
+                <p className="is-size-7 mt-2">Raw content:</p>
                 <pre className="is-size-7 mt-1" style={{ whiteSpace: "pre-wrap", wordBreak: "break-all" }}>
                   {rawScan}
                 </pre>
               </div>
-              <button className="button is-fullwidth" onClick={scanAnother}>
-                Try Another
+              <button className="button is-fullwidth" onClick={resetToScan}>
+                Scan Another
               </button>
             </div>
           )}
 
-          {mode === "success" && (
-            <div className="box">
-              <div className="notification is-success is-light mb-4">
-                <strong>{contact?.fullName || "Contact"}</strong> added to your leads sheet.
-              </div>
-              <button className="button is-primary is-fullwidth" onClick={scanAnother}>
-                Scan Next Badge
-              </button>
-            </div>
-          )}
-
+          {/* Session log */}
           {leads.length > 0 && (
             <div className="box mt-4">
-              <h2 className="title is-6 mb-3">
-                Captured this session ({leads.length})
-              </h2>
+              <h2 className="title is-6 mb-3">Captured this session ({leads.length})</h2>
               {leads.map((lead, i) => (
                 <div
                   key={i}
@@ -275,6 +312,9 @@ const BadgeScanner = () => {
                     <span className="has-text-weight-semibold">{lead.fullName}</span>
                     {lead.company && (
                       <span className="has-text-grey ml-2 is-size-7">· {lead.company}</span>
+                    )}
+                    {lead.note && (
+                      <p className="is-size-7 has-text-grey-dark mt-1">{lead.note}</p>
                     )}
                   </div>
                   <span className="tag is-light is-size-7">{lead.savedAt}</span>
