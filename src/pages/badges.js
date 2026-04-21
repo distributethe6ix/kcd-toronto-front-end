@@ -1,5 +1,4 @@
 import * as React from "react"
-import Layout from "../components/layout"
 
 const parseVCard = (text) => {
   const get = (key) => {
@@ -21,15 +20,263 @@ const parseVCard = (text) => {
     phone: get("TEL"),
     company: get("ORG").split(";")[0],
     title: get("TITLE"),
-    note: "",
   }
 }
+
+// ── Styles ────────────────────────────────────────────────────────────────────
+
+const S = {
+  page: {
+    minHeight: "100vh",
+    backgroundColor: "#0f172a",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "24px 20px",
+    fontFamily: "'Segoe UI', system-ui, sans-serif",
+  },
+  logo: {
+    color: "#fff",
+    fontSize: 22,
+    fontWeight: 700,
+    letterSpacing: 0.5,
+    marginBottom: 6,
+    textAlign: "center",
+  },
+  sub: {
+    color: "#94a3b8",
+    fontSize: 13,
+    marginBottom: 36,
+    textAlign: "center",
+  },
+  loginBtn: {
+    background: "#2563eb",
+    color: "#fff",
+    border: "none",
+    borderRadius: 10,
+    padding: "14px 36px",
+    fontSize: 16,
+    fontWeight: 600,
+    cursor: "pointer",
+    width: "100%",
+    maxWidth: 320,
+  },
+  scanPage: {
+    minHeight: "100vh",
+    backgroundColor: "#0f172a",
+    display: "flex",
+    flexDirection: "column",
+    fontFamily: "'Segoe UI', system-ui, sans-serif",
+  },
+  topBar: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "14px 20px",
+    borderBottom: "1px solid #1e293b",
+  },
+  topBarTitle: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: 600,
+  },
+  logoutBtn: {
+    background: "transparent",
+    border: "1px solid #334155",
+    borderRadius: 6,
+    color: "#94a3b8",
+    fontSize: 12,
+    padding: "5px 12px",
+    cursor: "pointer",
+  },
+  scannerWrap: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "24px 20px",
+  },
+  scannerHint: {
+    color: "#64748b",
+    fontSize: 14,
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  qrBox: {
+    width: "100%",
+    maxWidth: 340,
+    borderRadius: 16,
+    overflow: "hidden",
+    background: "#1e293b",
+  },
+  // Sheet panel (slides up)
+  sheet: {
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    background: "#fff",
+    borderRadius: "20px 20px 0 0",
+    padding: "24px 20px 36px",
+    boxShadow: "0 -4px 40px rgba(0,0,0,0.3)",
+    maxHeight: "85vh",
+    overflowY: "auto",
+  },
+  sheetHandle: {
+    width: 40,
+    height: 4,
+    background: "#e2e8f0",
+    borderRadius: 2,
+    margin: "0 auto 20px",
+  },
+  sheetTitle: {
+    fontSize: 18,
+    fontWeight: 700,
+    color: "#0f172a",
+    marginBottom: 16,
+  },
+  field: { marginBottom: 12 },
+  fieldLabel: {
+    fontSize: 11,
+    fontWeight: 600,
+    color: "#94a3b8",
+    textTransform: "uppercase",
+    letterSpacing: 0.8,
+    marginBottom: 3,
+  },
+  fieldValue: {
+    fontSize: 15,
+    color: "#1e293b",
+  },
+  divider: {
+    height: 1,
+    background: "#f1f5f9",
+    margin: "16px 0",
+  },
+  notesLabel: {
+    fontSize: 13,
+    fontWeight: 600,
+    color: "#374151",
+    marginBottom: 6,
+    display: "block",
+  },
+  notesInput: {
+    width: "100%",
+    border: "1px solid #e2e8f0",
+    borderRadius: 10,
+    padding: "10px 12px",
+    fontSize: 14,
+    color: "#1e293b",
+    resize: "none",
+    outline: "none",
+    fontFamily: "inherit",
+    boxSizing: "border-box",
+  },
+  saveBtn: {
+    marginTop: 16,
+    width: "100%",
+    background: "#2563eb",
+    color: "#fff",
+    border: "none",
+    borderRadius: 10,
+    padding: "14px",
+    fontSize: 16,
+    fontWeight: 600,
+    cursor: "pointer",
+  },
+  saveBtnLoading: {
+    opacity: 0.6,
+    cursor: "default",
+  },
+  cancelBtn: {
+    marginTop: 10,
+    width: "100%",
+    background: "transparent",
+    color: "#94a3b8",
+    border: "none",
+    padding: "10px",
+    fontSize: 14,
+    cursor: "pointer",
+  },
+  unknownBox: {
+    background: "#fef9c3",
+    borderRadius: 10,
+    padding: 16,
+    marginBottom: 16,
+  },
+  unknownTitle: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: "#92400e",
+    marginBottom: 8,
+  },
+  unknownPre: {
+    fontSize: 11,
+    color: "#78350f",
+    whiteSpace: "pre-wrap",
+    wordBreak: "break-all",
+    margin: 0,
+  },
+  toast: {
+    position: "fixed",
+    top: 20,
+    left: "50%",
+    transform: "translateX(-50%)",
+    background: "#166534",
+    color: "#fff",
+    borderRadius: 10,
+    padding: "10px 20px",
+    fontSize: 14,
+    fontWeight: 600,
+    zIndex: 9999,
+    whiteSpace: "nowrap",
+    boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+  },
+  sessionLog: {
+    borderTop: "1px solid #1e293b",
+    padding: "16px 20px",
+  },
+  sessionTitle: {
+    color: "#475569",
+    fontSize: 12,
+    fontWeight: 600,
+    textTransform: "uppercase",
+    letterSpacing: 0.8,
+    marginBottom: 10,
+  },
+  sessionRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: 10,
+  },
+  sessionName: {
+    color: "#94a3b8",
+    fontSize: 14,
+    fontWeight: 500,
+  },
+  sessionCompany: {
+    color: "#475569",
+    fontSize: 12,
+    marginTop: 1,
+  },
+  sessionTime: {
+    color: "#334155",
+    fontSize: 11,
+    whiteSpace: "nowrap",
+    marginLeft: 12,
+    marginTop: 2,
+  },
+}
+
+// ── Component ─────────────────────────────────────────────────────────────────
 
 const BadgeScanner = () => {
   const [user, setUser] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
-  // mode: scanning | preview | submitting | unknown
-  const [mode, setMode] = React.useState("scanning")
+  const [mode, setMode] = React.useState("scanning") // scanning | preview | submitting | unknown
   const [contact, setContact] = React.useState(null)
   const [rawScan, setRawScan] = React.useState(null)
   const [notes, setNotes] = React.useState("")
@@ -58,13 +305,6 @@ const BadgeScanner = () => {
     }
   }, [])
 
-  React.useEffect(() => {
-    if (!loading && !user) {
-      const netlifyIdentity = require("netlify-identity-widget")
-      netlifyIdentity.open("login")
-    }
-  }, [loading, user])
-
   // QR scanner
   React.useEffect(() => {
     if (!user || mode !== "scanning") return
@@ -82,25 +322,20 @@ const BadgeScanner = () => {
 
     import("html5-qrcode").then(({ Html5Qrcode }) => {
       if (stoppedRef.current) return
-
-      // Clear any leftover DOM state from a previous instance
       const el = document.getElementById("qr-reader")
       if (el) el.innerHTML = ""
-
       const scanner = new Html5Qrcode("qr-reader")
       scannerRef.current = scanner
-
       return scanner.start(
         { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 250, height: 250 } },
+        { fps: 10, qrbox: { width: 240, height: 240 } },
         (text) => {
           if (stoppedRef.current) return
           stoppedRef.current = true
           stopScanner()
           setRawScan(text)
           if (text.toUpperCase().includes("BEGIN:VCARD")) {
-            const parsed = parseVCard(text)
-            setContact(parsed)
+            setContact(parseVCard(text))
             setNotes("")
             setMode("preview")
           } else {
@@ -113,9 +348,7 @@ const BadgeScanner = () => {
       ).then(() => {
         if (!stoppedRef.current) startedRef.current = true
       })
-    }).catch((err) => {
-      console.error("QR scanner error:", err)
-    })
+    }).catch(console.error)
 
     return () => {
       stoppedRef.current = true
@@ -134,14 +367,13 @@ const BadgeScanner = () => {
     try {
       const netlifyIdentity = require("netlify-identity-widget")
       const token = netlifyIdentity.currentUser()?.token?.access_token
-      const payload = { ...contact, note: notes, rawScan }
       const res = await fetch("/.netlify/functions/add-lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...contact, note: notes, rawScan }),
       })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
@@ -167,167 +399,170 @@ const BadgeScanner = () => {
     setMode("scanning")
   }
 
+  // ── Loading ────────────────────────────────────────────────────────────────
   if (loading) {
     return (
-      <Layout>
-        <section className="section">
-          <div className="container has-text-centered"><p>Loading…</p></div>
-        </section>
-      </Layout>
+      <div style={S.page}>
+        <p style={{ color: "#94a3b8" }}>Loading…</p>
+      </div>
     )
   }
 
+  // ── Login wall ─────────────────────────────────────────────────────────────
   if (!user) {
     return (
-      <Layout>
-        <section className="section">
-          <div className="container has-text-centered">
-            <p className="is-size-5">Please log in to use the badge scanner.</p>
-          </div>
-        </section>
-      </Layout>
+      <div style={S.page}>
+        <p style={S.logo}>KCD Toronto 2026</p>
+        <p style={S.sub}>Sponsor Lead Scanner</p>
+        <button
+          style={S.loginBtn}
+          onClick={() => {
+            const netlifyIdentity = require("netlify-identity-widget")
+            netlifyIdentity.open("login")
+          }}
+        >
+          Log in to scan badges
+        </button>
+      </div>
     )
   }
 
+  // ── Scanner ────────────────────────────────────────────────────────────────
   return (
-    <Layout>
-      {toast && (
-        <div
-          style={{
-            position: "fixed", top: 16, left: "50%", transform: "translateX(-50%)",
-            zIndex: 9999, minWidth: 260,
+    <div style={S.scanPage}>
+      {toast && <div style={S.toast}>{toast}</div>}
+
+      <div style={S.topBar}>
+        <span style={S.topBarTitle}>Badge Scanner</span>
+        <button
+          style={S.logoutBtn}
+          onClick={() => {
+            const netlifyIdentity = require("netlify-identity-widget")
+            netlifyIdentity.logout()
           }}
         >
-          <div className="notification is-success is-light has-text-centered py-3 px-5">
-            {toast}
+          Log out
+        </button>
+      </div>
+
+      <div style={S.scannerWrap}>
+        {mode === "scanning" && (
+          <>
+            <p style={S.scannerHint}>Point at an attendee badge QR code</p>
+            <div style={S.qrBox}>
+              <div id="qr-reader" style={{ width: "100%" }} />
+            </div>
+          </>
+        )}
+
+        {mode !== "scanning" && mode !== "preview" && mode !== "submitting" && (
+          <div style={S.qrBox}>
+            <div id="qr-reader" style={{ width: "100%", display: "none" }} />
           </div>
+        )}
+      </div>
+
+      {/* Contact sheet */}
+      {(mode === "preview" || mode === "submitting") && contact && (
+        <div style={S.sheet}>
+          <div style={S.sheetHandle} />
+          <p style={S.sheetTitle}>
+            {contact.fullName || "Contact"}
+          </p>
+
+          {contact.company && (
+            <div style={S.field}>
+              <p style={S.fieldLabel}>Company</p>
+              <p style={S.fieldValue}>{contact.company}</p>
+            </div>
+          )}
+          {contact.title && (
+            <div style={S.field}>
+              <p style={S.fieldLabel}>Title</p>
+              <p style={S.fieldValue}>{contact.title}</p>
+            </div>
+          )}
+          {contact.email && (
+            <div style={S.field}>
+              <p style={S.fieldLabel}>Email</p>
+              <p style={S.fieldValue}>{contact.email}</p>
+            </div>
+          )}
+          {contact.phone && (
+            <div style={S.field}>
+              <p style={S.fieldLabel}>Phone</p>
+              <p style={S.fieldValue}>{contact.phone}</p>
+            </div>
+          )}
+
+          <div style={S.divider} />
+
+          <label style={S.notesLabel}>Notes</label>
+          <textarea
+            style={S.notesInput}
+            rows={3}
+            placeholder="What did you discuss? Follow-up needed?"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            disabled={mode === "submitting"}
+          />
+
+          {submitError && (
+            <p style={{ color: "#dc2626", fontSize: 13, marginTop: 8 }}>{submitError}</p>
+          )}
+
+          <button
+            style={{
+              ...S.saveBtn,
+              ...(mode === "submitting" ? S.saveBtnLoading : {}),
+            }}
+            onClick={submitLead}
+            disabled={mode === "submitting"}
+          >
+            {mode === "submitting" ? "Saving…" : "Save Lead"}
+          </button>
+          <button style={S.cancelBtn} onClick={resetToScan} disabled={mode === "submitting"}>
+            Cancel
+          </button>
         </div>
       )}
 
-      <section className="hero is-dark is-small">
-        <div className="hero-body">
-          <div className="container is-flex is-justify-content-space-between is-align-items-center">
-            <div>
-              <h1 className="title is-4 mb-1">Badge Scanner</h1>
-              <p className="subtitle is-6 mb-0">KCD Toronto 2026 — Lead Capture</p>
-            </div>
-            <button
-              className="button is-small is-light"
-              onClick={() => {
-                const netlifyIdentity = require("netlify-identity-widget")
-                netlifyIdentity.logout()
-              }}
-            >
-              Log out
-            </button>
+      {/* Unknown QR sheet */}
+      {mode === "unknown" && (
+        <div style={S.sheet}>
+          <div style={S.sheetHandle} />
+          <div style={S.unknownBox}>
+            <p style={S.unknownTitle}>QR scanned — not a vCard</p>
+            <pre style={S.unknownPre}>{rawScan}</pre>
           </div>
+          <button style={S.saveBtn} onClick={resetToScan}>Scan Another</button>
         </div>
-      </section>
+      )}
 
-      <section className="section">
-        <div className="container" style={{ maxWidth: 500 }}>
-
-          {/* Scanner */}
-          {mode === "scanning" && (
-            <div className="box">
-              <p className="has-text-centered has-text-grey mb-4">
-                Point your camera at an attendee badge QR code
-              </p>
-              <div id="qr-reader" style={{ width: "100%" }} />
-            </div>
-          )}
-
-          {/* Contact preview + notes */}
-          {(mode === "preview" || mode === "submitting") && contact && (
-            <div className="box">
-              <h2 className="title is-5 mb-4">Contact</h2>
-              <table className="table is-fullwidth mb-4">
-                <tbody>
-                  {contact.fullName && <tr><th style={{ width: "30%" }}>Name</th><td>{contact.fullName}</td></tr>}
-                  {contact.email && <tr><th>Email</th><td>{contact.email}</td></tr>}
-                  {contact.phone && <tr><th>Phone</th><td>{contact.phone}</td></tr>}
-                  {contact.company && <tr><th>Company</th><td>{contact.company}</td></tr>}
-                  {contact.title && <tr><th>Title</th><td>{contact.title}</td></tr>}
-                </tbody>
-              </table>
-
-              <div className="field">
-                <label className="label">Notes</label>
-                <div className="control">
-                  <textarea
-                    className="textarea"
-                    rows={3}
-                    placeholder="What did you discuss? Follow-up needed?"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    disabled={mode === "submitting"}
-                  />
-                </div>
+      {/* Session log */}
+      {leads.length > 0 && mode === "scanning" && (
+        <div style={S.sessionLog}>
+          <p style={S.sessionTitle}>This session · {leads.length}</p>
+          {leads.map((lead, i) => (
+            <div key={i} style={S.sessionRow}>
+              <div>
+                <p style={S.sessionName}>{lead.fullName}</p>
+                {lead.company && <p style={S.sessionCompany}>{lead.company}</p>}
               </div>
-
-              {submitError && (
-                <p className="has-text-danger mb-3 is-size-7">{submitError}</p>
-              )}
-              <div className="buttons">
-                <button
-                  className={`button is-success${mode === "submitting" ? " is-loading" : ""}`}
-                  onClick={submitLead}
-                  disabled={mode === "submitting"}
-                >
-                  Save Lead
-                </button>
-                <button className="button" onClick={resetToScan} disabled={mode === "submitting"}>
-                  Cancel
-                </button>
-              </div>
+              <span style={S.sessionTime}>{lead.savedAt}</span>
             </div>
-          )}
-
-          {/* Unknown QR format */}
-          {mode === "unknown" && (
-            <div className="box">
-              <div className="notification is-warning is-light mb-4">
-                <p><strong>QR scanned — not a vCard format.</strong></p>
-                <p className="is-size-7 mt-2">Raw content:</p>
-                <pre className="is-size-7 mt-1" style={{ whiteSpace: "pre-wrap", wordBreak: "break-all" }}>
-                  {rawScan}
-                </pre>
-              </div>
-              <button className="button is-fullwidth" onClick={resetToScan}>
-                Scan Another
-              </button>
-            </div>
-          )}
-
-          {/* Session log */}
-          {leads.length > 0 && (
-            <div className="box mt-4">
-              <h2 className="title is-6 mb-3">Captured this session ({leads.length})</h2>
-              {leads.map((lead, i) => (
-                <div
-                  key={i}
-                  className="is-flex is-justify-content-space-between is-align-items-center mb-2"
-                >
-                  <div>
-                    <span className="has-text-weight-semibold">{lead.fullName}</span>
-                    {lead.company && (
-                      <span className="has-text-grey ml-2 is-size-7">· {lead.company}</span>
-                    )}
-                    {lead.note && (
-                      <p className="is-size-7 has-text-grey-dark mt-1">{lead.note}</p>
-                    )}
-                  </div>
-                  <span className="tag is-light is-size-7">{lead.savedAt}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
+          ))}
         </div>
-      </section>
-    </Layout>
+      )}
+    </div>
   )
 }
 
-export const Head = () => <title>Badge Scanner — KCD Toronto 2026</title>
+export const Head = () => (
+  <>
+    <title>Badge Scanner — KCD Toronto 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  </>
+)
+
 export default BadgeScanner
