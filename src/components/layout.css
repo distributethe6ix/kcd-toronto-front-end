@@ -399,4 +399,31 @@ select:focus {
   .sponsor-logo-link .box {
     background-color: #f0f0f0 !important;
   }
+
+  /* Table dark mode */
+  .table {
+    background-color: #1e1e2e;
+    color: #e0e0e0;
+  }
+
+  .table th,
+  .table td {
+    border-color: #3a3a4e;
+    color: #e0e0e0;
+  }
+
+  .table thead th {
+    background-color: #252535;
+    color: #e0e0e0;
+    border-color: #3a3a4e;
+  }
+
+  .table.is-striped tbody tr:not(.is-selected):nth-child(even) {
+    background-color: #252535;
+  }
+
+  .tag.is-danger.is-light {
+    background-color: #3a1a1a !important;
+    color: #ff8080 !important;
+  }
 }

@@ -1,6 +1,25 @@
 import * as React from "react"
 import Layout from "../components/layout"
 
+const logoBoxStyle = {
+  padding: '2rem',
+  backgroundColor: 'white',
+  height: '120px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}
+
+const logoImgStyle = {
+  maxHeight: '80px',
+  maxWidth: '180px',
+  width: 'auto',
+  objectFit: 'contain',
+}
+
+const check = <span style={{ color: '#00c853', fontWeight: 'bold' }}>✓</span>
+const dash = <span style={{ color: '#aaa' }}>—</span>
+
 const SponsorsPage = () => {
   return (
     <Layout>
@@ -15,7 +34,9 @@ const SponsorsPage = () => {
 
       <section className="section">
         <div className="container">
-          <div className="box has-background-info-light">
+
+          {/* Become a Sponsor CTA */}
+          <div className="box has-background-info-light mb-6">
             <h2 className="title is-3 has-text-centered">Become a Sponsor</h2>
             <div className="content">
               <p className="has-text-centered is-size-5">
@@ -40,8 +61,9 @@ const SponsorsPage = () => {
             </div>
           </div>
 
+          {/* Why Sponsor? */}
           <h2 className="title is-2 mt-6 mb-5">Why Sponsor?</h2>
-          <div className="columns is-multiline">
+          <div className="columns is-multiline mb-6">
             <div className="column is-6">
               <div className="box">
                 <h3 className="title is-4">Brand Visibility</h3>
@@ -68,195 +90,79 @@ const SponsorsPage = () => {
             </div>
           </div>
 
+          {/* Sponsorship Tiers Table */}
           <h2 className="title is-2 mt-6 mb-5 has-text-centered">Sponsorship Tiers</h2>
-
-          <div className="box mb-5" style={{ borderLeft: "6px solid #B9F2FF" }}>
-            <div className="columns">
-              <div className="column is-8">
-                <h3 className="title is-3" style={{ color: "#326ce5" }}>💎 Diamond / Committee Partner</h3>
-                <p className="mb-3">
-                  Our premier partner supporting KCD Toronto 2026. Diamond sponsors demonstrate exceptional leadership and commitment to the cloud native community.
-                </p>
-                <p className="mb-3"><strong>1 exclusive spot (filled)</strong></p>
-              </div>
-              <div className="column is-4">
-                <a href="https://www.rbc.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #B9F2FF", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/RBC-logo.png" alt="RBC - Diamond/Committee Partner Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-              </div>
-            </div>
+          <div className="table-container mb-6">
+            <table className="table is-fullwidth is-bordered sponsor-tiers-table">
+              <thead>
+                <tr>
+                  <th>Tier</th>
+                  <th>Spots</th>
+                  <th>Booth</th>
+                  <th>Tickets</th>
+                  <th>Keynote</th>
+                  <th>Guest Discount</th>
+                  <th>Swag &amp; Branding</th>
+                  <th>Website &amp; Video</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong style={{ color: '#326ce5' }}>💎 Diamond</strong></td>
+                  <td>1 <span className="tag is-danger is-light ml-1">Filled</span></td>
+                  <td>Exclusive</td>
+                  <td>Custom</td>
+                  <td>{check} Custom</td>
+                  <td>{check}</td>
+                  <td>{check}</td>
+                  <td>{check} + Video</td>
+                </tr>
+                <tr>
+                  <td><strong style={{ color: '#909090' }}>🏆 Platinum</strong></td>
+                  <td>5 remaining</td>
+                  <td>Extra Large</td>
+                  <td>6</td>
+                  <td>{check} 3-min keynote</td>
+                  <td>30% off (10 tickets)</td>
+                  <td>{check}</td>
+                  <td>{check} + Video</td>
+                </tr>
+                <tr>
+                  <td><strong style={{ color: '#b8860b' }}>🥇 Gold</strong></td>
+                  <td>10</td>
+                  <td>Large</td>
+                  <td>4</td>
+                  <td>Mention</td>
+                  <td>30% off (10 tickets)</td>
+                  <td>{check}</td>
+                  <td>{check} + Video</td>
+                </tr>
+                <tr>
+                  <td><strong style={{ color: '#707070' }}>🥈 Silver</strong></td>
+                  <td>12</td>
+                  <td>Medium</td>
+                  <td>2</td>
+                  <td>{dash}</td>
+                  <td>30% off (4 tickets)</td>
+                  <td>{check}</td>
+                  <td>{check}</td>
+                </tr>
+                <tr>
+                  <td><strong style={{ color: '#E91E63' }}>💜 Community</strong></td>
+                  <td>Open</td>
+                  <td>Zone presence</td>
+                  <td>1</td>
+                  <td>{dash}</td>
+                  <td>{dash}</td>
+                  <td>{dash}</td>
+                  <td>{check}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <div className="box mb-5" style={{ borderLeft: "6px solid #E5E4E2" }}>
-            <div className="columns">
-              <div className="column is-8">
-                <h3 className="title is-3" style={{ color: "#C0C0C0" }}>🏆 Platinum Sponsors</h3>
-                <p className="mb-3">
-                  Platinum sponsors have the biggest impact on the conference. They represent companies for which Cloud Native approach is central in the way they implement their activity.
-                </p>
-                <p className="mb-3"><strong>5 available spots remaining</strong></p>
-                <div className="content">
-                  <p className="has-text-weight-semibold">What's Included:</p>
-                  <ul>
-                    <li>Extra Large booth</li>
-                    <li>6 tickets</li>
-                    <li>Keynote mention</li>
-                    <li>3-minute sponsored Keynote</li>
-                    <li>Quote in KCD promotions and social channels</li>
-                    <li>30% Discount code for guests (10 tickets)</li>
-                    <li>Branding in all swag and marketing material</li>
-                    <li>Logo on website and all video replays</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="column is-4">
-                <a href="https://clickhouse.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #E5E4E2", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/Logo_Black_300dpi_FNL.png" alt="ClickHouse - Platinum Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="box mb-5" style={{ borderLeft: "6px solid #FFD700" }}>
-            <div className="columns">
-              <div className="column is-8">
-                <h3 className="title is-3" style={{ color: "#FFD700" }}>🥇 Gold Sponsors</h3>
-                <p className="mb-3">
-                  Gold sponsors form the backbone of the conference backers. They represent companies that believe the strongest in the Cloud Native movement and have the financial means and the willingness to support it.
-                </p>
-                <p className="mb-3"><strong>10 available spots</strong></p>
-                <div className="content">
-                  <p className="has-text-weight-semibold">What's Included:</p>
-                  <ul>
-                    <li>Large booth</li>
-                    <li>4 tickets</li>
-                    <li>Quote in KCD promotions and social channels</li>
-                    <li>30% Discount code for guests (10 tickets)</li>
-                    <li>Branding in all swag and marketing material</li>
-                    <li>Logo on website and video replays</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="column is-4">
-                <a href="https://www.tigera.io" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #FFD700", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/Tigera-logo-2026-black-text-vertical.png" alt="Tigera - Gold Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-                <a href="https://goteleport.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #FFD700", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/teleport-logo.svg" alt="Teleport - Gold Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="box mb-5" style={{ borderLeft: "6px solid #C0C0C0" }}>
-            <div className="columns">
-              <div className="column is-8">
-                <h3 className="title is-3" style={{ color: "#C0C0C0" }}>🥈 Silver Sponsors</h3>
-                <p className="mb-3">
-                  Silver sponsors are important contributors to the conference. They represent companies who believe in cloud native technologies and experience daily their benefits for their software and platforms (or those from their customers!).
-                </p>
-                <p className="mb-3"><strong>12 available spots</strong></p>
-                <div className="content">
-                  <p className="has-text-weight-semibold">What's Included:</p>
-                  <ul>
-                    <li>Medium Booth</li>
-                    <li>2 tickets</li>
-                    <li>30% Discount code for guests (4 tickets)</li>
-                    <li>Branding in all swag and marketing material</li>
-                    <li>Logo on website</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="column is-4">
-                <a href="https://tremolo.io" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/ts-logo-300w.png" alt="Tremolo Security - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-                <a href="https://depot.dev" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/depot-logo-horizontal-on-light@3x.png" alt="Depot - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-                <a href="https://komodor.io" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/komodor-logo-2024.svg" alt="Komodor - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-                <a href="https://objectfirst.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/Object First Logo - Primary.png" alt="Object First - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-                <a href="https://solo.io" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/solo.png" alt="Solo.io - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-                <a href="https://edera.dev" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #C0C0C0", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/690f9f5837bd1626bd388947_Edera Open Graph.png" alt="Edera - Silver Sponsor" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="box mb-5" style={{ borderLeft: "6px solid #E91E63" }}>
-            <div className="columns">
-              <div className="column is-8">
-                <h3 className="title is-3" style={{ color: "#E91E63" }}>💜 Community Partners</h3>
-                <p className="mb-3">
-                  Community partners, such as cloud native project maintainers, tech community leaders in Open Source, DevOps, or Cloud Native technologies, and Open Source Evangelists, play a unique role as central contributors to our KCD event.
-                </p>
-                <div className="content">
-                  <p className="has-text-weight-semibold">What's Included:</p>
-                  <ul>
-                    <li>1 Ticket</li>
-                    <li>Presence in the community zone: a special place at the venue</li>
-                    <li>Logo on website</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="column is-4">
-                <a href="https://www.cncf.io" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white" style={{ border: "3px solid #E91E63", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/cncf-color.png" alt="CNCF - Community Partner" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-                <a href="https://exampro.co" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/exampro.png" alt="ExamPro - Community Partner" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-                <a href="https://sadservers.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/sadservers.png" alt="SadServers - Community Partner" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-                <a href="https://devopsto.com" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/devopsto-logo.png" alt="DevOps Toronto - Community Partner" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-                <a href="https://devopsdays.org/events/2026-raleigh/welcome/" target="_blank" rel="noopener noreferrer">
-                  <div className="box has-text-centered has-background-white mt-3" style={{ border: "3px solid #E91E63", padding: "1.5rem", height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/devopsdays-raleigh-logo.png" alt="DevOpsDays Raleigh - Community Partner" style={{ maxHeight: '80px', maxWidth: '100%', width: 'auto', objectFit: 'contain' }} />
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="box has-background-light mt-6">
+          {/* Interested in Sponsoring footer */}
+          <div className="box mt-6">
             <h3 className="title is-4">Interested in Sponsoring?</h3>
             <p>
               Contact us to discuss custom opportunities including lunch sponsorship, coffee breaks, swag bags, and more.
@@ -265,6 +171,155 @@ const SponsorsPage = () => {
               <strong>Email:</strong> <a href="mailto:toronto-org@kubernetescommunitydays.org">toronto-org@kubernetescommunitydays.org</a>
             </p>
           </div>
+
+        </div>
+      </section>
+
+      {/* Our Sponsors Section */}
+      <section className="section has-background-light">
+        <div className="container">
+          <h2 className="title is-2 has-text-centered mb-6">Our Sponsors</h2>
+
+          {/* Diamond */}
+          <div className="mb-6">
+            <h3 className="title is-4 has-text-centered mb-4">💎 Diamond / Committee Partner</h3>
+            <div className="columns is-centered">
+              <div className="column is-4 has-text-centered">
+                <a href="https://www.rbc.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/RBC-logo.png" alt="RBC - Diamond/Committee Partner Sponsor" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Platinum */}
+          <div className="mb-6">
+            <h3 className="title is-4 has-text-centered mb-4">🏆 Platinum Sponsors</h3>
+            <div className="columns is-centered">
+              <div className="column is-4 has-text-centered">
+                <a href="https://clickhouse.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/Logo_Black_300dpi_FNL.png" alt="ClickHouse - Platinum Sponsor" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Gold */}
+          <div className="mb-6">
+            <h3 className="title is-4 has-text-centered mb-4">🥇 Gold Sponsors</h3>
+            <div className="columns is-centered">
+              <div className="column is-4 has-text-centered">
+                <a href="https://www.tigera.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/Tigera-logo-2026-black-text-vertical.png" alt="Tigera - Gold Sponsor" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://goteleport.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/teleport-logo.svg" alt="Teleport - Gold Sponsor" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Silver */}
+          <div className="mb-6">
+            <h3 className="title is-4 has-text-centered mb-4">🥈 Silver Sponsors</h3>
+            <div className="columns is-multiline is-centered">
+              <div className="column is-4 has-text-centered">
+                <a href="https://tremolo.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/ts-logo-300w.png" alt="Tremolo Security - Silver Sponsor" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://depot.dev" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/depot-logo-horizontal-on-light@3x.png" alt="Depot - Silver Sponsor" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://komodor.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/komodor-logo-2024.svg" alt="Komodor - Silver Sponsor" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://objectfirst.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/Object First Logo - Primary.png" alt="Object First - Silver Sponsor" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://solo.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/solo.png" alt="Solo.io - Silver Sponsor" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://edera.dev" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/690f9f5837bd1626bd388947_Edera Open Graph.png" alt="Edera - Silver Sponsor" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Community */}
+          <div className="mb-6">
+            <h3 className="title is-4 has-text-centered mb-4">💜 Community Partners</h3>
+            <div className="columns is-multiline is-centered">
+              <div className="column is-4 has-text-centered">
+                <a href="https://www.cncf.io" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/cncf-color.png" alt="CNCF - Community Partner" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://exampro.co" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/exampro.png" alt="ExamPro - Community Partner" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://sadservers.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/sadservers.png" alt="SadServers - Community Partner" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://devopsto.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/devopsto-logo.png" alt="DevOps Toronto - Community Partner" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://devopsdays.org/events/2026-raleigh/welcome/" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={logoBoxStyle}>
+                    <img src="/sponsors/devopsdays-raleigh-logo.png" alt="DevOpsDays Raleigh - Community Partner" style={logoImgStyle} />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
     </Layout>
