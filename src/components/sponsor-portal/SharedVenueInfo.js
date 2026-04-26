@@ -11,6 +11,8 @@ const SharedVenueInfo = ({ data, tier }) => {
   return (
     <div className="box mb-5">
       <h2 className="title is-4">Venue Information</h2>
+
+      {/* Location + Map */}
       <div className="columns">
         <div className="column is-5">
           <h3 className="title is-6 mb-1">Location</h3>
@@ -30,38 +32,13 @@ const SharedVenueInfo = ({ data, tier }) => {
           </table>
 
           <h3 className="title is-6 mt-4 mb-2">Booth Information</h3>
-          <ul style={{ paddingLeft: "1.25rem", lineHeight: "1.8" }}>
-            <li>Comes with a table and two chairs</li>
-            <li>Will have a black tablecloth / linen</li>
-            <li>Table size: 24 in. W × 60 in. L × 29 in. H</li>
-            <li>Booth size: {boothSize} with space for a pull-up banner behind your table</li>
-          </ul>
-
-          <h3 className="title is-6 mt-5 mb-2">Shipping Information</h3>
-          <a
-            href="https://drive.google.com/drive/folders/1twUC7vmi8t8FIjhMwgTpuNZ6R7WJOPw7?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="button is-info is-outlined is-small mb-4"
-          >
-            Download Shipping Forms
-          </a>
-          <div className="content is-size-7">
-            <p>
-              Please use the link above to download the shipping form (<strong>The Quay – Shipping Form</strong>, make a copy),
-              fill it out, and return it to{" "}
-              <a href="mailto:toronto-org@kubernetescommunitydays.org">toronto-org@kubernetescommunitydays.org</a>{" "}
-              and{" "}
-              <a href="mailto:emily.bazzano@oliverbonacini.com">emily.bazzano@oliverbonacini.com</a>.
-              Please ensure all boxes have the shipping label attached (<strong>The Quay – Events Shipping Label.pdf</strong>)
-              so the venue can identify where it needs to go.
-            </p>
-            <p>
-              To minimize loss, all event materials must be shipped to the venue a maximum of{" "}
-              <strong>2 business days in advance</strong>. The client acknowledges that any items shipped back after
-              an event has occurred are their sole responsibility. O&amp;B will not organize return shipping for items
-              left at the venue. Sponsors are responsible for shipping back their materials.
-            </p>
+          <div className="content">
+            <ul>
+              <li>Comes with a table and two chairs</li>
+              <li>Will have a black tablecloth / linen</li>
+              <li>Table size: 24 in. W × 60 in. L × 29 in. H</li>
+              <li>Booth size: {boothSize} with space for a pull-up banner behind your table</li>
+            </ul>
           </div>
 
           <h3 className="title is-6 mt-4 mb-2">Key Contacts</h3>
@@ -99,6 +76,35 @@ const SharedVenueInfo = ({ data, tier }) => {
           </a>
           <p className="is-size-7 has-text-grey mt-1 has-text-centered">Click map to open in Google Maps</p>
         </div>
+      </div>
+
+      {/* Shipping Information — full width */}
+      <hr />
+      <h3 className="title is-5 mb-3">Shipping Information</h3>
+      <a
+        href="https://drive.google.com/drive/folders/1twUC7vmi8t8FIjhMwgTpuNZ6R7WJOPw7?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="button is-info is-medium mb-4"
+      >
+        <strong>Download Shipping Forms</strong>
+      </a>
+      <div className="content">
+        <p>
+          Please use the link above to download the shipping form (<strong>The Quay – Shipping Form</strong>, make a copy),
+          fill it out, and return it to{" "}
+          <a href="mailto:toronto-org@kubernetescommunitydays.org">toronto-org@kubernetescommunitydays.org</a>{" "}
+          and{" "}
+          <a href="mailto:emily.bazzano@oliverbonacini.com">emily.bazzano@oliverbonacini.com</a>.
+          Please ensure all boxes have the shipping label attached (<strong>The Quay – Events Shipping Label.pdf</strong>)
+          so the venue can identify where it needs to go.
+        </p>
+        <p>
+          To minimize loss, all event materials must be shipped to the venue a maximum of{" "}
+          <strong>2 business days in advance</strong>. The client acknowledges that any items shipped back after
+          an event has occurred are their sole responsibility. O&amp;B will not organize return shipping for items
+          left at the venue. Sponsors are responsible for shipping back their materials.
+        </p>
       </div>
     </div>
   )
