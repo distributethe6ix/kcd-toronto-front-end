@@ -197,7 +197,7 @@ const SponsorPortal = () => {
               <SponsorHeader sponsor={sponsor} />
 
               {/* 2. Venue information */}
-              <SharedVenueInfo data={sponsorData.shared} />
+              <SharedVenueInfo data={sponsorData.shared} tier={sponsor.tier} />
 
               {/* 3. Included ticket codes */}
               <IncludedTicketCodes sponsor={sponsor} />
@@ -213,7 +213,7 @@ const SponsorPortal = () => {
             </>
           ) : (
             <>
-              <SharedVenueInfo data={sponsorData.shared} />
+              <SharedVenueInfo data={sponsorData.shared} tier={sponsor.tier} />
               <SharedGraphics data={sponsorData.shared} />
               <div className="notification is-warning">
                 <p>
