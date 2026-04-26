@@ -50,20 +50,35 @@ const IndexPage = () => {
         </div>
       </section>
 
-      {/* Keynote Speaker Highlight */}
+      {/* Keynote Speakers Highlight */}
       <section className="section has-background-primary-light">
         <div className="container">
-          <h2 className="title is-2 has-text-centered mb-6">Keynote Speaker</h2>
-          <div className="has-text-centered">
-            <figure className="image" style={{ width: "200px", height: "200px", margin: "0 auto 1.5rem" }}>
-              <img
-                src="/speakers/keynote/marylia.png"
-                alt="Marylia Gutierrez"
-                style={{ width: "200px", height: "200px", borderRadius: "50%", objectFit: "cover", border: "4px solid #326ce5" }}
-              />
-            </figure>
-            <h3 className="title is-3 mb-1">Marylia Gutierrez</h3>
-            <p className="subtitle is-5 mb-4">Keynote Speaker</p>
+          <h2 className="title is-2 has-text-centered mb-6">Keynote Speakers</h2>
+          <div className="columns is-centered">
+            <div className="column is-4 has-text-centered">
+              <figure className="image" style={{ width: "200px", height: "200px", margin: "0 auto 1.5rem" }}>
+                <img
+                  src="/speakers/keynote/marylia.png"
+                  alt="Marylia Gutierrez"
+                  style={{ width: "200px", height: "200px", borderRadius: "50%", objectFit: "cover", border: "4px solid #326ce5" }}
+                />
+              </figure>
+              <h3 className="title is-3 mb-1">Marylia Gutierrez</h3>
+              <p className="subtitle is-5">Keynote Speaker</p>
+            </div>
+            <div className="column is-4 has-text-centered">
+              <figure className="image" style={{ width: "200px", height: "200px", margin: "0 auto 1.5rem" }}>
+                <img
+                  src="/speakers/keynote/doneyli.jpg"
+                  alt="Doneyli De Jesus"
+                  style={{ width: "200px", height: "200px", borderRadius: "50%", objectFit: "cover", border: "4px solid #326ce5" }}
+                />
+              </figure>
+              <h3 className="title is-3 mb-1">Doneyli De Jesus</h3>
+              <p className="subtitle is-5">Sponsored Keynote</p>
+            </div>
+          </div>
+          <div className="has-text-centered mt-4">
             <a href="/speakers" className="button is-primary">
               Learn More
             </a>

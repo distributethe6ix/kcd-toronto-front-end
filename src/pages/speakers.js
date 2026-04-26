@@ -65,9 +65,9 @@ const SpeakersPage = () => {
 
       <section className="section">
         <div className="container">
-          {/* Keynote Speaker - pinned, always visible */}
+          {/* Keynote Speakers - pinned, always visible */}
           <div className="mb-6">
-            <h2 className="title is-2 has-text-centered mb-5">Keynote Speaker</h2>
+            <h2 className="title is-2 has-text-centered mb-5">Keynote Speakers</h2>
             <div className="columns is-centered">
               <div className="column is-4">
                 <div className="card">
@@ -81,6 +81,21 @@ const SpeakersPage = () => {
                     </figure>
                     <p className="title is-4">Marylia Gutierrez</p>
                     <p className="subtitle is-6">Keynote Speaker</p>
+                  </div>
+                </div>
+              </div>
+              <div className="column is-4">
+                <div className="card">
+                  <div className="card-content has-text-centered">
+                    <figure className="image" style={{ width: "120px", height: "120px", margin: "0 auto 1rem" }}>
+                      <img
+                        src="/speakers/keynote/doneyli.jpg"
+                        alt="Doneyli De Jesus"
+                        style={{ width: "120px", height: "120px", borderRadius: "50%", objectFit: "cover", border: "3px solid #326ce5" }}
+                      />
+                    </figure>
+                    <p className="title is-4">Doneyli De Jesus</p>
+                    <p className="subtitle is-6">Sponsored Keynote</p>
                   </div>
                 </div>
               </div>

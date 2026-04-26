@@ -1,7 +1,6 @@
 import * as React from "react"
 import Layout from "../components/layout"
-
-const SESSIONIZE_BASE = "https://sessionize.com/api/v2/9ddjd9rc/view"
+import { SESSIONIZE_BASE, formatTime } from "../utils/sessionize"
 
 const parseSessions = (html) => {
   const doc = new DOMParser().parseFromString(html, "text/html")
@@ -27,19 +26,6 @@ const parseSessions = (html) => {
       })),
     }
   })
-}
-
-const formatTime = (isoString) => {
-  if (!isoString) return ""
-  try {
-    return new Date(isoString).toLocaleTimeString("en-CA", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "America/Toronto",
-    })
-  } catch {
-    return isoString
-  }
 }
 
 const SessionCard = ({ session }) => {
