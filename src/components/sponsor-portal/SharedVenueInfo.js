@@ -1,10 +1,9 @@
 import * as React from "react"
 
 const BOOTH_SIZE = {
-  silver:    "approximately 9 ft × 5 ft",
-  community: "approximately 9 ft × 5 ft",
+  gold: "approximately 18 ft × 10 ft",
 }
-const DEFAULT_BOOTH_SIZE = "approximately 18 ft × 10 ft"
+const DEFAULT_BOOTH_SIZE = "approximately 9 ft × 5 ft"
 
 const SharedVenueInfo = ({ data, tier }) => {
   const { venueInfo } = data
