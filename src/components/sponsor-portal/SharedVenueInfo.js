@@ -1,7 +1,14 @@
 import * as React from "react"
 
-const SharedVenueInfo = ({ data }) => {
+const BOOTH_SIZE = {
+  silver:    "approximately 9 ft × 5 ft",
+  community: "approximately 9 ft × 5 ft",
+}
+const DEFAULT_BOOTH_SIZE = "approximately 18 ft × 10 ft"
+
+const SharedVenueInfo = ({ data, tier }) => {
   const { venueInfo } = data
+  const boothSize = BOOTH_SIZE[tier] || DEFAULT_BOOTH_SIZE
   return (
     <div className="box mb-5">
       <h2 className="title is-4">Venue Information</h2>
@@ -28,7 +35,7 @@ const SharedVenueInfo = ({ data }) => {
             <li>Comes with a table and two chairs</li>
             <li>Will have a black tablecloth / linen</li>
             <li>Table size: 24 in. W × 60 in. L × 29 in. H</li>
-            <li>Booth size: approximately 9 ft × 5 ft with space for a pull-up banner behind your table</li>
+            <li>Booth size: {boothSize} with space for a pull-up banner behind your table</li>
           </ul>
 
           <h3 className="title is-6 mt-5 mb-2">Shipping Information</h3>
