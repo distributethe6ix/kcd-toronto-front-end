@@ -134,6 +134,50 @@ const SessionsPage = () => {
 
       <section className="section">
         <div className="container">
+
+          {/* Pinned Keynote Sessions — always visible */}
+          <div className="mb-6">
+            <h2 className="title is-4 mb-4">🎤 Featured Keynotes</h2>
+            <div className="columns">
+              <div className="column is-half">
+                <div className="card" style={{ borderTop: "4px solid #326ce5" }}>
+                  <div className="card-content">
+                    <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                      <img
+                        src="/speakers/keynote/marylia.png"
+                        alt="Marylia Gutierrez"
+                        style={{ width: "60px", height: "60px", borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
+                      />
+                      <div>
+                        <h3 className="title is-5 mb-1">Opening Keynote</h3>
+                        <p className="has-text-grey-dark mb-2">Marylia Gutierrez</p>
+                        <span className="tag is-primary is-light">Keynote</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="column is-half">
+                <div className="card" style={{ borderTop: "4px solid #326ce5" }}>
+                  <div className="card-content">
+                    <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                      <img
+                        src="/speakers/keynote/doneyli.jpg"
+                        alt="Doneyli De Jesus"
+                        style={{ width: "60px", height: "60px", borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
+                      />
+                      <div>
+                        <h3 className="title is-5 mb-1">Sponsored Keynote</h3>
+                        <p className="has-text-grey-dark mb-2">Doneyli De Jesus</p>
+                        <span className="tag is-warning is-light">Sponsored · ClickHouse</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {loading && (
             <div className="has-text-centered py-6">
               <progress className="progress is-primary" max="100" style={{ maxWidth: "400px", margin: "0 auto" }}>
