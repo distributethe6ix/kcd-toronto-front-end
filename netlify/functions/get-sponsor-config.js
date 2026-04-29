@@ -1,5 +1,10 @@
 const { getStore } = require("@netlify/blobs")
 
+// Maps alternate domains to the primary domain used as the Blobs key
+const DOMAIN_ALIASES = {
+  "komodor.io": "komodor.com",
+}
+
 exports.handler = async (event, context) => {
   const netlifyUser = context.clientContext?.user
   if (!netlifyUser) {
@@ -24,6 +29,7 @@ exports.handler = async (event, context) => {
 
   if (!domain) {
     domain = netlifyUser.email?.split("@")[1]?.toLowerCase()
+    if (domain && DOMAIN_ALIASES[domain]) domain = DOMAIN_ALIASES[domain]
   }
 
   if (!domain) {
