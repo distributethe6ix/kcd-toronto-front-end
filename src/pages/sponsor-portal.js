@@ -17,7 +17,9 @@ const matchSponsorByDomain = (email) => {
   if (!domain) return null
   return (
     sponsorData.sponsors.find(
-      (s) => s.domain && s.domain.toLowerCase() === domain
+      (s) =>
+        (s.domain && s.domain.toLowerCase() === domain) ||
+        (s.altDomains && s.altDomains.some((d) => d.toLowerCase() === domain))
     ) || null
   )
 }

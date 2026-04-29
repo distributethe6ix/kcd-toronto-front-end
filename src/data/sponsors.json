@@ -7,7 +7,7 @@
     { "id": "redhat",      "name": "Red Hat",       "tier": "gold",     "domain": "redhat.com" },
     { "id": "tremolo",     "name": "Tremolo",       "tier": "silver",   "domain": "tremolosecurity.com" },
     { "id": "depot",       "name": "Depot",         "tier": "silver",   "domain": "depot.dev" },
-    { "id": "komodor",     "name": "Komodor",       "tier": "silver",   "domain": "komodor.com" },
+    { "id": "komodor",     "name": "Komodor",       "tier": "silver",   "domain": "komodor.com", "altDomains": ["komodor.io"] },
     { "id": "objectfirst", "name": "Object First",  "tier": "silver",   "domain": "objectfirst.com" },
     { "id": "solo",        "name": "Solo.io",       "tier": "silver",   "domain": "solo.io" },
     { "id": "edera",       "name": "Edera",         "tier": "silver",   "domain": "edera.dev" }
