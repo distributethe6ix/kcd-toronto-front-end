@@ -426,7 +426,7 @@ const IndexPage = () => {
               <div className="column is-4 has-text-centered">
                 <a href="https://tridentconsulting.ca/" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
                   <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src="/sponsors/TC-Logo_Red-Variation-Final.png" alt="Trident Consulting - Silver Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
+                    <img src="/sponsors/TC-Logo-Red-Variation-Final.png" alt="Trident Consulting - Silver Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
                   </div>
                 </a>
               </div>

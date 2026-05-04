@@ -278,7 +278,7 @@ const SponsorsPage = () => {
               <div className="column is-4 has-text-centered">
                 <a href="https://tridentconsulting.ca/" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
                   <div className="box" style={logoBoxStyle}>
-                    <img src="/sponsors/TC-Logo_Red-Variation-Final.png" alt="Trident Consulting - Silver Sponsor" style={logoImgStyle} />
+                    <img src="/sponsors/TC-Logo-Red-Variation-Final.png" alt="Trident Consulting - Silver Sponsor" style={logoImgStyle} />
                   </div>
                 </a>
               </div>
