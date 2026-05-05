@@ -64,8 +64,8 @@ const SponsorPortal = () => {
   React.useEffect(() => {
     if (!user) return
     const netlifyIdentity = require("netlify-identity-widget")
-    const token = netlifyIdentity.currentUser()?.token?.access_token
-    if (!token) return
+    const currentUser = netlifyIdentity.currentUser()
+    if (!currentUser) return
 
     const isAdmin = user.app_metadata?.roles?.includes("admin")
     const fetchBody = isAdmin && adminPreviewId
@@ -75,17 +75,19 @@ const SponsorPortal = () => {
         })()
       : null
 
-    fetch("/.netlify/functions/get-sponsor-config", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: fetchBody,
-    })
-      .then((r) => r.json())
-      .then((data) => { if (data.config) setSponsorConfig(data.config) })
-      .catch(() => {})
+    currentUser.jwt().then((token) => {
+      fetch("/.netlify/functions/get-sponsor-config", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: fetchBody,
+      })
+          .then((r) => r.json())
+          .then((data) => { if (data.config) setSponsorConfig(data.config) })
+          .catch(() => {})
+    }).catch(() => {})
   }, [user, adminPreviewId])
 
   const handleLogout = () => {

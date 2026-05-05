@@ -63,7 +63,7 @@ const SponsorAdmin = () => {
 
   const getToken = () => {
     const netlifyIdentity = require("netlify-identity-widget")
-    return netlifyIdentity.currentUser()?.token?.access_token
+    return netlifyIdentity.currentUser()?.jwt()
   }
 
   const isAdmin = user?.app_metadata?.roles?.includes("admin")
@@ -98,7 +98,7 @@ const SponsorAdmin = () => {
     try {
       const res = await fetch("/.netlify/functions/get-sponsor-config", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${await getToken()}` },
         body: JSON.stringify({ domain: sponsor.domain }),
       })
       const data = await res.json()
@@ -139,7 +139,7 @@ const SponsorAdmin = () => {
     try {
       const res = await fetch("/.netlify/functions/set-sponsor-config", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${getToken()}` },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${await getToken()}` },
         body: JSON.stringify({
           domain: sponsor.domain,
           sponsorData: {
