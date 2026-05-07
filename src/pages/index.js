@@ -374,6 +374,13 @@ const IndexPage = () => {
                   </div>
                 </a>
               </div>
+              <div className="column is-4 has-text-centered">
+                <a href="https://www.redhat.com" target="_blank" rel="noopener noreferrer" className="sponsor-logo-link">
+                  <div className="box" style={{ padding: '2rem', backgroundColor: 'white', height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="/sponsors/Logo-Red_Hat-C-Standard-RGB.Large-logo-(transparent-background).png" alt="Red Hat - Gold Partner" style={{ maxHeight: '80px', maxWidth: '180px', width: 'auto', objectFit: 'contain' }} />
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
 
