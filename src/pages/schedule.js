@@ -211,7 +211,7 @@ const SchedulePage = () => {
           <div className="mb-6">
             <h2 className="title is-4 mb-4">🎤 Featured Keynotes</h2>
             <div className="columns">
-              <div className="column is-half">
+              <div className="column is-one-third">
                 <div className="card" style={{ borderTop: "4px solid #326ce5" }}>
                   <div className="card-content">
                     <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
@@ -229,7 +229,25 @@ const SchedulePage = () => {
                   </div>
                 </div>
               </div>
-              <div className="column is-half">
+              <div className="column is-one-third">
+                <div className="card" style={{ borderTop: "4px solid #326ce5" }}>
+                  <div className="card-content">
+                    <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                      <img
+                        src="/speakers/keynote/Ernani Cecon Headshot-1.jpg"
+                        alt="Ernani Cecon"
+                        style={{ width: "60px", height: "60px", borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
+                      />
+                      <div>
+                        <h3 className="title is-5 mb-1">Diamond Keynote</h3>
+                        <p className="has-text-grey-dark mb-2">Ernani Cecon</p>
+                        <span className="tag is-info is-light">Diamond · RBC</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="column is-one-third">
                 <div className="card" style={{ borderTop: "4px solid #326ce5" }}>
                   <div className="card-content">
                     <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>

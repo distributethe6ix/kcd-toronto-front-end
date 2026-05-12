@@ -69,6 +69,17 @@ const IndexPage = () => {
             <div className="column is-4 has-text-centered">
               <figure className="image" style={{ width: "200px", height: "200px", margin: "0 auto 1.5rem" }}>
                 <img
+                  src="/speakers/keynote/Ernani Cecon Headshot-1.jpg"
+                  alt="Ernani Cecon"
+                  style={{ width: "200px", height: "200px", borderRadius: "50%", objectFit: "cover", border: "4px solid #326ce5" }}
+                />
+              </figure>
+              <h3 className="title is-3 mb-1">Ernani Cecon</h3>
+              <p className="subtitle is-5">Diamond Keynote Speaker</p>
+            </div>
+            <div className="column is-4 has-text-centered">
+              <figure className="image" style={{ width: "200px", height: "200px", margin: "0 auto 1.5rem" }}>
+                <img
                   src="/speakers/keynote/doneyli.jpg"
                   alt="Doneyli De Jesus"
                   style={{ width: "200px", height: "200px", borderRadius: "50%", objectFit: "cover", border: "4px solid #326ce5" }}
