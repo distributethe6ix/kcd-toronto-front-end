@@ -89,6 +89,21 @@ const SpeakersPage = () => {
                   <div className="card-content has-text-centered">
                     <figure className="image" style={{ width: "120px", height: "120px", margin: "0 auto 1rem" }}>
                       <img
+                        src="/speakers/keynote/Ernani Cecon Headshot-1.jpg"
+                        alt="Ernani Cecon"
+                        style={{ width: "120px", height: "120px", borderRadius: "50%", objectFit: "cover", border: "3px solid #326ce5" }}
+                      />
+                    </figure>
+                    <p className="title is-4">Ernani Cecon</p>
+                    <p className="subtitle is-6">Diamond Keynote · RBC</p>
+                  </div>
+                </div>
+              </div>
+              <div className="column is-4">
+                <div className="card">
+                  <div className="card-content has-text-centered">
+                    <figure className="image" style={{ width: "120px", height: "120px", margin: "0 auto 1rem" }}>
+                      <img
                         src="/speakers/keynote/doneyli.jpg"
                         alt="Doneyli De Jesus"
                         style={{ width: "120px", height: "120px", borderRadius: "50%", objectFit: "cover", border: "3px solid #326ce5" }}
