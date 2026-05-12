@@ -39,9 +39,9 @@ const IndexPage = () => {
             </div>
             <CountdownTimer />
             <div className="buttons is-centered mt-5">
-              <a href="https://community.cncf.io/events/details/cncf-kcd-toronto-presents-kcd-toronto-2026/" target="_blank" rel="noopener noreferrer" className="button is-light is-large">
-                <strong>Get Tickets Here!</strong>
-              </a>
+              <button className="button is-danger is-light is-large" disabled>
+                <strong>Sold Out</strong>
+              </button>
               <a href="/sponsors" className="button is-outlined is-light is-large">
                 <strong>Become a Sponsor</strong>
               </a>
@@ -514,9 +514,9 @@ const IndexPage = () => {
                 </p>
               </div>
               <div className="column is-4 has-text-centered">
-                <a href="https://community.cncf.io/events/details/cncf-kcd-toronto-presents-kcd-toronto-2026/" target="_blank" rel="noopener noreferrer" className="button is-primary is-large">
-                  <strong>Get Tickets Here!</strong>
-                </a>
+                <button className="button is-danger is-light is-large" disabled>
+                  <strong>Sold Out</strong>
+                </button>
               </div>
             </div>
           </div>

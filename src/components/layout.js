@@ -65,9 +65,9 @@ const Layout = ({ children }) => {
               </Link>
               <div className="navbar-item">
                 <div className="buttons">
-                  <a href="https://community.cncf.io/events/details/cncf-kcd-toronto-presents-kcd-toronto-2026/" target="_blank" rel="noopener noreferrer" className="button is-light">
-                    <strong>Get Tickets Here!</strong>
-                  </a>
+                  <button className="button is-danger is-light" disabled>
+                    <strong>Sold Out</strong>
+                  </button>
                   <Link to="/sponsor-portal" className="button is-light is-outlined">
                     Sponsor Login
                   </Link>

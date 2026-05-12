@@ -32,149 +32,6 @@ const SponsorsPage = () => {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-
-          {/* Become a Sponsor CTA */}
-          <div className="box has-background-info-light mb-6">
-            <h2 className="title is-3 has-text-centered">Become a Sponsor</h2>
-            <div className="content">
-              <p className="has-text-centered is-size-5">
-                KCD Toronto 2026 is made possible by the generous support of our sponsors. By sponsoring KCD Toronto,
-                you'll connect with the Canadian cloud native community and showcase your commitment to open source innovation.
-              </p>
-              <div className="has-text-centered mt-5">
-                <div className="buttons is-centered">
-                  <a
-                    href="/KCD Toronto 2026 Sponsor Prospectus v2.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="button is-primary is-large"
-                  >
-                    <strong>Download Sponsorship Prospectus (PDF)</strong>
-                  </a>
-                  <a href="mailto:toronto-org@kubernetescommunitydays.org" className="button is-outlined is-primary is-large">
-                    <strong>Contact Us</strong>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Why Sponsor? */}
-          <h2 className="title is-2 mt-6 mb-5">Why Sponsor?</h2>
-          <div className="columns is-multiline mb-6">
-            <div className="column is-6">
-              <div className="box">
-                <h3 className="title is-4">Brand Visibility</h3>
-                <p>Get your brand in front of hundreds of cloud native professionals</p>
-              </div>
-            </div>
-            <div className="column is-6">
-              <div className="box">
-                <h3 className="title is-4">Community Engagement</h3>
-                <p>Connect directly with developers, architects, and decision-makers</p>
-              </div>
-            </div>
-            <div className="column is-6">
-              <div className="box">
-                <h3 className="title is-4">Talent Acquisition</h3>
-                <p>Meet potential candidates in the cloud native space</p>
-              </div>
-            </div>
-            <div className="column is-6">
-              <div className="box">
-                <h3 className="title is-4">Thought Leadership</h3>
-                <p>Position your company as a leader in cloud native technologies</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Sponsorship Tiers Table */}
-          <h2 className="title is-2 mt-6 mb-5 has-text-centered">Sponsorship Tiers</h2>
-          <div className="table-container mb-6">
-            <table className="table is-fullwidth is-bordered sponsor-tiers-table">
-              <thead>
-                <tr>
-                  <th>Tier</th>
-                  <th>Spots</th>
-                  <th>Booth</th>
-                  <th>Tickets</th>
-                  <th>Keynote</th>
-                  <th>Guest Discount</th>
-                  <th>Swag &amp; Branding</th>
-                  <th>Website &amp; Video</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong style={{ color: '#326ce5' }}>💎 Diamond</strong></td>
-                  <td>1 <span className="tag is-danger is-light ml-1">Filled</span></td>
-                  <td>Exclusive</td>
-                  <td>Custom</td>
-                  <td>{check} Custom</td>
-                  <td>{check}</td>
-                  <td>{check}</td>
-                  <td>{check} + Video</td>
-                </tr>
-                <tr>
-                  <td><strong style={{ color: '#909090' }}>🏆 Platinum</strong></td>
-                  <td>5 remaining</td>
-                  <td>Extra Large</td>
-                  <td>6</td>
-                  <td>{check} 3-min keynote</td>
-                  <td>30% off (10 tickets)</td>
-                  <td>{check}</td>
-                  <td>{check} + Video</td>
-                </tr>
-                <tr>
-                  <td><strong style={{ color: '#b8860b' }}>🥇 Gold</strong></td>
-                  <td>10</td>
-                  <td>Large</td>
-                  <td>4</td>
-                  <td>Mention</td>
-                  <td>30% off (10 tickets)</td>
-                  <td>{check}</td>
-                  <td>{check} + Video</td>
-                </tr>
-                <tr>
-                  <td><strong style={{ color: '#707070' }}>🥈 Silver</strong></td>
-                  <td>12</td>
-                  <td>Medium</td>
-                  <td>2</td>
-                  <td>{dash}</td>
-                  <td>30% off (4 tickets)</td>
-                  <td>{check}</td>
-                  <td>{check}</td>
-                </tr>
-                <tr>
-                  <td><strong style={{ color: '#E91E63' }}>💜 Community</strong></td>
-                  <td>Open</td>
-                  <td>Zone presence</td>
-                  <td>1</td>
-                  <td>{dash}</td>
-                  <td>{dash}</td>
-                  <td>{dash}</td>
-                  <td>{check}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* Interested in Sponsoring footer */}
-          <div className="box mt-6">
-            <h3 className="title is-4">Interested in Sponsoring?</h3>
-            <p>
-              Contact us to discuss custom opportunities including lunch sponsorship, coffee breaks, swag bags, and more.
-            </p>
-            <p className="mt-3">
-              <strong>Email:</strong> <a href="mailto:toronto-org@kubernetescommunitydays.org">toronto-org@kubernetescommunitydays.org</a>
-            </p>
-          </div>
-
-        </div>
-      </section>
-
       {/* Our Sponsors Section */}
       <section className="section has-background-light">
         <div className="container">
@@ -332,6 +189,150 @@ const SponsorsPage = () => {
                 </a>
               </div>
             </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Sponsorship Info */}
+      <section className="section">
+        <div className="container">
+
+          {/* Become a Sponsor CTA */}
+          <div className="box has-background-info-light mb-6">
+            <h2 className="title is-3 has-text-centered">Become a Sponsor</h2>
+            <div className="content">
+              <p className="has-text-centered is-size-5">
+                KCD Toronto 2026 is made possible by the generous support of our sponsors. By sponsoring KCD Toronto,
+                you'll connect with the Canadian cloud native community and showcase your commitment to open source innovation.
+              </p>
+              <div className="has-text-centered mt-5">
+                <div className="buttons is-centered">
+                  <a
+                    href="/KCD Toronto 2026 Sponsor Prospectus v2.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="button is-primary is-large"
+                  >
+                    <strong>Download Sponsorship Prospectus (PDF)</strong>
+                  </a>
+                  <a href="mailto:toronto-org@kubernetescommunitydays.org" className="button is-outlined is-primary is-large">
+                    <strong>Contact Us</strong>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Why Sponsor? */}
+          <h2 className="title is-2 mt-6 mb-5">Why Sponsor?</h2>
+          <div className="columns is-multiline mb-6">
+            <div className="column is-6">
+              <div className="box">
+                <h3 className="title is-4">Brand Visibility</h3>
+                <p>Get your brand in front of hundreds of cloud native professionals</p>
+              </div>
+            </div>
+            <div className="column is-6">
+              <div className="box">
+                <h3 className="title is-4">Community Engagement</h3>
+                <p>Connect directly with developers, architects, and decision-makers</p>
+              </div>
+            </div>
+            <div className="column is-6">
+              <div className="box">
+                <h3 className="title is-4">Talent Acquisition</h3>
+                <p>Meet potential candidates in the cloud native space</p>
+              </div>
+            </div>
+            <div className="column is-6">
+              <div className="box">
+                <h3 className="title is-4">Thought Leadership</h3>
+                <p>Position your company as a leader in cloud native technologies</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Sponsorship Tiers Table */}
+          <h2 className="title is-2 mt-6 mb-5 has-text-centered">Sponsorship Tiers</h2>
+          <div className="table-container mb-6">
+            <table className="table is-fullwidth is-bordered sponsor-tiers-table">
+              <thead>
+                <tr>
+                  <th>Tier</th>
+                  <th>Spots</th>
+                  <th>Booth</th>
+                  <th>Tickets</th>
+                  <th>Keynote</th>
+                  <th>Guest Discount</th>
+                  <th>Swag &amp; Branding</th>
+                  <th>Website &amp; Video</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong style={{ color: '#326ce5' }}>💎 Diamond</strong></td>
+                  <td>1 <span className="tag is-danger is-light ml-1">Filled</span></td>
+                  <td>Exclusive</td>
+                  <td>Custom</td>
+                  <td>{check} Custom</td>
+                  <td>{check}</td>
+                  <td>{check}</td>
+                  <td>{check} + Video</td>
+                </tr>
+                <tr>
+                  <td><strong style={{ color: '#909090' }}>🏆 Platinum</strong></td>
+                  <td>5 remaining</td>
+                  <td>Extra Large</td>
+                  <td>6</td>
+                  <td>{check} 3-min keynote</td>
+                  <td>30% off (10 tickets)</td>
+                  <td>{check}</td>
+                  <td>{check} + Video</td>
+                </tr>
+                <tr>
+                  <td><strong style={{ color: '#b8860b' }}>🥇 Gold</strong></td>
+                  <td>10</td>
+                  <td>Large</td>
+                  <td>4</td>
+                  <td>Mention</td>
+                  <td>30% off (10 tickets)</td>
+                  <td>{check}</td>
+                  <td>{check} + Video</td>
+                </tr>
+                <tr>
+                  <td><strong style={{ color: '#707070' }}>🥈 Silver</strong></td>
+                  <td>12</td>
+                  <td>Medium</td>
+                  <td>2</td>
+                  <td>{dash}</td>
+                  <td>30% off (4 tickets)</td>
+                  <td>{check}</td>
+                  <td>{check}</td>
+                </tr>
+                <tr>
+                  <td><strong style={{ color: '#E91E63' }}>💜 Community</strong></td>
+                  <td>Open</td>
+                  <td>Zone presence</td>
+                  <td>1</td>
+                  <td>{dash}</td>
+                  <td>{dash}</td>
+                  <td>{dash}</td>
+                  <td>{check}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Interested in Sponsoring footer */}
+          <div className="box mt-6">
+            <h3 className="title is-4">Interested in Sponsoring?</h3>
+            <p>
+              Contact us to discuss custom opportunities including lunch sponsorship, coffee breaks, swag bags, and more.
+            </p>
+            <p className="mt-3">
+              <strong>Email:</strong> <a href="mailto:toronto-org@kubernetescommunitydays.org">toronto-org@kubernetescommunitydays.org</a>
+            </p>
           </div>
 
         </div>
